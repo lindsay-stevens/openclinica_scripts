@@ -19,14 +19,14 @@ xmlns:odm="http://www.cdisc.org/ns/odm/v1.3" xmlns:OpenClinica="http://www.openc
 <xsl:call-template name="processtable">
 <xsl:with-param name="ItemGroupOID" select="@OID"/>
 <xsl:with-param name="vItemGroupName">
-    <xsl:call-template name="capitalise">
-        <xsl:with-param name="rawtxt" select="$vItemGroupName"/>
-    </xsl:call-template>
+<xsl:call-template name="capitalise">
+<xsl:with-param name="rawtxt" select="$vItemGroupName"/>
+</xsl:call-template>
 </xsl:with-param>
 <xsl:with-param name="vFormName">
-    <xsl:call-template name="capitalise">
-        <xsl:with-param name="rawtxt" select="$vFormName"/>
-    </xsl:call-template>
+<xsl:call-template name="capitalise">
+<xsl:with-param name="rawtxt" select="$vFormName"/>
+</xsl:call-template>
 </xsl:with-param>
 </xsl:call-template>
 </xsl:for-each>
@@ -43,14 +43,14 @@ xmlns:odm="http://www.cdisc.org/ns/odm/v1.3" xmlns:OpenClinica="http://www.openc
 <xsl:call-template name="processtable_factor">
 <xsl:with-param name="ItemGroupOID" select="@OID"/>
 <xsl:with-param name="vItemGroupName">
-    <xsl:call-template name="capitalise">
-        <xsl:with-param name="rawtxt" select="$vItemGroupName"/>
-    </xsl:call-template>
+<xsl:call-template name="capitalise">
+<xsl:with-param name="rawtxt" select="$vItemGroupName"/>
+</xsl:call-template>
 </xsl:with-param>
 <xsl:with-param name="vFormName">
-    <xsl:call-template name="capitalise">
-        <xsl:with-param name="rawtxt" select="$vFormName"/>
-    </xsl:call-template>
+<xsl:call-template name="capitalise">
+<xsl:with-param name="rawtxt" select="$vFormName"/>
+</xsl:call-template>
 </xsl:with-param>
 </xsl:call-template>
 </xsl:for-each>
@@ -114,7 +114,12 @@ ItemGroupRepeatKey=c(
 <xsl:choose>
 <xsl:when test="odm:ItemData[@ItemOID=$vItemOID]">
 <xsl:variable name="vFieldValue">
+<xsl:if test="odm:ItemData[@ItemOID=$vItemOID]/@Value">
 <xsl:value-of select="odm:ItemData[@ItemOID=$vItemOID]/@Value"/>
+</xsl:if>
+<xsl:if test="not(odm:ItemData[@ItemOID=$vItemOID]/@Value)">
+<xsl:value-of select="'NA'"/>
+</xsl:if>
 </xsl:variable>
 <xsl:choose>
 <xsl:when test="$vDataType='text'">
@@ -132,7 +137,12 @@ ItemGroupRepeatKey=c(
 <xsl:with-param name="by" select="' '" />
 </xsl:call-template>
 </xsl:variable>'<xsl:value-of select="$cleanfield"/>'</xsl:when>
-<xsl:when test="$vDataType='date'">as.Date("<xsl:value-of select="$vFieldValue"/>")</xsl:when>
+<xsl:when test="$vDataType='date'">
+<xsl:variable name="cleandate">
+<xsl:call-template name="replace_date">
+<xsl:with-param name="text" select="$vFieldValue" />
+</xsl:call-template>
+</xsl:variable>as.Date("<xsl:value-of select="$cleandate"/>")</xsl:when>
 <xsl:otherwise>
 <xsl:value-of select="$vFieldValue"/>
 </xsl:otherwise>
@@ -188,7 +198,7 @@ levs &lt;- c(
 <xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>$f.<xsl:value-of select="$vItemName"/>&lt;-factor(match(<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>$<xsl:value-of select="$vItemName"/>,codes),levels=1:length(codes),labels=levs);
 w&lt;-which(names(<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>)=="<xsl:value-of select="$vItemName"/>");
 l&lt;- dim(<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>)[2];
-if (w&lt;(l-1))<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>&lt;-<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>[,c(1:w,l,(1+w):(l-1))];
+if (!is.null(w) &amp; !is.null(l)){} else{if(w&lt;(l-1))<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>&lt;-<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
 </xsl:if>
 </xsl:for-each>
@@ -214,18 +224,62 @@ select="substring-after($text,$replace)" />
 </xsl:otherwise>
 </xsl:choose>
 </xsl:template>
+<xsl:template name="replace_date">
+<xsl:param name="text" />
+<xsl:choose>
+<xsl:when test="contains($text, 'Jan')">
+<xsl:value-of select="concat(substring($text,8),'-01-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'Feb')">
+<xsl:value-of select="concat(substring($text,8),'-02-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'Mar')">
+<xsl:value-of select="concat(substring($text,8),'-03-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'Apr')">
+<xsl:value-of select="concat(substring($text,8),'-04-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'May')">
+<xsl:value-of select="concat(substring($text,8),'-05-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'Jun')">
+<xsl:value-of select="concat(substring($text,8),'-06-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'Jul')">
+<xsl:value-of select="concat(substring($text,8),'-07-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'Aug')">
+<xsl:value-of select="concat(substring($text,8),'-08-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'Sep')">
+<xsl:value-of select="concat(substring($text,8),'-09-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'Oct')">
+<xsl:value-of select="concat(substring($text,8),'-10-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'Nov')">
+<xsl:value-of select="concat(substring($text,8),'-11-',substring($text,1,2))" />
+</xsl:when>
+<xsl:when test="contains($text, 'Dec')">
+<xsl:value-of select="concat(substring($text,8),'-12-',substring($text,1,2))" />
+</xsl:when>
+<xsl:otherwise>
+<xsl:value-of select="$text" />
+</xsl:otherwise>
+</xsl:choose>
+</xsl:template>
 <xsl:template name="capitalise">
-    <xsl:param name="rawtxt" />
-    <xsl:value-of select="concat(
-    translate(
-        translate(substring($rawtxt,1,1),$vLower,$vUpper),
-        translate(translate(substring($rawtxt,1,1),$vLower,$vUpper),$vUpper,''),
-        ''
-    ),
-    translate(
-        translate(substring($rawtxt,2),$vUpper,$vLower),
-        translate(translate(substring($rawtxt,2),$vUpper,$vLower),$vLower,''),
-        ''
-    ))"/>
+<xsl:param name="rawtxt" />
+<xsl:value-of select="concat(
+translate(
+translate(substring($rawtxt,1,1),$vLower,$vUpper),
+translate(translate(substring($rawtxt,1,1),$vLower,$vUpper),$vUpper,''),
+''
+),
+translate(
+translate(substring($rawtxt,2),$vUpper,$vLower),
+translate(translate(substring($rawtxt,2),$vUpper,$vLower),$vLower,''),
+''
+))"/>
 </xsl:template>
 </xsl:stylesheet>
