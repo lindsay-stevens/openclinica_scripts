@@ -18,6 +18,13 @@ SELECT execute(CONCAT (
         ), ', ')
     ,s.study_item_group_constructor
     ))
+/* delete the views created above
+CONCAT (
+    'DELETE VIEW '
+    ,regexp_replace(regexp_replace(s.study_name,'[^\w\s]', '', 'g'),'[\s]', '_', 'g')
+    ,'.view_'
+    ,s.item_group_oid 
+*/
 FROM (
   SELECT DISTINCT CONCAT (
       'max(case when item_oid = '''
@@ -56,6 +63,7 @@ SELECT DISTINCT study_name
       ,item_group_oid
       ,item_oid
       ,item_data_type
+      -- use max since item_form_order may change between crf versions
       ,max(item_form_order) as item_form_order
       ,item_response_set_label
     FROM dm.metadata
@@ -70,7 +78,6 @@ GROUP BY study_name
   ) AS s
 GROUP BY s.study_item_group_constructor
   ,s.item_group_oid
-  ,s.study_name
-ORDER BY s.item_group_oid;
+  ,s.study_name;
 
 DROP FUNCTION IF EXISTS execute(text);
