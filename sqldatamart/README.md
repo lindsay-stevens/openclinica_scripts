@@ -36,10 +36,10 @@ The views use max case pivots. I thought they would be horribly slow, but of tho
 
 I have had a look at the tablefunc module crosstab function but found it requires about as much explicit column naming as using max case pivots.
 
-##Rework the warehousing script
+###Rework the warehousing script
 It currently takes just under 3 minutes to generate the final 10 tables. A fair chunk of the execution time is probably in the generation of single-use indexes and manual analyzes. 
 
 It would simplify the item group views to continue to use a central set of views to gather the data from the openclinica schema.
 
-##Set up replication
+###Set up replication
 Currently, other than knowing that replication is possible and that many smart people in the world have done it, I have no idea how to do it. So we will cross that road when we come to it.
