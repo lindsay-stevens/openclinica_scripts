@@ -8,6 +8,7 @@ Another issue is that the current process drops the reporting database each time
 It is important that the final product is as close to a drop-in replacement for the existing process as possible (that is, it produces the same stuff) since there has been significant work put in to writing reports using data from the current process.
 
 ##Steps to success
+
 TODO:
 1. Take Access out of the equation by doing everything in Postgres. This also has the advantage of (theoretically) allowing *nix installations use it.
 2. Rework the warehousing script so that it performs well as views instead of the current system of writing out to table(s).
@@ -16,14 +17,17 @@ TODO:
 ###1. Take Access out of the equation
 Created a new sql file called oc_transform_datasets. Intended functions:
 TODO:
+
 1. Create a schema for each study
 2. Create a database user for each study
 3. Create per-study views for common tables (subject list, etc)
 4. Create separate script for the hack to serialise tables with > 255 columns
+
 DONE:
+
 5. Create views for all item group tables.
 
-###5. Create views for all item group tables
+####5. Create views for all item group tables
 oc_transform_datasets generates and executes CREATE VIEW AS SELECT... statements for views with transform / pivot the data such that each item has it's own column and accompanying label column if it is a coded item. 
 
 The generated views seem to run nearly twice as fast when using the index: "CREATE INDEX idx_item_group_oid_study_name ON dm.clinicaldata USING btree (item_group_oid, study_name);"
