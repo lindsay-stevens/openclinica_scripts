@@ -541,7 +541,7 @@ SELECT
    WHEN cd_no_labels_multi.item_value = ''
     THEN cd_no_labels_multi.item_oid
    WHEN cd_no_labels_multi.item_value <> ''
-    THEN concat(cd_no_labels_multi.item_oid,'_',cd_no_labels_multi.item_value)
+    THEN cd_no_labels_multi.item_oid || '_' || cd_no_labels_multi.item_value
    ELSE 'unhandled'
   END::varchar(40) as item_oid
 , cd_no_labels_multi.item_units
@@ -553,7 +553,7 @@ SELECT
    WHEN cd_no_labels_multi.item_value = ''
     THEN cd_no_labels_multi.item_name
    WHEN cd_no_labels_multi.item_value <> ''
-    THEN concat(cd_no_labels_multi.item_name,'_',cd_no_labels_multi.item_value)
+    THEN cd_no_labels_multi.item_name || '_' || cd_no_labels_multi.item_value
    ELSE 'unhandled'
   END::varchar(255) item_name
 , cd_no_labels_multi.item_description

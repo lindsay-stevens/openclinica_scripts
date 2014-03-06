@@ -10,24 +10,24 @@ It is important that the final product is as close to a drop-in replacement for 
 ##Steps to success
 
 TODO:
-1. Take Access out of the equation by doing everything in Postgres. This also has the advantage of (theoretically) allowing *nix installations use it.
-2. Rework the warehousing script so that it performs well as views instead of the current system of writing out to table(s).
-3. Set up replication so that the views are processed on the datamart server and not the webapp server (also so that end users aren't connecting to the webapp server).
+* Take Access out of the equation by doing everything in Postgres. This also has the advantage of (theoretically) allowing *nix installations use it.
+* Rework the warehousing script so that it performs well as views instead of the current system of writing out to table(s).
+* Set up replication so that the views are processed on the datamart server and not the webapp server (also so that end users aren't connecting to the webapp server).
 
-###1. Take Access out of the equation
+###Take Access out of the equation
 Created a new sql file called oc_transform_datasets. Intended functions:
 TODO:
 
-1. Create a schema for each study
-2. Create a database user for each study
-3. Create per-study views for common tables (subject list, etc)
-4. Create separate script for the hack to serialise tables with > 255 columns
+* Create a schema for each study
+* Create a database user for each study
+* Create per-study views for common tables (subject list, etc)
+* Create separate script for the hack to serialise tables with > 255 columns
 
 DONE:
 
-5. Create views for all item group tables.
+* Create views for all item group tables.
 
-####5. Create views for all item group tables
+####Create views for all item group tables
 oc_transform_datasets generates and executes CREATE VIEW AS SELECT... statements for views with transform / pivot the data such that each item has it's own column and accompanying label column if it is a coded item. 
 
 The generated views seem to run nearly twice as fast when using the index: "CREATE INDEX idx_item_group_oid_study_name ON dm.clinicaldata USING btree (item_group_oid, study_name);"
@@ -36,10 +36,10 @@ The views use max case pivots. I thought they would be horribly slow, but of tho
 
 I have had a look at the tablefunc module crosstab function but found it requires about as much explicit column naming as using max case pivots.
 
-##2. Rework the warehousing script
+##Rework the warehousing script
 It currently takes just under 3 minutes to generate the final 10 tables. A fair chunk of the execution time is probably in the generation of single-use indexes and manual analyzes. 
 
 It would simplify the item group views to continue to use a central set of views to gather the data from the openclinica schema.
 
-##3. Set up replication
+##Set up replication
 Currently, other than knowing that replication is possible and that many smart people in the world have done it, I have no idea how to do it. So we will cross that road when we come to it.
