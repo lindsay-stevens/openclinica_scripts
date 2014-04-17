@@ -16,13 +16,17 @@
             myextract1.xml
             myextract2.xml
             myextract3.xml
+            
+        commandline usage (all on one line):
+        path/to/java -cp path/to/saxon-8.7.jar net.sf.saxon.Transform -o 
+        outputfilename.xml -it collate-template compare_clinicaldata.xsl 
       -->
     <xsl:variable name="responses"
                   select="collection('merge?select=*.xml')" />
     <!--
         read files in the above collection, flatten data first then group
       -->
-    <xsl:template match="/">
+    <xsl:template name="collate-template" match="/">
         <xsl:variable name="flat">
             <xsl:for-each select="$responses">
                 <xsl:apply-templates mode="flatten" />
