@@ -47,13 +47,13 @@ class WSSESecurityHeader extends SoapHeader
 class OpenClinicaSoapWebService
 {
     // Variables for the SoapClient object used in the requests
-    public $ocWsInstanceURL;
+    private $ocWsInstanceURL;
 
-    public $ocUserName;
+    private $ocUserName;
 
-    public $ocPassword;
+    private $ocPassword;
 
-    public $WSSESecurityHeader;
+    private $WSSESecurityHeader;
     
     // WSDL locations within a webservice instance per OpenClinica documentation
     const WSDL_STUDY = 'ws/study/v1/studyWsdl.wsdl';
@@ -84,7 +84,8 @@ class OpenClinicaSoapWebService
             $ocSoapFunction, $ocSoapArguments)
     {
         // trace must be on so that __getLastResponse can be used,
-        // since the SoapClient doesn't correctly parse the responses
+        // since the SoapClient doesn't seem to correctly parse
+        // the namespaced responses
         $ocSoapClient = new MTOMSoapClient($ocWsdlLocation, 
                 array(
                         'trace' => 1
@@ -127,32 +128,34 @@ class OpenClinicaSoapWebService
         $ocWsdlLocation = $this->ocWsInstanceURL . self::WSDL_STUDY;
         $ocWsdlNameSpace = 'http://openclinica.org/ws/study/v1';
         $ocSoapFunction = 'getMetadata';
+        
         $ocSoapArgIdentifier = new SoapVar($ocUniqueProtocolId, XSD_STRING, null, 
                 null, 'identifier', self::NS_OCBEANS);
         $ocSoapArgStudyRef = new SoapVar(
                 array(
                         $ocSoapArgIdentifier
                 ), SOAP_ENC_OBJECT, null, null, 'studyRef', self::NS_OCBEANS);
-        $ocSoapArgStudyMeta = new SoapVar($ocSoapArgStudyRef, SOAP_ENC_OBJECT, 
-                null, $ocWsdlNameSpace, 'studyMetadata', $ocWsdlNameSpace);
+        $ocSoapArgStudyMetaData = new SoapVar($ocSoapArgStudyRef, 
+                SOAP_ENC_OBJECT, null, $ocWsdlNameSpace, 'studyMetadata', 
+                $ocWsdlNameSpace);
         $ocSoapArguments = new SoapVar(
                 array(
-                        $ocSoapArgStudyMeta
+                        $ocSoapArgStudyMetaData
                 ), SOAP_ENC_OBJECT);
         $response = $this->callSoapClient($ocWsdlLocation, $ocWsdlNameSpace, 
                 $ocSoapFunction, $ocSoapArguments);
         return $response;
     }
-    // create the studyRef and/or siteRef SoapVars,
-    // used by createSubject and listAllByStudy
-    public function soapVarStudyRefSiteRef ($ocUniqueProtocolId, 
+    // create the studyRef and/or siteRef SoapVars, common to most calls
+    private function soapVarStudyRefSiteRef ($ocUniqueProtocolId, 
             $ocUniqueProtocolIDSiteRef)
     {
         // ocSoapVarUniqueProtocolId is needed for both if,else cases below
         $ocSoapVarUniqueProtocolId = new SoapVar($ocUniqueProtocolId, XSD_STRING, 
                 null, self::NS_OCBEANS, 'identifier', self::NS_OCBEANS);
-        if (preg_match('/\S/', $ocUniqueProtocolIDSiteRef)) {
-            // if a siteRef has some non-whitespace content,
+        if (preg_match('/\S/', $ocUniqueProtocolIDSiteRef) ||
+                 isset($ocUniqueProtocolIDSiteRef)) {
+            // if a siteRef has some non-whitespace content, or isSet
             // include siteRef node (empty() was not working for '' string)
             // must wrap single xsd_string in soapvar(array(obj),seo)
             $ocSoapVarUniqueProtocolIDSiteRef = new SoapVar(
@@ -187,7 +190,7 @@ class OpenClinicaSoapWebService
     }
     
     // inserts subject to specified study/site and returns result
-    public function createSubject ($ocUniqueProtocolId, 
+    public function subjectCreateSubject ($ocUniqueProtocolId, 
             $ocUniqueProtocolIDSiteRef, $ocStudySubjectId, $ocSecondaryLabel, 
             $ocEnrollmentDate, $ocPersonID, $ocGender, $ocDateOfBirth)
     {
@@ -241,7 +244,7 @@ class OpenClinicaSoapWebService
     }
     // query that returns result then studySubjects node with the details for
     // subjects at the requested study/site
-    public function listAllByStudy ($ocUniqueProtocolId, 
+    public function subjectListAllByStudy ($ocUniqueProtocolId, 
             $ocUniqueProtocolIDSiteRef)
     {
         // listAllByStudy expects no blank personId,DoB,Sex in the instance
@@ -261,7 +264,7 @@ class OpenClinicaSoapWebService
     }
     // query that returns result then studySubjects node with the details for
     // subjects at the requested study/site
-    public function isStudySubject ($ocUniqueProtocolId, 
+    public function subjectIsStudySubject ($ocUniqueProtocolId, 
             $ocUniqueProtocolIDSiteRef, $ocStudySubjectId)
     {
         $ocWsdlLocation = $this->ocWsInstanceURL . self::WSDL_SSUBJ;
@@ -287,9 +290,10 @@ class OpenClinicaSoapWebService
         return $response;
     }
     // inserts event for specified subject and returns result
-    public function schedule ($ocStudySubjectId, $ocEventOID, $ocEventLocation, 
-            $ocEventStartDate, $ocEventStartTime, $ocEventEndDate, 
-            $ocEventEndTime, $ocUniqueProtocolId, $ocUniqueProtocolIDSiteRef)
+    public function eventSchedule ($ocStudySubjectId, $ocEventOID, 
+            $ocEventLocation, $ocEventStartDate, $ocEventStartTime, 
+            $ocEventEndDate, $ocEventEndTime, $ocUniqueProtocolId, 
+            $ocUniqueProtocolIDSiteRef)
     {
         $ocWsdlLocation = $this->ocWsInstanceURL . self::WSDL_EVENT;
         $ocWsdlNameSpace = 'http://openclinica.org/ws/event/v1';
@@ -339,7 +343,7 @@ class OpenClinicaSoapWebService
         return $response;
     }
     // inserts crf data for a specified study and/or site
-    public function import ($ocODMClinicalData)
+    public function dataImport ($ocODMClinicalData)
     {
         $ocWsdlLocation = $this->ocWsInstanceURL . self::WSDL_DATA;
         $ocWsdlNameSpace = 'http://openclinica.org/ws/data/v1';
@@ -358,139 +362,28 @@ class OpenClinicaSoapWebService
                 $ocSoapFunction, $ocSoapArguments);
         return $response;
     }
-}
-
-// variables for testing that would otherwise be passed in by the application
-
-$ocUserName = "lstevens";
-$ocPassword = "SHA1password";
-$ocWsInstanceURL = "https://localhost:8443/OpenClinica3141-ws/";
-$ocUniqueProtocolId = "VHCRP1107";
-$ocUniqueProtocolIDSiteRef = '1107-61302';
-$ocStudySubjectId = '1107-TEST-07';
-$ocSecondaryLabel = 'AB-CD';
-$ocEnrollmentDate = '2014-05-19';
-$ocPersonID = '1107-TEST-07';
-$ocGender = 'm';
-$ocDateOfBirth = '1989-12-16';
-$ocEventOID = array(
-        'SE_V1107_SCREENING',
-        'SE_V1107_BASELINE',
-        'SE_V1107_W2',
-        'SE_V1107_W4',
-        'dummy'
-);
-$ocEventLocation = 'Sydney';
-$ocEventStartDate = '2012-02-02';
-$ocEventStartTime = '12:15';
-$ocEventEndDate = '2012-02-06';
-$ocEventEndTime = '19:26';
-
-function createODMImportXml ($ocStudyOID, $ocMetaDataVersionOID, $ocSubjectKey, 
-        $ocStudyEventOID, $ocStudyEventRepeatKey, $ocFormOID, $ocItemGroupOID, 
-        $ocItemGroupRepeatKey, $ocItemValueArray)
-{
-    $ocODMDoc = new DOMDocument();
-    $ocODMElementODM = $ocODMDoc->createElement('ODM');
-    $ocODMDoc->appendChild($ocODMElementODM);
-    
-    $ocODMElementClinicalData = $ocODMDoc->createElement('ClinicalData');
-    $ocODMElementClinicalData->setAttribute('StudyOID', $ocStudyOID);
-    $ocODMElementClinicalData->setAttribute('MetaDataVersionOID', 
-            $ocMetaDataVersionOID);
-    $ocODMElementODM->appendChild($ocODMElementClinicalData);
-    
-    $ocODMElementSubjectData = $ocODMDoc->createElement('SubjectData');
-    $ocODMElementSubjectData->setAttribute('SubjectKey', $ocSubjectKey);
-    $ocODMElementClinicalData->appendChild($ocODMElementSubjectData);
-    
-    $ocODMElementStudyEventData = $ocODMDoc->createElement('StudyEventData');
-    $ocODMElementStudyEventData->setAttribute('StudyEventOID', $ocStudyEventOID);
-    $ocODMElementStudyEventData->setAttribute('StudyEventRepeatKey', 
-            $ocStudyEventRepeatKey);
-    $ocODMElementSubjectData->appendChild($ocODMElementStudyEventData);
-    
-    $ocODMElementFormData = $ocODMDoc->createElement('FormData');
-    $ocODMElementFormData->setAttribute('FormOID', $ocFormOID);
-    $ocODMElementStudyEventData->appendChild($ocODMElementFormData);
-    
-    $ocODMElementItemGroupData = $ocODMDoc->createElement('ItemGroupData');
-    $ocODMElementItemGroupData->setAttribute('ItemGroupOID', $ocItemGroupOID);
-    $ocODMElementItemGroupData->setAttribute('ItemGroupRepeatKey', 
-            $ocItemGroupRepeatKey);
-    $ocODMElementItemGroupData->setAttribute('TransactionType', 'Insert');
-    $ocODMElementFormData->appendChild($ocODMElementItemGroupData);
-    
-    foreach ($ocItemValueArray as $ItemOID => $ItemValue) {
-        $ocODMElementItemData = $ocODMDoc->createElement('ItemData');
-        $ocODMElementItemData->setAttribute('ItemOID', $ItemOID);
-        $ocODMElementItemData->setAttribute('Value', $ItemValue);
-        $ocODMElementItemGroupData->appendChild($ocODMElementItemData);
+    // query that returns result then details of
+    // event definitions in the requested study/site
+    public function StudyEventDefinitionListAll ($ocUniqueProtocolId)
+    {
+        $ocWsdlLocation = $this->ocWsInstanceURL . self::WSDL_SED;
+        $ocWsdlNameSpace = 'http://openclinica.org/ws/studyEventDefinition/v1';
+        $ocSoapFunction = 'listAll';
+        
+        $ocSoapVarStudyRef = $this->soapVarStudyRefSiteRef($ocUniqueProtocolId);
+        $ocSoapVarSEDListAll = new SoapVar(
+                array(
+                        $ocSoapVarStudyRef
+                ), SOAP_ENC_OBJECT, null, $ocWsdlNameSpace, 
+                'studyEventDefinitionListAll', $ocWsdlNameSpace);
+        $ocSoapArguments = new SoapVar(
+                array(
+                        $ocSoapVarSEDListAll
+                ), SOAP_ENC_OBJECT);
+        $response = $this->callSoapClient($ocWsdlLocation, $ocWsdlNameSpace, 
+                $ocSoapFunction, $ocSoapArguments);
+        return $response;
     }
-    
-    $ocODMNode = $ocODMDoc->saveXML($ocODMElementODM);
-    return $ocODMNode;
 }
 
-$ocStudyOID = 'S_V1107';
-$ocMetaDataVersionOID = 1;
-$ocSubjectKey = 'SS_1107TEST_2732';
-$ocStudyEventOID = 'SE_V1107_SCREENING';
-$ocStudyEventRepeatKey = 1;
-$ocFormOID = 'F_C1107_SCREEN_1';
-$ocItemGroupOID = 'IG_C1107_SCREEN';
-$ocItemGroupRepeatKey = 1;
-$ocItemOID = 'I_C1107_VISIT_DT';
-$ocItemValue = '2014-05-22';
-$ocItemValueArray = array();
-$ocItemValueArray['I_C1107_VISIT_DT'] = '2014-05-16';
-$ocItemValueArray['I_C1107_INC1_CHR'] = 1;
-$ocItemValueArray['I_C1107_INC2_DAA'] = 1;
-$ocItemValueArray['I_C1107_INC3_IFN'] = 1;
-$ocItemValueArray['I_C1107_INC4_CON'] = 1;
-$ocItemValueArray['I_C1107_EXC1_CON'] = 0;
-$ocItemValueArray['I_C1107_EXC2_WIL'] = 0;
-$ocItemValueArray['I_C1107_CONS_DT'] = '2014-05-22';
-
-$importDoc = createODMImportXml($ocStudyOID, $ocMetaDataVersionOID, 
-        $ocSubjectKey, $ocStudyEventOID, $ocStudyEventRepeatKey, $ocFormOID, 
-        $ocItemGroupOID, $ocItemGroupRepeatKey, $ocItemValueArray);
-
-echo '--start test calls--' . "\n";
-
-$test = new OpenClinicaSoapWebService($ocWsInstanceURL, $ocUserName, $ocPassword);
-
-$studyListAll = $test->studyListAll();
-echo 'listAll: ' . $studyListAll->xpath('//v1:result')[0] . "\n";
-
-$getMetadata = $test->studyGetMetadata($ocUniqueProtocolId);
-echo 'getMetadata: ' . $getMetadata->xpath('//v1:result')[0] . "\n";
-
-$createSubject = $test->createSubject($ocUniqueProtocolId, 
-        $ocUniqueProtocolIDSiteRef, $ocStudySubjectId, $ocSecondaryLabel, 
-        $ocEnrollmentDate, $ocPersonID, $ocGender, $ocDateOfBirth);
-echo 'createSubject: ' . $createSubject->xpath('//v1:result')[0] . "\n";
-
-$listAllByStudy = $test->listAllByStudy($ocUniqueProtocolId, 
-        $ocUniqueProtocolIDSiteRef);
-echo 'listAllByStudy: ' . $listAllByStudy->xpath('//v1:result')[0] . "\n";
-
-$isStudySubject = $test->isStudySubject($ocUniqueProtocolId, 
-        $ocUniqueProtocolIDSiteRef, $ocStudySubjectId);
-echo 'isStudySubject: ' . $isStudySubject->xpath('//v1:result')[0] . "\n";
-
-$schedule = $test->schedule($ocStudySubjectId, $ocEventOID[2], $ocEventLocation, 
-        $ocEventStartDate, $ocEventStartTime, $ocEventEndDate, $ocEventEndTime, 
-        $ocUniqueProtocolId, $ocUniqueProtocolIDSiteRef);
-echo 'schedule: ' . $schedule->xpath('//v1:result')[0] . "\n";
-
-$import = $test->import($importDoc);
-echo 'import: ' . $import->xpath('//v1:result')[0] . "\n";
-
-echo '--end test calls--';
-/*
- * how to get a series of nodes with simplexml->xpath(): foreach
- * ($listall->xpath('//v1:name') as $study_name) { echo '<p>' . $study_name . *
- * '</p>'; }
- */
 ?>
