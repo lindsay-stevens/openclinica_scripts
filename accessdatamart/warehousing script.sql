@@ -111,6 +111,7 @@ SELECT
 		THEN NULL
 	ELSE rs.label
 	END) as item_response_set_label
+, rs.response_set_id as item_response_set_id
 , rs.version_id as item_response_set_version
 , i.name as item_name
 , i.description as item_description
@@ -328,6 +329,7 @@ SELECT
 		THEN NULL
 	ELSE rs.label
 	END) as item_response_set_label
+, rs.response_set_id as item_response_set_id
 , rs.version_id as item_response_set_version
 , i.name as item_name
 , i.description as item_description
@@ -451,6 +453,7 @@ CREATE TABLE dm.response_sets AS SELECT * FROM (
 
 SELECT DISTINCT ON (rs_split.version_id, rs_split.label, rs_split.options_values_split) 
   rs_split.version_id
+, rs_split.response_set_id
 , rs_split.label
 , rs_split.options_values_split
 , replace (rs_split.options_text_clean_split, '###' , ',') item_value_label
@@ -541,19 +544,20 @@ SELECT
    WHEN cd_no_labels_multi.item_value = ''
     THEN cd_no_labels_multi.item_oid
    WHEN cd_no_labels_multi.item_value <> ''
-    THEN concat(cd_no_labels_multi.item_oid,'_',cd_no_labels_multi.item_value)
+    THEN cd_no_labels_multi.item_oid || '_' || cd_no_labels_multi.item_value
    ELSE 'unhandled'
   END::varchar(40) as item_oid
 , cd_no_labels_multi.item_units
 , cd_no_labels_multi.item_data_type
 , cd_no_labels_multi.item_response_type
 , cd_no_labels_multi.item_response_set_label
+, cd_no_labels_multi.item_response_set_id
 , cd_no_labels_multi.item_response_set_version
 , CASE
    WHEN cd_no_labels_multi.item_value = ''
     THEN cd_no_labels_multi.item_name
    WHEN cd_no_labels_multi.item_value <> ''
-    THEN concat(cd_no_labels_multi.item_name,'_',cd_no_labels_multi.item_value)
+    THEN cd_no_labels_multi.item_name || '_' || cd_no_labels_multi.item_value
    ELSE 'unhandled'
   END::varchar(255) item_name
 , cd_no_labels_multi.item_description
@@ -629,6 +633,7 @@ SELECT
 , cd_no_labels.item_data_type
 , cd_no_labels.item_response_type
 , cd_no_labels.item_response_set_label
+, cd_no_labels.item_response_set_id
 , cd_no_labels.item_response_set_version
 , cd_no_labels.item_name
 , cd_no_labels.item_description
@@ -693,7 +698,7 @@ SELECT
 FROM dm.cd_no_labels_multi_join 
 LEFT JOIN dm.response_sets 
 ON  dm.response_sets.version_id = dm.cd_no_labels_multi_join.item_response_set_version
-AND dm.response_sets.label = dm.cd_no_labels_multi_join.item_response_set_label
+AND dm.response_sets.response_set_id = dm.cd_no_labels_multi_join.item_response_set_id
 AND dm.response_sets.options_values_split = dm.cd_no_labels_multi_join.item_value 
 
 LEFT JOIN user_account ua_ss_o
@@ -767,6 +772,7 @@ SELECT
 		THEN NULL
 	ELSE rs.label
 	END) as item_response_set_label
+, rs.response_set_id as item_response_set_id
 , rs.version_id as item_response_set_version
 , ifm.question_number_label as item_question_number
 , i.name as item_name
@@ -861,22 +867,55 @@ SELECT
 , metadata_no_multi.item_group_oid
 , metadata_no_multi.item_group_name
 , metadata_no_multi.item_form_order
-, COALESCE(mv.item_oid,metadata_no_multi.item_oid) as item_oid
+, CASE
+   WHEN metadata_no_multi.item_response_type NOT IN ('multi-select','checkbox')
+    THEN metadata_no_multi.item_oid
+   WHEN metadata_no_multi.item_response_type IN ('multi-select','checkbox')
+    THEN mv.item_oid
+   ELSE 'unhandled'
+  END::varchar(40) as item_oid
 , metadata_no_multi.item_units
 , metadata_no_multi.item_data_type
 , metadata_no_multi.item_response_type
 , metadata_no_multi.item_response_set_label
+, metadata_no_multi.item_response_set_id
 , metadata_no_multi.item_response_set_version
 , metadata_no_multi.item_question_number
-, COALESCE(mv.item_name,metadata_no_multi.item_name) as item_name
+, CASE
+   WHEN metadata_no_multi.item_response_type NOT IN ('multi-select','checkbox')
+    THEN metadata_no_multi.item_name
+   WHEN metadata_no_multi.item_response_type IN ('multi-select','checkbox')
+    THEN mv.item_name
+   ELSE 'unhandled'
+  END::varchar(40) as item_name
 , metadata_no_multi.item_description 
 FROM dm.metadata_no_multi
 LEFT JOIN (
-	SELECT DISTINCT ON (item_oid)
-	  dm.cd_no_labels_multi_values.*
-	FROM dm.cd_no_labels_multi_values
-	) AS mv
-ON mv.item_oid_multi_orig = metadata_no_multi.item_oid
+	SELECT 
+	  mnm.item_oid as item_oid_orig
+	 ,mnm.item_oid || '_' || dm.response_sets.options_values_split as item_oid
+	 ,mnm.item_name || '_' || dm.response_sets.options_values_split as item_name
+	FROM dm.response_sets
+	LEFT JOIN (
+	 SELECT DISTINCT ON (dm.metadata_no_multi.item_oid)
+	   dm.metadata_no_multi.item_oid
+	  ,dm.metadata_no_multi.item_name
+	  ,dm.metadata_no_multi.item_response_set_id
+	  ,dm.metadata_no_multi.item_response_set_version
+	 FROM dm.metadata_no_multi 
+	 WHERE dm.metadata_no_multi.item_response_type IN ('multi-select','checkbox')
+	) as mnm
+	ON mnm.item_response_set_id=dm.response_sets.response_set_id
+	AND mnm.item_response_set_version=dm.response_sets.version_id
+    UNION ALL
+    SELECT DISTINCT ON (dm.metadata_no_multi.item_oid)
+	   dm.metadata_no_multi.item_oid as item_oid_orig
+      ,dm.metadata_no_multi.item_oid
+	  ,dm.metadata_no_multi.item_name
+	 FROM dm.metadata_no_multi 
+	 WHERE dm.metadata_no_multi.item_response_type IN ('multi-select','checkbox')
+) AS mv
+ON mv.item_oid_orig = metadata_no_multi.item_oid
 ) as metadata_src;
 
 ANALYZE dm.metadata;
