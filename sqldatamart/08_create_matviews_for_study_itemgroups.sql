@@ -5,8 +5,9 @@ SELECT execute(create_statements)
 FROM (
 SELECT ($$CREATE MATERIALIZED VIEW $$ 
     || case_constructors_trim_label_cols.schema_qual_object_name
-    || $$ AS SELECT subject_id, event_oid, event_order, event_repeat, 
-        crf_version_oid, item_group_oid, item_group_repeat,$$
+    || $$ AS SELECT study_name, site_oid, site_name, subject_id, event_oid, 
+            event_name, event_order, event_repeat, crf_parent_name, crf_version,
+            crf_status, item_group_oid, item_group_repeat,$$
     || array_to_string(array_agg(case_constructors_trim_label_cols.case_constructors_trimmed), ',')
     || case_constructors_trim_label_cols.case_constructors_ig
     ) AS create_statements
@@ -60,8 +61,9 @@ FROM (
         $$[^\w\s]$$, '', 'g'),$$[\s]$$, '_', 'g'))
       || $$.clinicaldata WHERE item_group_oid = $$
       || quote_literal(item_group_oid)
-      || $$ GROUP BY subject_id, event_oid, event_order, event_repeat, 
-            crf_version_oid, item_group_oid, item_group_repeat$$
+      || $$ GROUP BY study_name, site_oid, site_name, subject_id, event_oid, 
+            event_name, event_order, event_repeat, crf_parent_name, crf_version,
+            crf_status, item_group_oid, item_group_repeat$$
       ) AS study_item_group_constructor
     ,item_group_oid
     ,item_form_order
