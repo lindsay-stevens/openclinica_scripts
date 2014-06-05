@@ -29,6 +29,10 @@ xmlns:odm="http://www.cdisc.org/ns/odm/v1.3" xmlns:OpenClinica="http://www.openc
 <xsl:param name="ItemGroupOID"/>
 <xsl:variable name="vsinglequote">'</xsl:variable>
 <xsl:variable name="vbackslashsinglequote">\'</xsl:variable>
+<xsl:variable name="vbackslash">\</xsl:variable>
+<xsl:variable name="vbackslashbackslash">\\</xsl:variable>
+<xsl:choose>
+<xsl:when test="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:value-of select="$TableName"/> &lt;- data.frame(SubjectID=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]"><xsl:if test="position()>1">,
 </xsl:if>'<xsl:value-of select="../../../@OpenClinica:StudySubjectID"/>'</xsl:for-each>),
@@ -57,13 +61,19 @@ ItemGroupRepeatKey=c(
 <xsl:when test="@ItemGroupRepeatKey"><xsl:value-of select="@ItemGroupRepeatKey"/></xsl:when>
 <xsl:otherwise>NA</xsl:otherwise>
 </xsl:choose>
-</xsl:for-each>)<xsl:for-each select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$ItemGroupOID]/odm:ItemRef">
+</xsl:for-each>)</xsl:when>
+<xsl:otherwise>
+<xsl:value-of select="$TableName"/> &lt;- data.frame(SubjectID=character(),EventName=character(),StudyEventRepeatKey=numeric(),CRFName=character(),ItemGroupRepeatKey=numeric()</xsl:otherwise>
+</xsl:choose>
+<xsl:for-each select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$ItemGroupOID]/odm:ItemRef">
 <xsl:variable name="vItemOID">
 <xsl:value-of select="@ItemOID"/>
 </xsl:variable>
 <xsl:variable name="vDataType">
 <xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@DataType"/>
 </xsl:variable>,
+<xsl:choose>
+<xsl:when test="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Name"/>=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
@@ -72,10 +82,17 @@ ItemGroupRepeatKey=c(
 <xsl:variable name="vFieldValue">
 <xsl:value-of select="odm:ItemData[@ItemOID=$vItemOID]/@Value"/>
 </xsl:variable>
-<xsl:choose><xsl:when test="$vDataType='text'">
-<xsl:variable name="singlequote">
+<xsl:choose><xsl:when test="($vDataType='text') or ($vDataType='partialDate')">
+<xsl:variable name="fieldbackslash">
 <xsl:call-template name="replace">
 <xsl:with-param name="text" select="$vFieldValue" />
+<xsl:with-param name="replace" select="$vbackslash" />
+<xsl:with-param name="by" select="$vbackslashbackslash" />
+</xsl:call-template>
+</xsl:variable>
+<xsl:variable name="singlequote">
+<xsl:call-template name="replace">
+<xsl:with-param name="text" select="$fieldbackslash" />
 <xsl:with-param name="replace" select="$vsinglequote" />
 <xsl:with-param name="by" select="$vbackslashsinglequote" />
 </xsl:call-template>
@@ -87,11 +104,16 @@ ItemGroupRepeatKey=c(
 <xsl:with-param name="by" select="' '" />
 </xsl:call-template>
 </xsl:variable>'<xsl:value-of select="$cleanfield"/>'</xsl:when>
-<xsl:otherwise><xsl:value-of select="$vFieldValue"/></xsl:otherwise></xsl:choose>
+<xsl:when test="$vDataType='date'"><xsl:choose><xsl:when test="$vFieldValue=''">NA</xsl:when><xsl:otherwise>as.Date("<xsl:value-of select="$vFieldValue"/>")</xsl:otherwise></xsl:choose></xsl:when>
+<xsl:otherwise><xsl:choose><xsl:when test="$vFieldValue=''">NA</xsl:when><xsl:otherwise><xsl:value-of select="$vFieldValue"/></xsl:otherwise></xsl:choose></xsl:otherwise></xsl:choose>
 </xsl:when>
 <xsl:otherwise>NA</xsl:otherwise>
 </xsl:choose>
-</xsl:for-each>)</xsl:for-each>);<xsl:text>&#10;</xsl:text>
+</xsl:for-each>)</xsl:when>
+<xsl:otherwise>
+<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Name"/>=<xsl:choose><xsl:when test="$vDataType='text'">character()</xsl:when><xsl:when test="$vDataType='date'">as.Date(character())</xsl:when><xsl:otherwise>numeric()</xsl:otherwise></xsl:choose></xsl:otherwise>
+</xsl:choose>
+</xsl:for-each>,stringsAsFactors=FALSE);<xsl:text>&#10;</xsl:text>
 </xsl:template>
 <xsl:template name="replace">
 <xsl:param name="text" />

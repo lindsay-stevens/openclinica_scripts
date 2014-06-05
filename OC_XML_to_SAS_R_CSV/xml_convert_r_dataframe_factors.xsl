@@ -29,6 +29,8 @@ xmlns:odm="http://www.cdisc.org/ns/odm/v1.3" xmlns:OpenClinica="http://www.openc
 <xsl:param name="ItemGroupOID"/>
 <xsl:variable name="vsinglequote">'</xsl:variable>
 <xsl:variable name="vbackslashsinglequote">\'</xsl:variable>
+<xsl:variable name="vbackslash">\</xsl:variable>
+<xsl:variable name="vbackslashbackslash">\\</xsl:variable>
 <xsl:for-each select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:CodeList">
 <xsl:variable name="vCodeListOID">
 <xsl:value-of select="@OID"/>
@@ -52,9 +54,15 @@ levs &lt;- c(
 </xsl:if>
 <xsl:variable name="vFieldValue">
 <xsl:value-of select="odm:Decode/odm:TranslatedText"/>
-</xsl:variable><xsl:variable name="doublequote">
+</xsl:variable><xsl:variable name="fieldbackslash">
 <xsl:call-template name="replace">
 <xsl:with-param name="text" select="$vFieldValue" />
+<xsl:with-param name="replace" select="$vbackslash" />
+<xsl:with-param name="by" select="$vbackslashbackslash" />
+</xsl:call-template>
+</xsl:variable><xsl:variable name="doublequote">
+<xsl:call-template name="replace">
+<xsl:with-param name="text" select="$fieldbackslash" />
 <xsl:with-param name="replace" select="$vsinglequote" />
 <xsl:with-param name="by" select="$vbackslashsinglequote" />
 </xsl:call-template>

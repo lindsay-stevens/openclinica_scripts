@@ -33,17 +33,20 @@ xmlns:odm="http://www.cdisc.org/ns/odm/v1.3" xmlns:OpenClinica="http://www.openc
 </xsl:variable>,"<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Name"/>"</xsl:for-each><xsl:text>&#10;</xsl:text>
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:variable name="vStudyOID"><xsl:value-of select="../../../../@StudyOID"/></xsl:variable>
+
 <xsl:variable name="vSubjectKey"><xsl:value-of select="../../../@SubjectKey"/></xsl:variable>
 <xsl:variable name="vStudyEventOID"><xsl:value-of select="../../@StudyEventOID"/></xsl:variable>
-<xsl:variable name="vFormOID"><xsl:value-of select="../@FormOID"/>
+<xsl:variable name="vStudyEventRepeatKey"><xsl:value-of select="../../@StudyEventRepeatKey"/></xsl:variable>
+<xsl:variable name="vFormOID"><xsl:value-of select="../@FormOID"/></xsl:variable>
+<xsl:variable name="vItemGroupRepeatKey"><xsl:value-of select="@ItemGroupRepeatKey"/>
 </xsl:variable>"<xsl:value-of select="../../../@OpenClinica:StudySubjectID"/>","<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:StudyEventDef[@OID=$vStudyEventOID]/@Name"/>",<xsl:value-of select="../../@StudyEventRepeatKey"/>,"<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:FormDef[@OID=$vFormOID]/@Name"/>",<xsl:value-of select="@ItemGroupRepeatKey"/><xsl:for-each select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$ItemGroupOID]/odm:ItemRef">
 <xsl:variable name="vItemOID"><xsl:value-of select="@ItemOID"/></xsl:variable>
 <xsl:variable name="vDataType">
 <xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@DataType"/>
 </xsl:variable>
 <xsl:choose>
-<xsl:when test="/odm:ODM/odm:ClinicalData[@StudyOID=$vStudyOID]/odm:SubjectData[@SubjectKey=$vSubjectKey]/odm:StudyEventData[@StudyEventOID=$vStudyEventOID]/odm:FormData[@FormOID=$vFormOID]/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]/odm:ItemData[@ItemOID=$vItemOID]">
-<xsl:variable name="vFieldValue"><xsl:value-of select="/odm:ODM/odm:ClinicalData[@StudyOID=$vStudyOID]/odm:SubjectData[@SubjectKey=$vSubjectKey]/odm:StudyEventData[@StudyEventOID=$vStudyEventOID]/odm:FormData[@FormOID=$vFormOID]/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]/odm:ItemData[@ItemOID=$vItemOID]/@Value"/></xsl:variable>
+<xsl:when test="/odm:ODM/odm:ClinicalData[@StudyOID=$vStudyOID]/odm:SubjectData[@SubjectKey=$vSubjectKey]/odm:StudyEventData[@StudyEventOID=$vStudyEventOID and (@StudyEventRepeatKey=$vStudyEventRepeatKey or not (@StudyEventRepeatKey))]/odm:FormData[@FormOID=$vFormOID]/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID and (@ItemGroupRepeatKey=$vItemGroupRepeatKey or not(@ItemGroupRepeatKey))]/odm:ItemData[@ItemOID=$vItemOID]">
+<xsl:variable name="vFieldValue"><xsl:value-of select="/odm:ODM/odm:ClinicalData[@StudyOID=$vStudyOID]/odm:SubjectData[@SubjectKey=$vSubjectKey]/odm:StudyEventData[@StudyEventOID=$vStudyEventOID and (@StudyEventRepeatKey=$vStudyEventRepeatKey or not (@StudyEventRepeatKey))]/odm:FormData[@FormOID=$vFormOID]/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID and (@ItemGroupRepeatKey=$vItemGroupRepeatKey or not(@ItemGroupRepeatKey))]/odm:ItemData[@ItemOID=$vItemOID]/@Value"/></xsl:variable>
 <xsl:choose><xsl:when test="$vDataType='text'">
 <xsl:variable name="doublequote">
 <xsl:call-template name="replace">
