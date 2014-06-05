@@ -41,6 +41,7 @@ Performance with an instance with ~400k rows of item_data is 2mins to refresh ev
 * FDWSERVERPASS=the live server user password
 * SCRIPTDIR=directory where you put the scripts
 
+
 01. create db, fdw server with public user mapping to OCPG select role
 02. create fdw table for each OCPG table
 03. create matview for each fdw table
@@ -61,13 +62,16 @@ Performance with an instance with ~400k rows of item_data is 2mins to refresh ev
     then dm schema (in order of creation per report_05), then all other schemas
 
 ##Study definition updates in OpenClinica live db
-(uncomment "where item_group_oid='Item Group OID'" in report script):
+uncomment "where item_group_oid='Item Group OID'" in report script:
+
 06. (if CRF updated) drop affected study itemgroup matviews (use execute(drop_statements))
 06. (if new CRF or CRF updated) create affected study itemgroup matviews (use execute(create_statements))
+
 10. grant usage and select on study schema tables to group role
 
 ##New study added to OpenClinica live db
-(uncomment "where study_name='Raw Study Name'" in report scripts):
+uncomment "where study_name='Raw Study Name'" in report scripts:
+
 06. create schema for each study
 07. create matviews for study common tables (clinicaldata, metadata, etc)
 08. create matviews for each study item group
