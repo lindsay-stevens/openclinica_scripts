@@ -3,19 +3,19 @@ $BODY$BEGIN EXECUTE $1;END;$BODY$ LANGUAGE plpgsql;
 
 SELECT execute(create_statements)
 FROM (
-SELECT ($$CREATE VIEW $$ 
+SELECT ($$CREATE MATERIALIZED VIEW $$ 
     || case_constructors_trim_label_cols.schema_qual_object_name
     || $$ AS SELECT subject_id, event_oid, event_order, event_repeat, 
         crf_version_oid, item_group_oid, item_group_repeat,$$
     || array_to_string(array_agg(case_constructors_trim_label_cols.case_constructors_trimmed), ',')
     || case_constructors_trim_label_cols.case_constructors_ig
     ) AS create_statements
-  ,($$DROP VIEW $$ || case_constructors_trim_label_cols.schema_qual_object_name
+  ,($$DROP MATERIALIZED VIEW $$ || case_constructors_trim_label_cols.schema_qual_object_name
    ) AS drop_statements
 FROM (
 SELECT lower(regexp_replace(regexp_replace(case_constructors.study_name,
         $$[^\w\s]$$, '', 'g'),$$[\s]$$, '_', 'g'))
-    || $$.view_$$
+    || $$.$$
     || case_constructors.item_group_oid
     as schema_qual_object_name ,(
         case_constructors.item_value_constructor
@@ -55,9 +55,10 @@ FROM (
       || $$_label$$
       ) AS item_label_constructor
     ,(
-      $$ FROM dm.clinicaldata WHERE study_name=$$
-      || quote_literal(study_name)
-      || $$ AND item_group_oid = $$
+      $$ FROM $$ 
+      || lower(regexp_replace(regexp_replace(quote_literal(study_name),
+        $$[^\w\s]$$, '', 'g'),$$[\s]$$, '_', 'g'))
+      || $$.clinicaldata WHERE item_group_oid = $$
       || quote_literal(item_group_oid)
       || $$ GROUP BY subject_id, event_oid, event_order, event_repeat, 
             crf_version_oid, item_group_oid, item_group_repeat$$
@@ -85,6 +86,8 @@ SELECT DISTINCT study_name
       ,max(item_form_order) AS item_form_order
       ,item_response_set_label
     FROM dm.metadata
+    -- where study_name='Raw Study Name'
+    -- (where or and) item_group_oid='Item Group OID'
 GROUP BY study_name
       ,item_group_oid
       ,item_oid

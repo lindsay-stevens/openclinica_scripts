@@ -1,45 +1,76 @@
-#Outline
-This is a mini-project to improve the openclinica community datamart. The aim is to enable live reporting.
+#Description
+Method for setting up remote reporting database running off live data from an OpenClinica instance.
+* report db connects to live db using postgres foreign data wrapper
+* report db stores live db using materialized views (public schema)
+* public schema data aggregated, stored in materialized views in dm schema
+* dm schema data aggregated, stored in materialized views in study schemas
+* result is one schema per study with a materialized view for each item group in the study
 
-The [existing process](http://en.wikibooks.org/wiki/OpenClinica_User_Manual/CommunityDataMart) which using Access works fine but currently in our setup it takes about 15 or 20 minutes to process 300k rows of clinicaldata for 7 studies. This is OK for running daily at midnight, but way too long for live reporting. 
+Report db data refreshed in cascading fashion to minimize read locks on final item group matviews (public->dm->study). Read locks means a matview can't be read from while it is being refreshed. Once postgres 9.4 is released, concurrent refreshes can occur which will eliminate read locks altogether.
 
-Another issue is that the current process drops the reporting database each time it is run, so if it was re-run more than daily it would result in unacceptable downtime.
+Performance with an instance with ~400k rows of item_data is 2mins to refresh everything.
 
-It is important that the final product is as close to a drop-in replacement for the existing process as possible (that is, it produces the same stuff) since there has been significant work put in to writing reports using data from the current process.
+#Requirements
+01. postgres 9.3
+02. pgAgent (for scheduling refresh, alternatively make/use shell scripts)
 
-##Steps to success
+#Creating a new instance
 
-TODO:
-* Take Access out of the equation by doing everything in Postgres. This also has the advantage of (theoretically) allowing *nix installations use it.
-* Rework the warehousing script so that it performs well as views instead of the current system of writing out to table(s).
-* Set up replication so that the views are processed on the datamart server and not the webapp server (also so that end users aren't connecting to the webapp server).
+##On OpenClinica live db:
+01. create login role with privileges to select on all tables in public schema
+02. in pg_hba.conf, allow connections from report db IP address
+    (ensure that server/firewall accepts connections accordingly)
 
-###Take Access out of the equation
-Created a new sql file called oc_transform_datasets. Intended functions:
-TODO:
+###If the OpenClinica schema has changed since 3.1.4.1
+03. generate new script for report_02
+04. generate new script for report_04
 
-* Create a schema for each study
-* Create a database user for each study
-* Create per-study views for common tables (subject list, etc)
-* Create separate script for the hack to serialise tables with > 255 columns
+##On OpenClinica report db:
+00. configure and run the setup bat file. this runs steps 01 to 11 below. options are:
 
-DONE:
+* PGHOST=the report server IP
+* PGPORT=the report server port
+* PGUSER=the report server (super)user
+* PGPASSWORD=the report server (super)user password
+* NEWDBNAME=name of the report db to create
+* FDWSERVERNAME=a name for the foreign data wrapper server. doesn't need to match anything
+* FDWSERVERHOST=the live server IP
+* FDWSERVERPORT=the live server port
+* FDWSERVERDBNAME=the live server db name
+* FDWSERVERUSER=the live server user name
+* FDWSERVERPASS=the live server user password
+* SCRIPTDIR=directory where you put the scripts
 
-* Create views for all item group tables.
+01. create db, fdw server with public user mapping to OCPG select role
+02. create fdw table for each OCPG table
+03. create matview for each fdw table
+04. create indexes on each matview
+05. create dm schema with materialized views
+06. create schema for each study
+07. create matviews for study common tables (clinicaldata, metadata, etc)
+08. create matviews for each study item group
+09. create group role for each study
+10. grant usage and select on study schema tables to group role
+11. assign roles for relevant schemas to users (perform manually)
 
-####Create views for all item group tables
-oc_transform_datasets generates and executes CREATE VIEW AS SELECT... statements for views with transform / pivot the data such that each item has it's own column and accompanying label column if it is a coded item. 
+#Maintenance Tasks on OpenClinica report db
 
-The generated views seem to run nearly twice as fast when using the index: "CREATE INDEX idx_item_group_oid_study_name ON dm.clinicaldata USING btree (item_group_oid, study_name);"
+##Refresh matviews with pgAgent:
+01. add pgAgent job to run refresh_matviews query every x minutes
+    this refreshes matviews in the public schema, 
+    then dm schema (in order of creation per report_05), then all other schemas
 
-The views use max case pivots. I thought they would be horribly slow, but of those I looked at, the longest dataset (70col x 500row) runs in 400ms and the widest dataset (270col x 60rows) runs in 1200ms. The hash aggregate step is about 90% of the execution time, but I'm not sure that can be improved.
+##Study definition updates in OpenClinica live db
+(uncomment "where item_group_oid='Item Group OID'" in report script):
+06. (if CRF updated) drop affected study itemgroup matviews (use execute(drop_statements))
+06. (if new CRF or CRF updated) create affected study itemgroup matviews (use execute(create_statements))
+10. grant usage and select on study schema tables to group role
 
-I have had a look at the tablefunc module crosstab function but found it requires about as much explicit column naming as using max case pivots.
-
-###Rework the warehousing script
-It currently takes just under 3 minutes to generate the final 10 tables. A fair chunk of the execution time is probably in the generation of single-use indexes and manual analyzes. 
-
-It would simplify the item group views to continue to use a central set of views to gather the data from the openclinica schema.
-
-###Set up replication
-Currently, other than knowing that replication is possible and that many smart people in the world have done it, I have no idea how to do it. So we will cross that road when we come to it.
+##New study added to OpenClinica live db
+(uncomment "where study_name='Raw Study Name'" in report scripts):
+06. create schema for each study
+07. create matviews for study common tables (clinicaldata, metadata, etc)
+08. create matviews for each study item group
+09. create group role for each study
+10. grant usage and select on study schema tables to group role
+11. assign roles for relevant schemas to users (perform manually)

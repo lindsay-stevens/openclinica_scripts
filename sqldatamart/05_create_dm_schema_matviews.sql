@@ -1,4 +1,4 @@
-﻿-- seems to improve performance
+-- seems to improve performance
 DROP INDEX IF EXISTS i_item_form_metadata_item_id;
 CREATE INDEX i_item_form_metadata_item_id
   ON item_form_metadata
@@ -18,7 +18,7 @@ CREATE SCHEMA dm;
 
 -- 01 query (clinicaldata with site eventdefs)
 
-CREATE TABLE dm.edc_study_def AS SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.edc_study_def AS SELECT * FROM (
 SELECT
   COALESCE (parents.name,study.name,'no parent study') as study_name
 , study.oc_oid as site_oid
@@ -234,7 +234,7 @@ ANALYZE dm.edc_study_def;
 
 -- 02 query (study level eventdefs)
 
-CREATE TABLE dm.cd_no_labels AS SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.cd_no_labels AS SELECT * FROM (
 SELECT dm.edc_study_def.* FROM dm.edc_study_def
 UNION ALL
 SELECT
@@ -449,7 +449,7 @@ ANALYZE dm.cd_no_labels;
 
 -- 03 query (split response sets to rows)
 
-CREATE TABLE dm.response_sets AS SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.response_sets AS SELECT * FROM (
 
 SELECT DISTINCT ON (rs_split.version_id, rs_split.label, rs_split.options_values_split) 
   rs_split.version_id
@@ -481,7 +481,7 @@ ANALYZE dm.response_sets;
 
 -- 04 query (multi values)
 
-CREATE TABLE dm.cd_no_labels_multi_values AS SELECT * FROM
+CREATE MATERIALIZED VIEW dm.cd_no_labels_multi_values AS SELECT * FROM
 (
 SELECT 
   cd_no_labels_multi.study_name
@@ -650,7 +650,7 @@ WHERE cd_no_labels.item_response_type IN ('multi-select','checkbox')
 
 ANALYZE dm.cd_no_labels_multi_values;
 
-CREATE TABLE dm.cd_no_labels_multi_join AS SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.cd_no_labels_multi_join AS SELECT * FROM (
 SELECT 
   cd_no_labels.*
 , NULL as item_oid_multi_orig
@@ -666,7 +666,7 @@ ANALYZE dm.cd_no_labels_multi_join;
 
 -- 05 query (all of the above with value labels and user names)
 
-CREATE TABLE dm.clinicaldata AS SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.clinicaldata AS SELECT * FROM (
 
 SELECT 
   dm.cd_no_labels_multi_join.*
@@ -732,11 +732,16 @@ LEFT JOIN user_account ua_id_u
 ON ua_id_u.user_id = dm.cd_no_labels_multi_join.id_update_id
 ) cd_rs_join;
 
+CREATE INDEX i_dm_clinicaldata_study_name_item_group_oid 
+ ON dm.clinicaldata 
+ USING btree 
+ (study_name, item_group_oid);
+
 ANALYZE dm.clinicaldata;
 
 -- 06 query (metadata without items for multi values)
 
-CREATE TABLE dm.metadata_no_multi AS SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.metadata_no_multi AS SELECT * FROM (
 
 SELECT
   ( CASE
@@ -845,7 +850,7 @@ ANALYZE dm.metadata_no_multi;
 
 -- 07 (metadata with items for multi values)
 
-CREATE TABLE dm.metadata AS SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.metadata AS SELECT * FROM (
 SELECT
   metadata_no_multi.study_name
 , metadata_no_multi.site_oid
@@ -922,7 +927,7 @@ ANALYZE dm.metadata;
 
 -- 08 query (distinct subjects)
 
-CREATE TABLE dm.subjects as SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.subjects as SELECT * FROM (
 SELECT 
   DISTINCT ON (study_name, subject_id)
   clinicaldata.study_name
@@ -946,7 +951,7 @@ ANALYZE dm.subjects;
 
 -- 09 query (distinct event crfs by subject)
 
-CREATE TABLE dm.subject_event_crf_status as SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.subject_event_crf_status as SELECT * FROM (
 SELECT
   DISTINCT ON (study_name, subject_id, event_oid, crf_version_oid)
   clinicaldata.study_name
@@ -1001,7 +1006,7 @@ ANALYZE dm.subject_event_crf_status;
 
 -- 10 query (distinct subjects, event crfs)
 
-CREATE TABLE dm.subject_event_crf_expected as SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.subject_event_crf_expected as SELECT * FROM (
 SELECT 
   s.study_name
 , s.site_oid
@@ -1027,7 +1032,7 @@ ANALYZE dm.subject_event_crf_expected;
 
 -- 11 query (join subject event crf status with expected)
 
-CREATE TABLE dm.subject_event_crf_join as SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.subject_event_crf_join as SELECT * FROM (
 SELECT 
   e.study_name
 , e.site_oid
@@ -1092,7 +1097,7 @@ ANALYZE dm.subject_event_crf_join;
 
 -- 12 query (discrepancy notes all)
 
-CREATE TABLE dm.discrepancy_notes_all as SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.discrepancy_notes_all as SELECT * FROM (
 
 SELECT 
   sua.discrepancy_note_id
@@ -1215,7 +1220,7 @@ ANALYZE dm.discrepancy_notes_all;
 
 -- 13 query (discrepancy notes parent)
 
-CREATE TABLE dm.discrepancy_notes_parent AS SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.discrepancy_notes_parent AS SELECT * FROM (
 SELECT 
   sub.discrepancy_note_id
 , sub.study_name
@@ -1278,7 +1283,7 @@ ANALYZE dm.discrepancy_notes_parent;
 
 -- 14 query (subject groups)
 
-CREATE TABLE dm.subject_groups AS SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.subject_groups AS SELECT * FROM (
 
 SELECT 
   sub.study_name
@@ -1302,7 +1307,7 @@ ANALYZE dm.subject_groups;
 
 -- 15 query (response set labels)
 
-CREATE TABLE dm.response_set_labels AS SELECT * FROM (
+CREATE MATERIALIZED VIEW dm.response_set_labels AS SELECT * FROM (
 
 SELECT DISTINCT
   md.study_name
@@ -1333,11 +1338,3 @@ ORDER BY
 , rs.options_values_split) as rsl_src;
 
 ANALYZE dm.response_set_labels;
-
--- get rid of the intermediate tables
-DROP TABLE dm.cd_no_labels;
-DROP TABLE dm.cd_no_labels_multi_join;
-DROP TABLE dm.cd_no_labels_multi_values;
-DROP TABLE dm.edc_study_def;
-DROP TABLE dm.metadata_no_multi;
-DROP TABLE dm.response_sets;
