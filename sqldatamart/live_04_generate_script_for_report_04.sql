@@ -1,4 +1,4 @@
-﻿-- from: http://stackoverflow.com/questions/6777456/get-the-list-all-index-names-its-column-names-and-its-table-name-of-a-postgresq
+-- from: http://stackoverflow.com/questions/6777456/get-the-list-all-index-names-its-column-names-and-its-table-name-of-a-postgresq
 -- must run this on the foreign server
 
 SELECT 

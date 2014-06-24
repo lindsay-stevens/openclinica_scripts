@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE FUNCTION execute(text) returns void as 
+CREATE OR REPLACE FUNCTION execute(text) returns void as 
 $BODY$BEGIN EXECUTE $1;END;$BODY$ LANGUAGE plpgsql;
 
 with matview_order_public as (
