@@ -16,7 +16,7 @@
         ig_a1102_visitcen.csv becomes ig_a1_1.sas7bdat
         ig_a1102_visitlab.csv becomes ig_a1_2.sas7bdat
 */
-%let csvdir=C:\Users\Lstevens\Desktop\mystudy\;
+%let csvdir=C:\Users\Lstevens\Desktop\mystudy\csv\;
 %let outdir=C:\Users\Lstevens\Desktop\mystudy\sas\;
 %let outmode=sas;
 
@@ -40,19 +40,45 @@ proc sql noprint; select count(filename) into :num from fnames; quit;
             select filename into :filename from fnames where n=&i;
         quit;
 
-        /* create shorter name for the library name of the file dataset  */
-        %let outfile=%substr(&filename,1,5)_%trim(&i);
+        /* memname = shorter name for the library name of the file dataset  */
+        /* outname = file name without csv extension for naming the outfiles*/
+        %let memname=%substr(&filename,1,5)_%trim(&i);
+        %let outname=%substr(&filename,1,%length(&filename)-4);
         %let csvin="&csvdir.%trim(&filename)";
+        
+        /* 
+           sas doesn't have an import option for ignoring crlf inside quotes
+           when crlf is also being used for line termination. This workaround 
+           reads each file as bytes, replaces any CR or LF not inside quotes
+           with a hex NUL character, writes the result to a temporary csv file,
+           runs the relevant SAS or DTA import step then removes the temp files
+        */
+        %let sqcrlf="&outdir.&outname._sqcrlf.csv";
+        
+        data _null_;
+            infile &csvin recfm=n;
+            file &sqcrlf recfm=n;
+            input a $char1.;
+            retain open 0;
+            if a='22'x then open=not open;
+            if (a='0A'x or a='0D'x) and open then put '20'x @;
+            else put a $char1. @;
+        run;
 
         /* sas mode sets the import library as the outdir directory*/
         %if &outmode=sas %then
             %do;
                 libname csvlib "&outdir";
                 proc import 
-                    datafile=&csvin out=csvlib.&outfile replace;
+                    datafile=&sqcrlf out=csvlib.&memname dbms=csv replace;
                     getnames=yes; 
                     datarow=2; 
                     guessingrows=32767;
+                run;
+                /* rename dataset with first 32 chars of original file name */
+                data _null_;
+                    %let maxname=%substr(&outname,1,32);
+                    rc=rename("csvlib.&memname","&maxname");
                 run;
             %end;
 
@@ -60,16 +86,21 @@ proc sql noprint; select count(filename) into :num from fnames; quit;
         %else %if &outmode=dta %then
             %do;
                 proc import 
-                    datafile=&csvin out=&outfile replace;
+                    datafile=&sqcrlf out=&memname dbms=csv replace;
                     getnames=yes; 
                     datarow=2; 
                     guessingrows=32767;
                 run;
                 proc export
-                    data=&outfile outfile="&outdir.%substr(&filename,1,
-                        %length(&filename)-4).dta";
+                    data=&memname dbms=dta outfile="&outdir.&outname";
                 run;
             %end;
+
+        /* clean up temporary csv files used for stripping out quoted crlf */
+        filename delfiles pipe "del "&sqcrlf"";
+        data _null_;
+            infile delfiles;
+        run;
     %end;
 %mend;
 
