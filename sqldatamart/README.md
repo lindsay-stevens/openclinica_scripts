@@ -78,3 +78,28 @@ uncomment "where study_name='Raw Study Name'" in report scripts:
 09. create group role for each study
 10. grant usage and select on study schema tables to group role
 11. assign roles for relevant schemas to users (perform manually)
+
+#Statistical Format Exports
+4 scripts are provided to facilitate export of data to R, SAS or Stata.
+The output formats available are XLSX, SAS7BDAT, and DTA.
+The process uses R to connect to postgres and export to XLSX.
+Scripts written in SAS and Stata can then be used to do a batch conversion.
+The R package 'foreign' has methods for SAS and Stata conversion, but the output occasionally shuffled the order of the variables within the datasets.
+
+##Requirements
+01. R (packages required: DBI, RPostgreSQL, rJava, xlsxjars, xlsx)
+02. SAS (optional)
+03. Stata (optional)
+
+##Constraints
+* The postgres system uses column names which can be up to 64 characters.
+* For SAS and Stata, variable names are limited to 32 characters.
+* Both programs will replace long variable names with ones like var1, var2, etc.
+* Both programs allow longer labels ~255 characters to be applied manually.
+
+##Procedure
+
+01. Create views which alias the study matviews using the first 32 characters of the item name. Uncomment "where study_name='Raw Study Name' (where or and) item_group_oid='Item Group OID'" to limit to a particular study and/or item groups.
+02. Generate a R script for exporting data to XLSX. Specify 'Raw Study Name', and optionally specify non-item group matviews to export - 'subjects' and 'metadata' are listed by default. Once generated, add the connection details to the top of the R script, and specify the output directory.
+03. If SAS format is required, specify the input and output directories and run the SAS script to convert the XLSX files. There are two output modes: SAS (gives SAS7BDAT) and DTA (gives DTA). SAS is the default.
+04. If Stata format is required, copy the Stata script to the directory with the XLSX files and run the script. A subfolder named 'dta' will be created, which will contain the converted files.

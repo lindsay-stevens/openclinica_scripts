@@ -23,9 +23,9 @@ SELECT (av_viewname
     ) AS df_statements
 FROM (
 WITH study_schema_name AS (
-  SELECT study 
-  /* enter study schema name below */
-  FROM (VALUES ('mystudy')) AS study(study)
+  SELECT lower(regexp_replace(regexp_replace(quote_literal(study),$$[^\w\s]$$, '', 'g'),$$[\s]$$, '_', 'g')) as study
+  /* enter 'Raw Study Name' below */
+  FROM (VALUES ('MY STUDY')) AS study(study)
 )
 SELECT
   schemaname || $$.$$ || viewname as schema_qual_viewname
@@ -38,7 +38,7 @@ UNION ALL SELECT
 , schemaname || $$_$$ || matviewname
 FROM pg_matviews, study_schema_name
 WHERE schemaname=study_schema_name.study
-/* add any other matviews wanted to this list */
+/* add any other non-item group matviews wanted to this list */
 AND matviewname IN ('metadata','subjects')
   ) AS case_constructors_trim_label_cols
 ) as item_group_dataframes

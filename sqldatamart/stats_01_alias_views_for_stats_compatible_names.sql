@@ -58,7 +58,7 @@ FROM (
 SELECT DISTINCT study_name
       ,lower(item_group_oid) as item_group_oid
       ,lower(item_oid) as item_oid
-      ,lower(item_name) as item_name
+      ,lower(substr(item_name,1,32)) as item_name
       ,lower(substr(item_name,1,12)
         || $$_$$
         ||  substr(
