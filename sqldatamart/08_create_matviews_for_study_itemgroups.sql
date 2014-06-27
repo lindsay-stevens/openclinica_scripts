@@ -5,9 +5,9 @@ SELECT execute(create_statements)
 FROM (
 SELECT ($$CREATE MATERIALIZED VIEW $$ 
     || case_constructors_trim_label_cols.schema_qual_object_name
-    || $$ AS SELECT study_name, site_oid, site_name, subject_id, event_oid, 
-            event_name, event_order, event_repeat, crf_parent_name, crf_version,
-            crf_status, item_group_oid, item_group_repeat,$$
+    || $$ AS SELECT study_name, site_oid, site_name, subject_id, event_oid, $$
+    || $$ event_name, event_order, event_repeat, crf_parent_name, crf_version, $$
+    || $$ crf_status, item_group_oid, item_group_repeat,$$
     || array_to_string(array_agg(case_constructors_trim_label_cols.case_constructors_trimmed), ',')
     || case_constructors_trim_label_cols.case_constructors_ig
     ) AS create_statements
@@ -17,9 +17,8 @@ FROM (
 SELECT lower(regexp_replace(regexp_replace(case_constructors.study_name,
         $$[^\w\s]$$, '', 'g'),$$[\s]$$, '_', 'g'))
     || $$.$$
-    || case_constructors.item_group_oid
-    as schema_qual_object_name ,(
-        case_constructors.item_value_constructor
+    || case_constructors.item_group_oid as schema_qual_object_name 
+    ,(case_constructors.item_value_constructor
         || CASE 
           WHEN case_constructors.item_response_set_label IS NULL
             THEN ''
@@ -29,14 +28,15 @@ SELECT lower(regexp_replace(regexp_replace(case_constructors.study_name,
               )
           END
         ) as case_constructors_trimmed
-    , ( case_constructors.study_item_group_constructor 
+    ,(case_constructors.study_item_group_constructor 
     || $$;$$) as case_constructors_ig
 FROM (
   SELECT DISTINCT (
       $$max(case when item_oid=$$
       || quote_literal(item_oid)
-      || $$ then (case when item_value = '' then null when item_value = 'NI' 
-            then null else cast(item_value as $$
+      || $$ then (case when item_value = '' then null when item_value IN ($$
+      || crf_null_values
+      || $$) then null else cast(item_value as $$
       || CASE 
         WHEN item_data_type IN ('ST','PDATE','FILE')
           THEN $$text$$
@@ -50,8 +50,9 @@ FROM (
     ,(
       $$max(case when item_oid = $$
       || quote_literal(item_oid)
-      || $$ then (case when item_value = '' then null when item_value = 'NI' 
-            then null else item_value_label end) else null end) as $$
+      || $$ then (case when item_value = '' then null when item_value IN ($$
+      || crf_null_values
+      || $$) then null else item_value_label end) else null end) as $$
       || item_name_hint
       || $$_label$$
       ) AS item_label_constructor
@@ -61,19 +62,34 @@ FROM (
         $$[^\w\s]$$, '', 'g'),$$[\s]$$, '_', 'g'))
       || $$.clinicaldata WHERE item_group_oid = $$
       || quote_literal(item_group_oid)
-      || $$ GROUP BY study_name, site_oid, site_name, subject_id, event_oid, 
-            event_name, event_order, event_repeat, crf_parent_name, crf_version,
-            crf_status, item_group_oid, item_group_repeat$$
+      || $$ GROUP BY study_name, site_oid, site_name, subject_id, event_oid, $$
+      || $$ event_name, event_order, event_repeat, crf_parent_name, crf_version, $$
+      || $$ crf_status, item_group_oid, item_group_repeat$$
       ) AS study_item_group_constructor
     ,item_group_oid
     ,item_form_order
     ,item_response_set_label
     ,study_name
   FROM (
+ SELECT 
+    study_name
+   ,item_group_oid
+   ,item_oid
+   -- if the item_name_hint is too long (64 or more) then trim it down
+   -- this might happen due to prepending 'i_' for items starting with an int
+   ,CASE WHEN length(item_name_hint)>=64 THEN substr(item_name_hint,1,63)
+       ELSE item_name_hint END as item_name_hint
+   ,item_data_type
+   ,item_form_order
+   ,item_response_set_label
+   ,crf_null_values
+  FROM (
 SELECT DISTINCT study_name
       ,item_group_oid
       ,item_oid
-      ,lower(substr(item_name,1,12)
+      -- if the item_name starts with an integer, prepend 'i_'
+      ,(CASE WHEN item_name ~ '^[0-9]+$' THEN $$i_$$ || lower(substr(item_name,1,12))
+        ELSE lower(substr(item_name,1,12)) END
         || $$_$$
         ||  substr(
                 regexp_replace(
@@ -87,6 +103,10 @@ SELECT DISTINCT study_name
       -- use max since item_form_order may change between crf versions
       ,max(item_form_order) AS item_form_order
       ,item_response_set_label
+      ,CASE WHEN crf_null_values <> '' 
+         THEN $$'$$ || replace(trim(trailing ',' from crf_null_values),',',$$','$$) || $$'$$
+         ELSE quote_literal(crf_null_values)
+       END as crf_null_values
     FROM dm.metadata
     -- where study_name='Raw Study Name'
     -- (where or and) item_group_oid='Item Group OID'
@@ -97,6 +117,8 @@ GROUP BY study_name
       ,item_description
       ,item_data_type
       ,item_response_set_label
+      ,crf_null_values
+      ) AS namecheck
     ) AS met
   ) AS case_constructors
 GROUP BY case_constructors.item_label_constructor

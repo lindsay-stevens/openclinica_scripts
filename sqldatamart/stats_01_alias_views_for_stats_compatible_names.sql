@@ -5,9 +5,9 @@ SELECT execute(create_statements)
 FROM (
 SELECT ($$CREATE VIEW $$ 
     || case_constructors_trim_label_cols.schema_qual_object_name
-    || $$ AS SELECT study_name, site_oid, site_name, subject_id, event_oid, 
-            event_name, event_order, event_repeat, crf_parent_name, crf_version,
-            crf_status, item_group_oid, item_group_repeat, $$
+    || $$ AS SELECT study_name, site_oid, site_name, subject_id, event_oid, $$
+    || $$ event_name, event_order, event_repeat, crf_parent_name, crf_version, $$
+    || $$ crf_status, item_group_oid, item_group_repeat, $$
     || array_to_string(array_agg(case_constructors_trim_label_cols.case_constructors_trimmed), ', ')
     || case_constructors_trim_label_cols.case_constructors_ig
     ) AS create_statements
@@ -55,11 +55,26 @@ FROM (
     ,item_response_set_label
     ,study_name
   FROM (
+ SELECT 
+    study_name
+   ,item_group_oid
+   ,item_oid
+   ,item_name
+   -- if the item_name_hint is too long (64 or more) then trim it down
+   -- this might happen due to prepending 'i_' for items starting with an int
+   ,CASE WHEN length(item_name_hint)>=64 THEN substr(item_name_hint,1,63)
+       ELSE item_name_hint END as item_name_hint
+   ,item_data_type
+   ,item_form_order
+   ,item_response_set_label
+  FROM (
 SELECT DISTINCT study_name
       ,lower(item_group_oid) as item_group_oid
       ,lower(item_oid) as item_oid
       ,lower(substr(item_name,1,32)) as item_name
-      ,lower(substr(item_name,1,12)
+      -- if the item_name starts with an integer, prepend 'i_'
+      ,(CASE WHEN item_name ~ '^[0-9]+$' THEN $$i_$$ || lower(substr(item_name,1,12))
+        ELSE lower(substr(item_name,1,12)) END
         || $$_$$
         ||  substr(
                 regexp_replace(
@@ -83,6 +98,7 @@ GROUP BY study_name
       ,item_description
       ,item_data_type
       ,item_response_set_label
+      ) AS namecheck
     ) AS met
   ) AS case_constructors
 GROUP BY case_constructors.item_label_constructor
