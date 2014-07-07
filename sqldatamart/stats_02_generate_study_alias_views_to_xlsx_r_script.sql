@@ -5,7 +5,7 @@ SELECT $$library("DBI") # ensure this package is installed $$ || E'\n'
     || $$library("xlsx") # ensure this package is installed $$ || E'\n'
     || $$drv <- dbDriver("PostgreSQL")$$ || E'\n'
     || $$con <- dbConnect(drv,host="",port="",user="",password="",dbname="") # enter your details$$ || E'\n'
-    || $$outdir <<- "directory to put the csv files" # must use forward slashes$$ || E'\n'
+    || $$outdir <<- "directory to put the xlsx files" # must use forward slashes$$ || E'\n'
     || array_to_string(array_agg(item_group_dataframes.df_statements),E'\n') || E'\n'
     || $$dbDisconnect(con);$$ as rscript
 FROM (
