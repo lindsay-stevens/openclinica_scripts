@@ -38,40 +38,59 @@
         group the rulerefs inside a rule assignment node based on the target
         copy the ruledef nodes as is
       -->
-    <xsl:template match="RuleImport" name="collate-template">
-            <xsl:element name="RuleImport">
-                <xsl:for-each-group group-by="$rules" select="//RuleAssignment">
-                    <xsl:element name="RuleAssignment">
-                        <xsl:element name="Target">
-                            <xsl:value-of select="current-grouping-key()" />
-                        </xsl:element>
-                        <xsl:for-each select="current-group()">
-                            <xsl:copy-of select="RuleRef[../Target=current-grouping-key()]"/>
-                        </xsl:for-each>
+    <xsl:template match="RuleImport"
+                  name="collate-template">
+        <xsl:element name="RuleImport">
+            <xsl:for-each-group group-by="$rules"
+                                select="//RuleAssignment">
+                <xsl:element name="RuleAssignment">
+                    <xsl:element name="Target">
+                        <xsl:value-of select="current-grouping-key()" />
                     </xsl:element>
-                </xsl:for-each-group>
-                <xsl:for-each select="//RuleDef">
-                    <xsl:copy-of select="." />
-                </xsl:for-each>
-            </xsl:element>
+                    <xsl:for-each select="current-group()">
+                        <xsl:copy-of select="RuleRef[../Target=current-grouping-key()]" />
+                    </xsl:for-each>
+                </xsl:element>
+            </xsl:for-each-group>
+            <xsl:for-each select="//RuleDef">
+                <xsl:copy-of select="." />
+            </xsl:for-each>
+        </xsl:element>
     </xsl:template>
     <!--
         split the rulerefs inside a rule assignment node based on the target
         copy the ruledef nodes as is
       -->
-    <xsl:template match="RuleImport" name="split-template">
-            <xsl:element name="RuleImport">
-                <xsl:for-each select="//RuleRef">
-                    <xsl:element name="RuleAssignment">
-                        <xsl:element name="Target">
-                            <xsl:value-of select="../Target" />
-                        </xsl:element>
-                        <xsl:copy-of select="." />
+    <xsl:template match="RuleImport"
+                  name="split-template">
+        <xsl:element name="RuleImport">
+            <xsl:for-each select="//RuleRef">
+                <xsl:element name="RuleAssignment">
+                    <xsl:element name="Target">
+                        <xsl:value-of select="../Target" />
                     </xsl:element>
-                </xsl:for-each>
-                <xsl:for-each select="//RuleDef">
-                    <xsl:copy-of select="." />
-                </xsl:for-each>
-            </xsl:element>
+                    <xsl:copy>
+                        <xsl:apply-templates mode="normalize"
+                                             select="@*|node()" />
+                    </xsl:copy>
+                </xsl:element>
+            </xsl:for-each>
+            <xsl:for-each select="//RuleDef">
+                <xsl:copy-of select="." />
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="@*|node()"
+                  mode="normalize">
+        <xsl:copy>
+            <xsl:apply-templates mode="normalize"
+                                 select="@*|node()" />
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="Message"
+                  mode="normalize">
+        <xsl:copy>
+            <xsl:value-of select="normalize-space(.)" />
+        </xsl:copy>
     </xsl:template>
 </xsl:stylesheet>
