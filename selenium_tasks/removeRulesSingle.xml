@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en"
+      xml:lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head profile="http://selenium-ide.openqa.org/profiles/test-case">
+        <meta content="text/html; charset=UTF-8"
+              http-equiv="Content-Type" />
+        <link rel="selenium.base" />
+        <title>remove_rules</title>
+    </head>
+    <body>
+        <table border="1"
+               cellpadding="1"
+               cellspacing="1">
+            <thead>
+                <tr>
+                    <td colspan="3"
+                        rowspan="1">remove_rules</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>store</td>
+                    <td>0</td>
+                    <td>times_run</td>
+                </tr>
+                <tr>
+                    <td>store</td>
+                    <td>5</td>
+                    <td>target_run</td>
+                </tr>
+                <tr>
+                    <td>label</td>
+                    <td>beginning</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>open</td>
+                    <td>PUT YOUR RULE PAGE FILTER URL HERE e.g. &amp;ruleAssignments_f_ruleOid=RULE01</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>selectWindow</td>
+                    <td>null</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>click</td>
+                    <td>name=bt_Remove1</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>assertConfirmation</td>
+                    <td>If you remove this rule, it will not run in Data Entry or Bulk mode . The rule can be restored by a principal investigator. Are you sure you want to remove it?</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>store</td>
+                    <td>new Number(${times_run} + 1)</td>
+                    <td>times_run</td>
+                </tr>
+                <tr>
+                    <td>gotoIf</td>
+                    <td>${times_run} &lt; ${target_run}</td>
+                    <td>beginning</td>
+                </tr>
+                <tr>
+                    <td>runScript</td>
+                    <td>alert("Deleted "+${times_run}+" of "+${target_run}+" rules.");</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

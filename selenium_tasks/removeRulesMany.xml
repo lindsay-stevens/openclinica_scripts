@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en"
+      xml:lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head profile="http://selenium-ide.openqa.org/profiles/test-case">
+        <meta content="text/html; charset=UTF-8"
+              http-equiv="Content-Type" />
+        <link rel="selenium.base" />
+        <title>remove_rules</title>
+    </head>
+    <body>
+        <table border="1"
+               cellpadding="1"
+               cellspacing="1">
+            <thead>
+                <tr>
+                    <td colspan="3"
+                        rowspan="1">remove_rules</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>store</td>
+                    <td>PUT YOUR INSTANCE LOCATION HERE LIKE http://mydomain/OpenClinica/</td>
+                    <td>instance_location</td>
+                </tr>
+                <tr>
+                    <td>storeEval</td>
+                    <td>javascript{storedVars['overall_counter'] = 0}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>store</td>
+                    <td>${instance_location}ViewRuleAssignment?module=admin</td>
+                    <td>filter_url</td>
+                </tr>
+                <tr>
+                    <td>store</td>
+                    <td>PUT YOUR FILTER SET LIST HERE e.g. &amp;ruleAssignments_f_ruleOid=RULE01,&amp;ruleAssignments_f_ruleOid=RULE02&amp;ruleAssignments_f_targetValue=I_ITEM01</td>
+                    <td>rules_to_delete</td>
+                </tr>
+                <tr>
+                    <td>storeEval</td>
+                    <td>javascript{storedVars['times_run_outer'] = 0}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>store</td>
+                    <td>javascript{storedVars['target_run'] = storedVars['rules_to_delete'].split(',').length}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>label</td>
+                    <td>rule_repeat_outer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>store</td>
+                    <td>javascript{storedVars['filter_url'].concat(storedVars['rules_to_delete'].split(',')[storedVars['times_run_outer']])}</td>
+                    <td>current_rule</td>
+                </tr>
+                <tr>
+                    <td>open</td>
+                    <td>${current_rule}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>selectWindow</td>
+                    <td>null</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>storeText</td>
+                    <td>xpath=//tr[contains(@class,'statusBar')]/td</td>
+                    <td>rule_count</td>
+                </tr>
+                <tr>
+                    <td>store</td>
+                    <td>javascript{storedVars['rule_count'].slice(storedVars['rule_count'].indexOf('of ')+3,storedVars['rule_count'].length-1)}</td>
+                    <td>rule_count_num_str</td>
+                </tr>
+                <tr>
+                    <td>store</td>
+                    <td>javascript{storedVars['target_run_inner'] = Number(storedVars['rule_count_num_str'].replace(",",""))}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>store</td>
+                    <td>javascript{storedVars['times_run_inner'] = 0}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>label</td>
+                    <td>rule_repeat_inner</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>store</td>
+                    <td>javascript{storedVars['filter_url'].concat(storedVars['rules_to_delete'].split(',')[storedVars['times_run_outer']])}</td>
+                    <td>current_rule</td>
+                </tr>
+                <tr>
+                    <td>open</td>
+                    <td>${current_rule}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>selectWindow</td>
+                    <td>null</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>click</td>
+                    <td>name=bt_Remove1</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>assertConfirmation</td>
+                    <td>If you remove this rule, it will not run in Data Entry or Bulk mode . The rule can be restored by a principal investigator. Are you sure you want to remove it?</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>storeEval</td>
+                    <td>javascript{storedVars['times_run_inner']++}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>storeEval</td>
+                    <td>javascript{storedVars['overall_counter']++}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>gotoIf</td>
+                    <td>javascript{storedVars['times_run_inner'] &lt; storedVars['target_run_inner']}</td>
+                    <td>rule_repeat_inner</td>
+                </tr>
+                <tr>
+                    <td>storeEval</td>
+                    <td>javascript{storedVars['times_run_outer']++}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>gotoIf</td>
+                    <td>javascript{storedVars['times_run_outer'] &lt; storedVars['target_run']}</td>
+                    <td>rule_repeat_outer</td>
+                </tr>
+                <tr>
+                    <td>echo</td>
+                    <td>Deleted ${overall_counter} rules.</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
