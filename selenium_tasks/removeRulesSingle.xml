@@ -38,7 +38,7 @@
                 </tr>
                 <tr>
                     <td>open</td>
-                    <td>PUT YOUR RULE PAGE FILTER URL HERE e.g. &amp;ruleAssignments_f_ruleOid=RULE01</td>
+                    <td>PUT YOUR RULE PAGE FILTER URL HERE e.g. filtering for an item name of 'MYITEMNAME':  https://mydomain.com/OpenClinica/ViewRuleAssignment?module=admin&amp;maxRows=15&amp;showMoreLink=true&amp;ruleAssignments_tr_=true&amp;ruleAssignments_p_=1&amp;ruleAssignments_mr_=15&amp;ruleAssignments_f_itemName=MYITEMNAME</td>
                     <td></td>
                 </tr>
                 <tr>
