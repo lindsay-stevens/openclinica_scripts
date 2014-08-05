@@ -22,8 +22,12 @@ Performance with an instance with ~400k rows of item_data is 2mins to refresh ev
     (ensure that server/firewall accepts connections accordingly)
 
 ###If the OpenClinica schema has changed since 3.1.4.1
-03. generate new script for report_02
-04. generate new script for report_04
+03. generate new script for report_02.
+    this creates a function which can be used to generate a script with new
+    CREATE FOREIGN TABLE statements (as per build script 02). See the script
+    comments for parameters and example usage.
+04. generate new script for report_04.
+    this generates a script with new CREATE INDEX statements (as per build script 04).
 
 ##On OpenClinica report db:
 00. configure and run the setup bat file. this runs steps 01 to 11 below. options are:
@@ -57,7 +61,7 @@ Performance with an instance with ~400k rows of item_data is 2mins to refresh ev
 #Maintenance Tasks on OpenClinica report db
 
 ##Refresh matviews with pgAgent:
-01. add pgAgent job to run refresh_matviews query every x minutes
+01. add pgAgent job to run refresh_matviews query every x minutes.
     this refreshes matviews in the public schema, 
     then dm schema (in order of creation per report_05), then all other schemas
 
