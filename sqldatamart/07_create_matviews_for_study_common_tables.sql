@@ -14,6 +14,7 @@ with table_list as (
   ,('subject_event_crf_status')  
   ,('subject_groups')
   ,('subjects')
+  ,('user_account_roles')
   ) as table_list (table_name)
 )
 SELECT execute(create_statements)

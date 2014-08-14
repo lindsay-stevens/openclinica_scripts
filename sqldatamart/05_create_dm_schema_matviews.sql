@@ -1338,3 +1338,70 @@ ORDER BY
 , rs.options_values_split) as rsl_src;
 
 ANALYZE dm.response_set_labels;
+
+-- 16 query (user accounts and roles)
+
+CREATE MATERIALIZED VIEW dm.user_account_roles AS (
+SELECT
+  ua.user_name
+ ,ua.first_name
+ ,ua.last_name
+ ,ua.email
+ ,ua.date_created AS account_created
+ ,ua.date_updated AS account_last_updated
+ ,ua_status.name AS account_status
+ ,COALESCE (parents.unique_identifier,study.unique_identifier,'no parent study') AS role_study_code
+ ,COALESCE (parents.name,study.name,'no parent study') AS study_name
+ ,CASE
+   WHEN parents.unique_identifier is not null
+   THEN study.unique_identifier
+  END AS role_site_code
+ ,CASE
+   WHEN parents.name is not null
+   THEN study.name
+  END AS role_site_name
+-- role_name_ui renames internal role names to what is seen in OpenClinica UI
+-- renaming only for roles which are used at Kirby Institute (add others if needed)
+ ,CASE 
+    WHEN 
+         parents.name is null
+    THEN
+      CASE
+        WHEN role_name='admin'
+        THEN 'administrator'
+        WHEN role_name='coordinator'
+        THEN 'study data manager'
+        WHEN role_name='monitor'
+        THEN 'study monitor'
+        WHEN role_name='ra'
+        THEN 'study data entry person'
+        ELSE role_name
+      END
+    WHEN 
+         parents.name is not null
+    THEN
+      CASE
+        WHEN role_name='ra'
+        THEN 'clinical research coordinator'
+        WHEN role_name='monitor'
+        THEN 'site monitor'
+        WHEN role_name='Data Specialist'
+        THEN 'site investigator'
+        ELSE role_name
+      END
+  END AS role_name_ui
+ ,sur.date_created AS role_created
+ ,sur.date_updated AS role_last_updated
+ ,sur_status.name AS role_status
+FROM user_account AS ua 
+LEFT JOIN study_user_role AS sur 
+  ON  ua.user_name = sur.user_name
+LEFT JOIN study
+  ON  study.study_id = sur.study_id
+LEFT JOIN study as parents
+  ON  parents.study_id=study.parent_study_id
+LEFT JOIN status AS ua_status
+  ON ua.status_id=ua_status.status_id
+LEFT JOIN status AS sur_status
+  ON sur.status_id=sur_status.status_id
+)
