@@ -546,7 +546,7 @@ SELECT
    WHEN cd_no_labels_multi.item_value <> ''
     THEN cd_no_labels_multi.item_oid || '_' || cd_no_labels_multi.item_value
    ELSE 'unhandled'
-  END::varchar(40) as item_oid
+  END as item_oid
 , cd_no_labels_multi.item_units
 , cd_no_labels_multi.item_data_type
 , cd_no_labels_multi.item_response_type
@@ -559,7 +559,7 @@ SELECT
    WHEN cd_no_labels_multi.item_value <> ''
     THEN cd_no_labels_multi.item_name || '_' || cd_no_labels_multi.item_value
    ELSE 'unhandled'
-  END::varchar(255) item_name
+  END item_name
 , cd_no_labels_multi.item_description
 , cd_no_labels_multi.item_value
 , cd_no_labels_multi.item_value_created
@@ -878,7 +878,7 @@ SELECT
    WHEN metadata_no_multi.item_response_type IN ('multi-select','checkbox')
     THEN mv.item_oid
    ELSE 'unhandled'
-  END::varchar(40) as item_oid
+  END as item_oid
 , metadata_no_multi.item_units
 , metadata_no_multi.item_data_type
 , metadata_no_multi.item_response_type
@@ -892,7 +892,7 @@ SELECT
    WHEN metadata_no_multi.item_response_type IN ('multi-select','checkbox')
     THEN mv.item_name
    ELSE 'unhandled'
-  END::varchar(40) as item_name
+  END as item_name
 , metadata_no_multi.item_description 
 FROM dm.metadata_no_multi
 LEFT JOIN (
