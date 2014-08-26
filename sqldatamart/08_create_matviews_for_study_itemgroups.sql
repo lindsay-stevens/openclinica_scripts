@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION execute(text) returns void as 
+﻿CREATE OR REPLACE FUNCTION execute(text) returns void as 
 $BODY$BEGIN EXECUTE $1;END;$BODY$ LANGUAGE plpgsql;
 
 SELECT execute(create_statements)
@@ -81,16 +81,19 @@ FROM (
    ,CASE WHEN length(item_name_hint)>=57 THEN substr(item_name_hint,1,57)
        ELSE item_name_hint END as item_name_hint
    ,item_data_type
-   ,item_form_order
-   ,item_response_set_label
+   -- maxed again in case there is more than one item_response_set_label
+   ,max(item_form_order) as item_form_order
+   ,max(item_response_set_label) as item_response_set_label
    ,crf_null_values
   FROM (
-SELECT DISTINCT study_name
+SELECT
+       study_name
       ,item_group_oid
       ,item_oid
+      -- if the longest item name is over 8 characters, use item_oid for column names
+      , CASE WHEN (SELECT max(length(item_name)) FROM dm.metadata)>8 THEN item_oid ELSE
       -- if the item_name starts with an integer, prepend 'i_'
-      , CASE WHEN length(item_name)>8 THEN item_oid ELSE
-        (CASE WHEN item_name ~ '^[0-9]+$' THEN $$i_$$ || lower(substr(item_name,1,12))
+        (CASE WHEN item_name ~ '^[0-9].+$' THEN $$i_$$ || lower(substr(item_name,1,12))
         ELSE lower(substr(item_name,1,12)) END
         || $$_$$
         ||  substr(
@@ -105,11 +108,24 @@ SELECT DISTINCT study_name
       -- use max since item_form_order may change between crf versions
       ,max(item_form_order) AS item_form_order
       ,item_response_set_label
-      ,CASE WHEN crf_null_values <> '' 
-         THEN $$'$$ || replace(trim(trailing ',' from crf_null_values),',',$$','$$) || $$'$$
-         ELSE quote_literal(crf_null_values)
-       END as crf_null_values
-    FROM dm.metadata
+      -- make one unique list of null values settings for an item group across events
+      ,COALESCE (
+        CASE WHEN count(crf_null_values) > 0 
+         THEN quote_literal(
+                trim(both ',' from (
+                  array_to_string(
+		   (SELECT array_agg(s1.crf_null_values) 
+		     FROM (
+		       SELECT DISTINCT crf_null_values 
+		         FROM dm.metadata as dms 
+		         WHERE dms.item_group_oid = dm_meta.item_group_oid 
+                           AND crf_null_values != ''
+                     ) as s1
+                   ), ','))
+                 )
+               )
+         END,$$''$$) as crf_null_values
+    FROM dm.metadata as dm_meta
     -- where study_name='Raw Study Name'
     -- (where or and) item_group_oid='Item Group OID'
 GROUP BY study_name
@@ -119,8 +135,13 @@ GROUP BY study_name
       ,item_description
       ,item_data_type
       ,item_response_set_label
-      ,crf_null_values
       ) AS namecheck
+  GROUP BY study_name
+   ,item_group_oid
+   ,item_oid
+   ,item_name_hint
+   ,item_data_type
+   ,crf_null_values
     ) AS met
   ) AS case_constructors
 GROUP BY case_constructors.item_label_constructor
