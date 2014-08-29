@@ -26,17 +26,17 @@
                 <!--User Variables-->
                 <tr>
                     <td>store</td>
-                    <td>2</td>
-                    <td>eventCol</td>
+                    <td>yourEventName</td>
+                    <td>eventName</td>
                 </tr>
                 <tr>
                     <td>store</td>
-                    <td>TRACER Kosten</td>
+                    <td>yourCRFName</td>
                     <td>crfName</td>
                 </tr>
                 <tr>
                     <td>store</td>
-                    <td>1.03</td>
+                    <td>yourNewVersion</td>
                     <td>toVersion</td>
                 </tr>
                 <tr>
@@ -62,6 +62,11 @@
                 </tr>
                 <tr>
                     <td>storeEval</td>
+                    <td>window.document.evaluate( "//td[div='${eventName}' and ancestor::table[@id='findSubjects']]" ,window.document, null, XPathResult.ANY_TYPE, null ).iterateNext().cellIndex-5;</td>
+                    <td>eventCol</td>
+                </tr>
+                <tr>
+                    <td>storeEval</td>
                     <td>window.document.getElementsByClassName("header")[2].children.length-7</td>
                     <td>nrEvents</td>
                 </tr>
@@ -74,6 +79,11 @@
                     <td>storeEval</td>
                     <td>javascript{String("\""+storedVars['toVersion']+"\"").replace(".", "\\.")}</td>
                     <td>regToVersion</td>
+                </tr>
+                <tr>
+                    <td>storeEval</td>
+                    <td>"//text()[translate(., '\u00A0', '')=\'"+storedVars['crfName']+"\' and ancestor::td[@class='content']]"</td>
+                    <td>xString</td>
                 </tr>
                 <tr>
                     <td>store</td>
@@ -260,42 +270,6 @@
                     <td>selectCRFPage</td>
                     <td></td>
                 </tr>
-                <!--Find the row with the CRF-->
-                <tr>
-                    <td>label</td>
-                    <td>findCRFRow</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>store</td>
-                    <td>0</td>
-                    <td>crfIndex</td>
-                </tr>
-                <tr>
-                    <td>label</td>
-                    <td>loopFind</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>storeEval</td>
-                    <td>${crfIndex}+1</td>
-                    <td>crfIndex</td>
-                </tr>
-                <tr>
-                    <td>storeEval</td>
-                    <td>window.document.getElementsByClassName("tablebox_center")[1].firstElementChild.firstElementChild.children[${crfIndex}].firstElementChild.textContent.trim()</td>
-                    <td>crfNameFound</td>
-                </tr>
-                <tr>
-                    <td>gotoIf</td>
-                    <td>storedVars['crfNameFound']==storedVars['crfName']</td>
-                    <td>continueSelectCRFPage</td>
-                </tr>
-                <tr>
-                    <td>goto</td>
-                    <td>loopFind</td>
-                    <td></td>
-                </tr>
                 <!--Handle the Change-->
                 <tr>
                     <td>label</td>
@@ -313,18 +287,18 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>goto</td>
-                    <td>findCRFRow</td>
-                    <td></td>
+                    <td>storeEval</td>
+                    <td>window.document.evaluate(storedVars['xString'] ,window.document, null, XPathResult.ANY_TYPE, null ).iterateNext()</td>
+                    <td>node</td>
                 </tr>
                 <tr>
-                    <td>label</td>
-                    <td>continueSelectCRFPage</td>
-                    <td></td>
+                    <td>gotoIf</td>
+                    <td>storedVars['node']==null</td>
+                    <td>end</td>
                 </tr>
                 <tr>
                     <td>storeEval</td>
-                    <td>window.document.getElementsByClassName("tablebox_center")[1].firstElementChild.firstElementChild.children[${crfIndex}].children[2].firstElementChild.getAttribute("alt")</td>
+                    <td>storedVars['node'].parentElement.parentElement.querySelector("img").getAttribute("alt")</td>
                     <td>dataEntryStatus</td>
                 </tr>
                 <tr>
@@ -339,7 +313,7 @@
                 </tr>
                 <tr>
                     <td>storeEval</td>
-                    <td>window.document.getElementsByClassName("tablebox_center")[1].firstElementChild.firstElementChild.children[${crfIndex}].children[5].firstElementChild.firstElementChild.firstElementChild.lastElementChild.lastElementChild.getAttribute("href")</td>
+                    <td>storedVars['node'].parentElement.parentElement.querySelector('img[name=Reassign]').parentElement.getAttribute("href")</td>
                     <td>myLink2</td>
                 </tr>
                 <!--Now the actual Migration-->
