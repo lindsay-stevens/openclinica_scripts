@@ -51,7 +51,7 @@ SQLExcludeCRFNameVersion = TempString
 
 End Function
 
-Public Function XLSCRFRead(FilePath As String, Recurse As Boolean)
+Public Function XLSCRFRead(FilePath As String, Recurse As Boolean, CreateOnly As Boolean)
 
 Dim TargetTableList           As New Collection
 Dim TTLItemIndex              As Integer
@@ -60,22 +60,13 @@ Dim ImportSourceFile          As DAO.Database
 Dim ImportFileCollection      As New Collection
 Dim ImportFileIndex           As Integer
 Dim TableNameRecordSet        As DAO.Recordset
-Dim TNRSFieldIndex            As Integer
-Dim TableCreateDDL            As String
-Dim FieldDefDDL               As String
-Dim ParamsField               As String
-Dim AppendField               As String
-Dim AppendParam               As String
-Dim ImportQDFParam            As String
-Dim ImportQDFAppend           As String
-Dim ImportQDF                 As DAO.QueryDef
-Dim ImportCRFCommand          As ADODB.Command
-Dim ImportCRFFieldValue       As Variant
 Dim ImportCRFRecordSet        As DAO.Recordset
 Dim CRFName                   As String
 Dim CRFVersion                As String
-Dim CRFTableIndex             As index
-Dim TargetTableRelation       As Relation
+Dim ImportCRFDatabase As DAO.Database
+
+Set ImportCRFDatabase = CurrentDb
+
 
 TargetTableList.Add "CRF"
 TargetTableList.Add "Sections"
@@ -113,164 +104,21 @@ For ImportFileIndex = 1 To ImportFileCollection.Count
             TableNameRecordSet.MoveFirst
 
             Do Until TableNameRecordSet.EOF
-
+            
                 ' Create the tables if they don't already exist
-                If ObjectExists(TargetTableList(TTLItemIndex), "table") = False Then
 
-                    For TNRSFieldIndex = 0 To TableNameRecordSet.Fields.Count - 1
-
-                        FieldDefDDL = FieldDefDDL & TableNameRecordSet.Fields(TNRSFieldIndex).Name
-
-                        ' Set big fields as MEMO
-                        If TableNameRecordSet.Fields(TNRSFieldIndex).Name = "VERSION_DESCRIPTION" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "SECTION_TITLE" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "SUBTITLE" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "INSTRUCTIONS" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "DESCRIPTION_LABEL" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "LEFT_ITEM_TEXT" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "RIGHT_ITEM_TEXT" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "HEADER" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "RESPONSE_OPTIONS_TEXT" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "RESPONSE_VALUES_OR_CALCULATIONS" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "DEFAULT_VALUE" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "VALIDATION" Or _
-                                TableNameRecordSet.Fields(TNRSFieldIndex).Name = "SIMPLE_CONDITIONAL_DISPLAY" Then
-                            FieldDefDDL = FieldDefDDL & " MEMO,"
-                        Else:
-                            FieldDefDDL = FieldDefDDL & " TEXT (255),"
-                        End If
-
-                    Next TNRSFieldIndex
-
-                    ' If the table isn't CRF then add foreign key columns CRF_NAME and VERSION
-                    If TargetTableList(TTLItemIndex) <> "CRF" Then
-                        FieldDefDDL = FieldDefDDL & "CRF_NAME TEXT (255)," _
-                                & " VERSION TEXT (255),"
+                ' If we are just creating tables this time round
+                If CreateOnly = True Then
+                    If ObjectExists(TargetTableList(TTLItemIndex), "table", ImportCRFDatabase) = False Then
+                      Call CreateTables(TableNameRecordSet, TargetTableList(TTLItemIndex), ImportCRFDatabase)
                     End If
-
-                    ' Always add on a rownumber column so the ordering can be preserved
-                    FieldDefDDL = FieldDefDDL & "rownumber NUMBER"
-
-                    TableCreateDDL = "CREATE TABLE " & TargetTableList(TTLItemIndex) & "(" & FieldDefDDL & ")"
-                    CurrentDb.Execute TableCreateDDL, dbFailOnError
-
-                    ' If the current table is CRF
-                    If TargetTableList(TTLItemIndex) = "CRF" Then
-                        ' Create a primary key on CRF_NAME and VERSION
-                        Set CRFTableIndex = CurrentDb.TableDefs("CRF").CreateIndex("primarykey")
-
-                        With CRFTableIndex
-                            .Fields.Append .CreateField("CRF_NAME")
-                            .Fields.Append .CreateField("VERSION")
-                            .Primary = True
-                        End With
-
-                        CurrentDb.TableDefs("CRF").Indexes.Append CRFTableIndex
-                        Set CRFTableIndex = Nothing
-
-                    Else:
-                        ' Create a relationship to the CRF table on CRF_NAME and VERSION
-                        Set TargetTableRelation = CurrentDb.CreateRelation( _
-                                "CRF_" & TargetTableList(TTLItemIndex), "CRF", TargetTableList(TTLItemIndex))
-
-                        With TargetTableRelation
-                            .Fields.Append .CreateField("CRF_NAME")
-                            .Fields("CRF_NAME").ForeignName = "CRF_NAME"
-                            .Fields.Append .CreateField("VERSION")
-                            .Fields("VERSION").ForeignName = "VERSION"
-                        End With
-
-                        CurrentDb.Relations.Append TargetTableRelation
-                        Set TargetTableRelation = Nothing
-
-                    End If
-
-                    FieldDefDDL = ""
-                    TableCreateDDL = ""
-
+                    ' Exit the loop
+                    Exit Do
+                Else:
+                    ' Use ADODB.command to insert the data
+                    Call InsertData(TableNameRecordSet, TargetTableList(TTLItemIndex), CRFName, CRFVersion)
+                    TableNameRecordSet.MoveNext
                 End If
-
-                ' Use ADODB.command to insert the data
-
-                ' Iterate through each field to build the INSERT INTO statement
-                For TNRSFieldIndex = 0 To TableNameRecordSet.Fields.Count - 1
-
-                    AppendField = AppendField & TableNameRecordSet.Fields(TNRSFieldIndex).Name & ","
-                    AppendParam = AppendParam & "[param_" _
-                            & TableNameRecordSet.Fields(TNRSFieldIndex).Name & "],"
-
-                Next TNRSFieldIndex
-
-                ' If the table isn't CRF then add foreign key columns CRF_NAME and VERSION
-                If TargetTableList(TTLItemIndex) <> "CRF" Then
-                    AppendField = AppendField & "CRF_NAME, VERSION,"
-                    AppendParam = AppendParam & "[param_CRF_NAME], [param_VERSION],"
-                End If
-
-                ' Always add on a rownumber column so the ordering can be preserved
-                AppendField = AppendField & "rownumber"
-                AppendParam = AppendParam & "[param_rownumber]"
-
-                Set ImportCRFCommand = New ADODB.Command
-
-                ' Set the CommandText as the constructed INSERT INTO statement
-                ImportCRFCommand.CommandText = "INSERT INTO " & TargetTableList(TTLItemIndex) _
-                        & " (" & AppendField & ")" _
-                        & " VALUES (" & AppendParam & ");"
-
-                AppendField = ""
-                AppendParam = ""
-
-                ' Iterate through each field to make the command parameters
-                For TNRSFieldIndex = 0 To TableNameRecordSet.Fields.Count - 1
-
-                    If Not IsNull(TableNameRecordSet.Fields(TNRSFieldIndex).Value) Then
-                        ' If the field value isn't null, create the parameter with the value
-                        With ImportCRFCommand
-                            .Parameters.Append .CreateParameter( _
-                                    "param_" & TableNameRecordSet.Fields(TNRSFieldIndex).Name, _
-                                    adLongVarChar, adParamInput, _
-                                    Len(TableNameRecordSet.Fields(TNRSFieldIndex).Value), _
-                                    TableNameRecordSet.Fields(TNRSFieldIndex).Value)
-                        End With
-                    Else:
-                        ' If the field value is null, create the parameter with a null value
-                        With ImportCRFCommand
-                            .Parameters.Append .CreateParameter( _
-                                    "param_" & TableNameRecordSet.Fields(TNRSFieldIndex).Name, _
-                                    adLongVarChar, adParamInput, 1, Null)
-                        End With
-                    End If
-
-                Next TNRSFieldIndex
-
-                ' If the table isn't CRF then add foreign key columns CRF_NAME and VERSION
-                If TargetTableList(TTLItemIndex) <> "CRF" Then
-                    With ImportCRFCommand
-                        .Parameters.Append .CreateParameter("param_CRF_NAME", _
-                                adLongVarWChar, adParamInput, Len(CRFName), CRFName)
-                        .Parameters.Append .CreateParameter("param_VERSION", _
-                                adLongVarWChar, adParamInput, Len(CRFVersion), CRFVersion)
-                    End With
-                End If
-
-                ' Always add on a rownumber column so the ordering can be preserved
-                With ImportCRFCommand
-                    .Parameters.Append .CreateParameter("param_rownumber", _
-                            adLongVarWChar, adParamInput, _
-                            10, _
-                            TableNameRecordSet.AbsolutePosition)
-                End With
-
-                ' Set the connection to the current database and execute the command
-                With ImportCRFCommand
-                    .ActiveConnection = CurrentProject.Connection
-                    .Execute
-                End With
-
-                Set ImportCRFCommand = Nothing
-
-                TableNameRecordSet.MoveNext
 
             Loop
 
@@ -284,6 +132,8 @@ For ImportFileIndex = 1 To ImportFileCollection.Count
     Set ImportSourceFile = Nothing
 
 Next ImportFileIndex
+
+DoEvents
 
 End Function
 
@@ -459,14 +309,11 @@ If Recurse = True Then
 End If
 End Sub
 
-
-
-Public Function ObjectExists(ObjectName As String, ObjectType As String) As Boolean
+Public Function ObjectExists(ObjectName As String, ObjectType As String, ObjectDatabase As DAO.Database) As Boolean
 
 ' Checks if the specified object name and type exists in the local database
 ' Only accepts table, query or report. Check MSysObjects to add other types
 
-Dim OEDB                      As DAO.Database
 Dim OERS                      As DAO.Recordset
 Dim OESQL                     As String
 Dim OETypeInt                 As Integer
@@ -489,19 +336,197 @@ Select Case Format(ObjectType, "<")
 End Select
 
 ' Create query / recordset to check for the object
-Set OEDB = CurrentDb()
 OESQL = "SELECT MSysObjects.Name FROM MSysObjects " _
         & " WHERE MSysObjects.Name=" & Chr(34) & ObjectName & Chr(34) _
         & " AND MSysObjects.Type=" & OETypeInt
-Set OERS = OEDB.OpenRecordset(OESQL)
+'CurrentProject.Connection.Execute "GRANT SELECT ON MSysObjects TO Admin;"
+Set OERS = ObjectDatabase.OpenRecordset(OESQL, dbOpenSnapshot)
 
 ' If any objects of that name and type are found, return true
 ObjectExists = (OERS.RecordCount <> 0)
 
 ' Clean up
-Set OEDB = Nothing
+OERS.Close
 Set OERS = Nothing
 OESQL = ""
 OETypeInt = -1
+
+End Function
+
+Public Function CreateTables(TableNameRecordSet As DAO.Recordset, TableName As String, TableNameDatabase As DAO.Database)
+
+Dim TNRSFieldIndex As Integer
+Dim FieldDefDDL As String
+Dim TableCreateDDL As String
+Dim TargetTableRelation As DAO.Relation
+Dim CRFTableIndex As DAO.index
+
+For TNRSFieldIndex = 0 To TableNameRecordSet.Fields.Count - 1
+
+    FieldDefDDL = FieldDefDDL & TableNameRecordSet.Fields(TNRSFieldIndex).Name
+
+    ' Set big fields as MEMO
+    If TableNameRecordSet.Fields(TNRSFieldIndex).Name = "VERSION_DESCRIPTION" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "SECTION_TITLE" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "SUBTITLE" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "INSTRUCTIONS" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "DESCRIPTION_LABEL" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "LEFT_ITEM_TEXT" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "RIGHT_ITEM_TEXT" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "HEADER" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "RESPONSE_OPTIONS_TEXT" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "RESPONSE_VALUES_OR_CALCULATIONS" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "DEFAULT_VALUE" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "VALIDATION" Or _
+            TableNameRecordSet.Fields(TNRSFieldIndex).Name = "SIMPLE_CONDITIONAL_DISPLAY" Then
+        FieldDefDDL = FieldDefDDL & " MEMO,"
+    Else:
+        FieldDefDDL = FieldDefDDL & " TEXT (255),"
+    End If
+
+Next TNRSFieldIndex
+
+' If the table isn't CRF then add foreign key columns CRF_NAME and VERSION
+If TableName <> "CRF" Then
+    FieldDefDDL = FieldDefDDL & "CRF_NAME TEXT (255)," _
+            & " VERSION TEXT (255),"
+End If
+
+' Always add on a rownumber column so the ordering can be preserved
+FieldDefDDL = FieldDefDDL & "rownumber NUMBER"
+
+TableCreateDDL = "CREATE TABLE " & TableName & "(" & FieldDefDDL & ")"
+
+TableNameDatabase.Execute TableCreateDDL, dbFailOnError
+
+' If the current table is CRF
+If TableName = "CRF" Then
+    ' Create a primary key on CRF_NAME and VERSION
+    Set CRFTableIndex = TableNameDatabase.TableDefs("CRF").CreateIndex("primarykey")
+
+    With CRFTableIndex
+        .Fields.Append .CreateField("CRF_NAME")
+        .Fields.Append .CreateField("VERSION")
+        .Primary = True
+    End With
+
+    TableNameDatabase.TableDefs("CRF").Indexes.Append CRFTableIndex
+    Set CRFTableIndex = Nothing
+
+Else:
+    ' Create a relationship to the CRF table on CRF_NAME and VERSION
+    Set TargetTableRelation = TableNameDatabase.CreateRelation( _
+            "CRF_" & TableName, "CRF", TableName)
+
+    With TargetTableRelation
+        .Fields.Append .CreateField("CRF_NAME")
+        .Fields("CRF_NAME").ForeignName = "CRF_NAME"
+        .Fields.Append .CreateField("VERSION")
+        .Fields("VERSION").ForeignName = "VERSION"
+    End With
+
+    TableNameDatabase.Relations.Append TargetTableRelation
+    Set TargetTableRelation = Nothing
+
+End If
+
+FieldDefDDL = ""
+TableCreateDDL = ""
+
+End Function
+
+Public Function InsertData(TableNameRecordSet As DAO.Recordset, TableName As String, CRFName As String, CRFVersion As String)
+
+Dim TNRSFieldIndex            As Integer
+Dim AppendField               As String
+Dim AppendParam               As String
+Dim ImportCRFConnection As ADODB.Connection
+Dim ImportCRFCommand          As ADODB.Command
+
+' Iterate through each field to build the INSERT INTO statement
+For TNRSFieldIndex = 0 To TableNameRecordSet.Fields.Count - 1
+
+    AppendField = AppendField & TableNameRecordSet.Fields(TNRSFieldIndex).Name & ","
+    AppendParam = AppendParam & "[param_" _
+            & TableNameRecordSet.Fields(TNRSFieldIndex).Name & "],"
+
+Next TNRSFieldIndex
+
+' If the table isn't CRF then add foreign key columns CRF_NAME and VERSION
+If TableName <> "CRF" Then
+    AppendField = AppendField & "CRF_NAME, VERSION,"
+    AppendParam = AppendParam & "[param_CRF_NAME], [param_VERSION],"
+End If
+
+' Always add on a rownumber column so the ordering can be preserved
+AppendField = AppendField & "rownumber"
+AppendParam = AppendParam & "[param_rownumber]"
+
+Set ImportCRFCommand = New ADODB.Command
+
+' Set the CommandText as the constructed INSERT INTO statement
+ImportCRFCommand.CommandText = "INSERT INTO " & TableName _
+        & " (" & AppendField & ")" _
+        & " VALUES (" & AppendParam & ");"
+
+AppendField = ""
+AppendParam = ""
+
+' Iterate through each field to make the command parameters
+For TNRSFieldIndex = 0 To TableNameRecordSet.Fields.Count - 1
+
+    If Not IsNull(TableNameRecordSet.Fields(TNRSFieldIndex).Value) Then
+        ' If the field value isn't null, create the parameter with the value
+        With ImportCRFCommand
+            .Parameters.Append .CreateParameter( _
+                    "param_" & TableNameRecordSet.Fields(TNRSFieldIndex).Name, _
+                    adLongVarChar, adParamInput, _
+                    Len(TableNameRecordSet.Fields(TNRSFieldIndex).Value), _
+                    TableNameRecordSet.Fields(TNRSFieldIndex).Value)
+        End With
+    Else:
+        ' If the field value is null, create the parameter with a null value
+        With ImportCRFCommand
+            .Parameters.Append .CreateParameter( _
+                    "param_" & TableNameRecordSet.Fields(TNRSFieldIndex).Name, _
+                    adLongVarChar, adParamInput, 1, Null)
+        End With
+    End If
+
+Next TNRSFieldIndex
+
+' If the table isn't CRF then add foreign key columns CRF_NAME and VERSION
+If TableName <> "CRF" Then
+    With ImportCRFCommand
+        .Parameters.Append .CreateParameter("param_CRF_NAME", _
+                adLongVarWChar, adParamInput, Len(CRFName), CRFName)
+        .Parameters.Append .CreateParameter("param_VERSION", _
+                adLongVarWChar, adParamInput, Len(CRFVersion), CRFVersion)
+    End With
+End If
+
+' Always add on a rownumber column so the ordering can be preserved
+With ImportCRFCommand
+    .Parameters.Append .CreateParameter("param_rownumber", _
+            adLongVarWChar, adParamInput, _
+            10, _
+            TableNameRecordSet.AbsolutePosition)
+End With
+
+' Make a copy of the current db connection to use for the command, begin transaction
+Set ImportCRFConnection = CurrentProject.Connection
+ImportCRFConnection.BeginTrans
+
+' Set the connection to the current database and execute the command
+With ImportCRFCommand
+    .ActiveConnection = ImportCRFConnection
+    .Execute
+End With
+
+' Commit transaction and close current db connection copy
+ImportCRFConnection.CommitTrans
+ImportCRFCommand.ActiveConnection.Close
+Set ImportCRFCommand = Nothing
+Set ImportCRFConnection = Nothing
 
 End Function
