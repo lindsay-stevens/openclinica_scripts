@@ -7,6 +7,8 @@ Variables in the output formats are organised into sets corresponding to their i
 
 Each of the xsl files refer to renaming map stylesheet [xml_convert_dynamic_lookup](xml_convert_dynamic_lookup.xsl) which lists the CRF and Item Group name combinations and what they should be renamed to in the output. If this is not used, the dataset names default to the Item Group OID.
 
+An example OpenClinica [extract.properties](extract.properties) file is included to demonstrate how to make an XSL method available in the OpenClinica interface - extract.10. uses the xml_convert_r_dataframes_with_factors.
+
 ## CSV
 In addition to running the XSL, the powershell script divides the initial output CSV into separate files per item group.
 
