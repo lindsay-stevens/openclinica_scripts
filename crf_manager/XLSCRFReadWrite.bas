@@ -160,6 +160,9 @@ Dim TableNameQDF              As DAO.QueryDef
 Dim TableNameRecordSet        As DAO.Recordset
 Dim TNRSFieldIndex            As Integer
 Dim WorksheetForDelete        As Worksheet
+Dim ExportCRFDatabase         As DAO.Database
+
+Set ExportCRFDatabase = CurrentDb
 
 TargetTableList.Add "CRF"
 TargetTableList.Add "Sections"
@@ -181,7 +184,7 @@ For TTLItemIndex = 1 To TargetTableList.Count
 
     ExportQDFFinalStr = ExportQDFParamStr & ExportQDFTableStr & ExportQDFWhereStr
 
-    If ObjectExists("export_qdf_" & TargetTableList(TTLItemIndex), "query") Then
+    If ObjectExists("export_qdf_" & TargetTableList(TTLItemIndex), "query", ExportCRFDatabase) Then
         CurrentDb.QueryDefs.Delete "export_qdf_" & TargetTableList(TTLItemIndex)
     End If
 
@@ -272,7 +275,7 @@ End If
 
 ' Clear out the temp query defs
 For TTLItemIndex = 1 To TargetTableList.Count
-    If ObjectExists("export_qdf_" & TargetTableList(TTLItemIndex), "query") Then
+    If ObjectExists("export_qdf_" & TargetTableList(TTLItemIndex), "query", ExportCRFDatabase) Then
         CurrentDb.QueryDefs.Delete "export_qdf_" & TargetTableList(TTLItemIndex)
     End If
 Next TTLItemIndex
