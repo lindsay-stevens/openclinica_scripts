@@ -254,6 +254,14 @@ If Not (ExportCRFRecordSet.BOF And ExportCRFRecordSet.EOF) Then
             End If
         Next WorksheetForDelete
 
+        ' Create sheet for the instructions sheet at the end of the workbook
+        Set ExcelAppBookSheet = ExcelAppBook.Worksheets.Add( _
+            After:=ExcelAppBook.Worksheets(ExcelAppBook.Worksheets.Count))
+        ExcelAppBookSheet.Name = "Instructions"
+        ' For some reason this sheet and the following data are required for successful CRF upload
+        ExcelAppBookSheet.Cells(1, 1).Value = "OpenClinica CRF Design Template"
+        ExcelAppBookSheet.Cells(2, 1).Value = "Version: 3.1"
+
         ' Set the file name by the cleaned table name, save the file as Excel 2003 / xls
         If Right(FilePath, 1) <> "\" Then
             FilePath = FilePath & "\"
