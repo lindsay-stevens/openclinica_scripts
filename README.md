@@ -22,6 +22,9 @@ Access database to read CRF .xls files in for review or editing, and write them 
 ## [dnotes](dnotes)
 XSL transformations for preparing a pdf report of discrepancy notes from an ODM 1.3 XML file.
 
+## [repeated_rules](repeated_rules)
+Example of a CRF with many repeated items (16x50), a VBScript to generate rule xml for them based on a template (33 ruledefs, 35 rule actions) and selenium test suite to test the rules. 
+
 ## [scrape](scrape)
 Python script for logging in to OpenClinica, scraping enrolment information and emailing a summary.
 

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://webcrf.kirby.unsw.edu.au/" />
+<title>AE_SAE_EMAIL</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AE_SAE_EMAIL</td></tr>
+</thead><tbody>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[img/@src=&quot;images/bt_EnterData.gif&quot; and ancestor::tr/td/text()[contains(.,&quot;Adverse Events/SAE&quot;)]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'1 AE')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>label</td>
+	<td>ae_section</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=1]</td>
+	<td>Leg ache</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=2]</td>
+	<td>javascript{Date.prototype.addDays = function (days) {var dat = new Date(this.valueOf());&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dat.setDate(dat.getDate() + days); return dat; }; var dat = new Date(); dat.addDays(-999).toLocaleFormat('%d-%b-%Y');}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=3]</td>
+	<td>javascript{Date.prototype.addDays = function (days) {var dat = new Date(this.valueOf());&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dat.setDate(dat.getDate() + days); return dat; }; var dat = new Date(); dat.addDays(-998).toLocaleFormat('%d-%b-%Y');}</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=4]</td>
+	<td>Moderate</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=5]</td>
+	<td>none</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>//*[@tabindex=5]</td>
+	<td>other, specify</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=6]</td>
+	<td>other outcome</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=7]</td>
+	<td>Unrelated</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=9]</td>
+	<td>Yes</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>//td[@class=&quot;crfHeaderTabs&quot; and not(descendant::a)]//span[@class=&quot;tabtext&quot;]</td>
+	<td>current_ae_parse</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>javascript{Number(storedVars['current_ae_parse'].substr(0,storedVars['current_ae_parse'].indexOf(' AE')))}</td>
+	<td>current_ae</td>
+</tr>
+<tr>
+	<td>storeAttribute</td>
+	<td>//select[@id=&quot;sectionTabSelectElement&quot;]/option[.=&quot;${current_ae} AE&quot;]/@value</td>
+	<td>current_page_url_params</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>'https://webcrf.kirby.unsw.edu.au/OpenClinica_test/'+storedVars['current_page_url_params']</td>
+	<td>current_page_url</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*AE Outcome: AE stop date was completed but AE outcome is empty. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*AE onset date: Onset date should not be prior to baseline visit date. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=8]</td>
+	<td>Unresolved</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=9]</td>
+	<td>No</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=10]</td>
+	<td>javascript{Date.prototype.addDays = function (days) {var dat = new Date(this.valueOf());&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dat.setDate(dat.getDate() + days); return dat; }; var dat = new Date(); dat.addDays(-10).toLocaleFormat('%d-%b-%Y');}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=11]</td>
+	<td>javascript{Date.prototype.addDays = function (days) {var dat = new Date(this.valueOf());&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dat.setDate(dat.getDate() + days); return dat; }; var dat = new Date(); dat.addDays(-9).toLocaleFormat('%d-%b-%Y');}</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=12]</td>
+	<td>Fatality</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=14]</td>
+	<td>Protocol-related procedure ,specify</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=16]</td>
+	<td>Resolved</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*AE stop date: AE outcome was answered unresolved but stop date is complete. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE onset date: SAE was answered no but onset date is complete. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE stop date: SAE was answered no but stop date is complete. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE type: SAE was answered no but SAE type is complete. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE Type: SAE Type is fatal please complete the death notification form in the Termination Event. A discrepancy note will be logged, please respond to the discrepency note once you have completed the death notificaiton form.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE cause: SAE was answered no but SAE cause is complete. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE Outcome: SAE was answered no but SAE outcome is complete. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=8]</td>
+	<td>Resolved</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=9]</td>
+	<td>Yes</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=10]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=11]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=12]</td>
+	<td>-- Select One --</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=14]</td>
+	<td>-- Select One --</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*AE stop date: Outcome is answered resolved but stop date is empty. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE onset date: SAE was answered yes but onset date is empty. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE stop date: SAE was answered yes and outcome answered resolved but stop date is empty. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE type: SAE was answered yes but SAE type is empty. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE cause: SAE was answered yes but SAE cause is empty. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>${current_page_url}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=9]</td>
+	<td>Yes</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=11]</td>
+	<td>javascript{Date.prototype.addDays = function (days) {var dat = new Date(this.valueOf());&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dat.setDate(dat.getDate() + days); return dat; }; var dat = new Date(); dat.addDays(-9).toLocaleFormat('%d-%b-%Y');}</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=16]</td>
+	<td>Persisting</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE Cause specify: SAE Cause response required information to be specified.Please review and enter information in specify field or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE stop date: SAE outcome was answered persisting but stop date is complete. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>${current_page_url}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=14]</td>
+	<td>Pre-existing/ underlying disease</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=15]</td>
+	<td>Some cause</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=16]</td>
+	<td>-- Select One --</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE Cause specify: Information has been entered in the specify filed, however it is not required.Please review and amend specify field or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE Outcome: SAE stop date was completed but SAE outcome is empty. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>gotoIf</td>
+	<td>javascript{storedVars['current_ae']==50}</td>
+	<td>ae_exit</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>//td[@class=&quot;crfHeaderTabs&quot; and not(descendant::a)]//span[@class=&quot;tabtext&quot;]</td>
+	<td>next_ae_parse</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>javascript{Number(storedVars['next_ae_parse'].substr(0,storedVars['next_ae_parse'].indexOf(' AE')))}</td>
+	<td>next_ae</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>${current_ae}+1</td>
+	<td>${next_ae}</td>
+</tr>
+<tr>
+	<td>gotoIf</td>
+	<td>javascript{storedVars['next_ae']&lt;=50}</td>
+	<td>ae_section</td>
+</tr>
+<tr>
+	<td>label</td>
+	<td>ae_exit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@class=&quot;sidebar_tab_content&quot;]//div[@class=&quot;alert&quot;]</td>
+	<td>Your data has been saved. You can continue entering/editing data now or return at a later time.</td>
+</tr>
+</tbody></table>
+</body>
+</html>

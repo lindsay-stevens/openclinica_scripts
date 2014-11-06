@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://webcrf.kirby.unsw.edu.au/" />
+<title>AEEVENT</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AEEVENT</td></tr>
+</thead><tbody>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[img/@src=&quot;images/bt_EnterData.gif&quot; and ancestor::tr/td/text()[contains(.,&quot;Adverse Events/SAE&quot;)]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'1 AE')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>label</td>
+	<td>ae_section</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=1]</td>
+	<td>Nose ache</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=2]</td>
+	<td>03-Feb-2014</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=3]</td>
+	<td>05-Feb-2014</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=4]</td>
+	<td>Moderate</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=5]</td>
+	<td>none</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>//*[@tabindex=5]</td>
+	<td>other, specify</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=6]</td>
+	<td>other action</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=7]</td>
+	<td>Unrelated</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=8]</td>
+	<td>Resolved</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=9]</td>
+	<td>No</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>//td[@class=&quot;crfHeaderTabs&quot; and not(descendant::a)]//span[@class=&quot;tabtext&quot;]</td>
+	<td>current_ae_parse</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>javascript{Number(storedVars['current_ae_parse'].substr(0,storedVars['current_ae_parse'].indexOf(' AE')))}</td>
+	<td>current_ae</td>
+</tr>
+<tr>
+	<td>gotoIf</td>
+	<td>javascript{storedVars['current_ae']==50}</td>
+	<td>ae_exit</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>//td[@class=&quot;crfHeaderTabs&quot; and not(descendant::a)]//span[@class=&quot;tabtext&quot;]</td>
+	<td>next_ae_parse</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>javascript{Number(storedVars['next_ae_parse'].substr(0,storedVars['next_ae_parse'].indexOf(' AE')))}</td>
+	<td>next_ae</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>${current_ae}+1</td>
+	<td>${next_ae}</td>
+</tr>
+<tr>
+	<td>gotoIf</td>
+	<td>javascript{storedVars['next_ae']&lt;=50}</td>
+	<td>ae_section</td>
+</tr>
+<tr>
+	<td>label</td>
+	<td>ae_exit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@class=&quot;sidebar_tab_content&quot;]//div[@class=&quot;alert&quot;]</td>
+	<td>Your data has been saved. You can continue entering/editing data now or return at a later time.</td>
+</tr>
+</tbody></table>
+</body>
+</html>

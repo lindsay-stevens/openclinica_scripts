@@ -1,0 +1,394 @@
+<!-- Replace all # with the AE number. Replace all % with the AE Number + 1 -->
+<RuleImport>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_AE#EVNT</Target>
+        <RuleRef OID="AE#EVENT">
+            <ShowAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="false" Batch="false" ImportDataEntry="false"/>
+                <Message>Please complete these fields</Message>
+                <DestinationProperty OID ="IG_K1002_AE%_"/>
+            </ShowAction>
+        </RuleRef>
+        <RuleRef OID="INS#AE_NO">
+            <InsertAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="false" Batch="false" ImportDataEntry="false"/>
+                <DestinationProperty OID="IG_K1002_AE_LIST[#].I_K1002_AE_NO" Value="#"/>
+            </InsertAction>
+        </RuleRef>
+        <RuleRef OID="INS#AE">
+            <InsertAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="false" Batch="false" ImportDataEntry="false"/>
+                <DestinationProperty OID="IG_K1002_AE_LIST[#].I_K1002_AE_NAME" >
+                    <ValueExpression>I_K1002_AE#EVNT</ValueExpression>
+                </DestinationProperty>
+            </InsertAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_AE#STDT</Target>
+        <RuleRef OID="AE#_START_DT">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>AE onset date: AE onset date should not be in the future. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="AE#_START_DT2">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>AE onset date: Onset date should not be prior to baseline visit date. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="AE#_START_DT3">
+            <InsertAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="false" Batch="false" ImportDataEntry="false"/>
+                <DestinationProperty OID="IG_K1002_AE_LIST[#].I_K1002_AE_START" >
+                    <ValueExpression>I_K1002_AE#STDT</ValueExpression>
+                </DestinationProperty>
+            </InsertAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_AE#SPDT</Target>
+        <RuleRef OID="AE#_STP_DT">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>AE stop date: Stop date should not be in the future. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="AE#_STP_DT2">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>AE stop date: Stop date should not be prior to onset date of AE. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="AE#_STP_DT3">
+            <InsertAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="false" Batch="false" ImportDataEntry="false"/>
+                <DestinationProperty OID="IG_K1002_AE_LIST[#].I_K1002_AE_STOP" >
+                    <ValueExpression>I_K1002_AE#SPDT</ValueExpression>
+                </DestinationProperty>
+            </InsertAction>
+        </RuleRef>
+        <RuleRef OID="AE#_STP_DT4">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>AE stop date: Outcome is answered resolved but stop date is empty. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="AE#_STP_DT5">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>AE stop date: AE outcome was answered unresolved but stop date is complete. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_AE#OTC</Target>
+        <RuleRef OID="AE#OTC1">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>AE Outcome: AE stop date was completed but AE outcome is empty. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_AE#SAE</Target>
+        <RuleRef OID="AE#_SAE_EMAIL">
+            <EmailAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="false"  Batch="false"  ImportDataEntry="false"/>
+                <Message>SAE NOTIFICATION: You must notify the Project Coordinator/Study Monitor within 24 hours of knowledge of this SAE and complete and fax the SAE form.Please confirm this is a SAE by pressing the Save button. </Message>
+                <To>lmaire@kirby.unsw.edu.au,byeung@kirby.unsw.edu.au</To>
+            </EmailAction>
+        </RuleRef>
+        <RuleRef OID="AE#_SAE_SHW">
+            <ShowAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="false" Batch="false" ImportDataEntry="false"/>
+                <Message>Please complete these fields</Message>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#ONS"/>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#STP"/>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#TYP"/>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#CAU"/>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#OTC"/>
+            </ShowAction>
+            <HideAction IfExpressionEvaluates="false">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="false" Batch="false" ImportDataEntry="false"/>
+                <Message>Please delete information for these fields as they should not have been shown</Message>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#ONS"/>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#STP"/>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#TYP"/>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#CAU"/>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#OTC"/>
+            </HideAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_SAE#ONS</Target>
+        <RuleRef OID="SAE#_SRT_DT">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE onset date: SAE Onset date should not be in the future. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#_SRT_DT2">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE onset date: Onset date should not be prior to onset date of AE. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#_SRT_DT3">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE onset date: SAE was answered yes but onset date is empty. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#_SRT_DT4">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE onset date: SAE was answered no but onset date is complete. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_SAE#STP</Target>
+        <RuleRef OID="SAE#_STP_DT">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE Stop date: SAE stop date should not be in the future. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#_STP_DT2">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE Stop date: SAE stop date should not be prior to onset date of SAE. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#_STP_DT3">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE stop date: SAE was answered yes and outcome answered resolved but stop date is empty. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#_STP_DT4">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE stop date: SAE outcome was answered persisting but stop date is complete. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#_STP_DT5">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE stop date: SAE was answered no but stop date is complete. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_SAE#TYP</Target>
+        <RuleRef OID="SAE#_TYPE_FATAL">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE Type: SAE Type is fatal please complete the death notification form in the Termination Event. A discrepancy note will be logged, please respond to the discrepency note once you have completed the death notificaiton form.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#TYP1">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE type: SAE was answered yes but SAE type is empty. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#TYP2">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE type: SAE was answered no but SAE type is complete. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_SAE#CAU</Target>
+        <RuleRef OID="SAE#CAU_SHW">
+            <ShowAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="false" Batch="false" ImportDataEntry="false"/>
+                <Message>Please complete these fields</Message>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#CAS"/>
+            </ShowAction>
+            <HideAction IfExpressionEvaluates="false">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="false" Batch="false" ImportDataEntry="false"/>
+                <Message>Please delete information for these fields as they should not have been shown</Message>
+                <DestinationProperty OID ="IG_K1002_AE#_.I_K1002_SAE#CAS"/>
+            </HideAction>
+        </RuleRef>
+        <RuleRef OID="SAE#CAU1">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE cause: SAE was answered yes but SAE cause is empty. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#CAU2">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE cause: SAE was answered no but SAE cause is complete. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_SAE#CAS</Target>
+        <RuleRef OID="SAE#_CAUSESP">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE Cause specify: SAE Cause response required information to be specified.Please review and enter information in specify field or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#_CAUSESP2">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE Cause specify: Information has been entered in the specify filed, however it is not required.Please review and amend specify field or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleAssignment>
+        <Target>SE_V1002_ADVERSEEVENTS.F_K1002_ADVERS.IG_K1002_AE#_.I_K1002_SAE#OTC</Target>
+        <RuleRef OID="SAE#OTC1">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE Outcome: SAE stop date was completed but SAE outcome is empty. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+        <RuleRef OID="SAE#OTC2">
+            <DiscrepancyNoteAction IfExpressionEvaluates="true">
+                <Run AdministrativeDataEntry="true" InitialDataEntry="true" DoubleDataEntry="true" ImportDataEntry="true" Batch="true" />
+                <Message>SAE Outcome: SAE was answered no but SAE outcome is complete. Please review and amend or press save and a discrepancy note will be logged.</Message>
+            </DiscrepancyNoteAction>
+        </RuleRef>
+    </RuleAssignment>
+    <RuleDef OID="AE#EVENT" Name="AE#EVENT">
+        <Description>Show next AE page if AE event not empty</Description>
+        <Expression>I_K1002_AE#EVNT ne ""</Expression>
+    </RuleDef>
+    <RuleDef OID="INS#AE_NO" Name="INS#AE_NO">
+        <Description>If AE event not empty then add page number to summary page</Description>
+        <Expression>I_K1002_AE#EVNT ne ""</Expression>
+    </RuleDef>
+    <RuleDef OID="INS#AE" Name="INS#AE">
+        <Description>If AE event not empty then add event name to summary page</Description>
+        <Expression>I_K1002_AE#EVNT ne "" or I_K1002_AE#EVNT eq ""</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#_START_DT" Name="AE#_START_DT">
+        <Description>AE start date can not be in the future</Description>
+        <Expression>I_K1002_AE#STDT gt _CURRENT_DATE</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#_START_DT2" Name="AE#_START_DT2">
+        <Description>AE start date can not be prior to baseline</Description>
+        <Expression>I_K1002_AE#STDT lt SE_V1002_BASELINE.F_V1002_VISIT.IG_V1002_LABORATORY.I_V1002_VISIT_DT</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#_START_DT3" Name="AE#_START_DT3">
+        <Description>If AE Start date not empty then add to summary page</Description>
+        <Expression>I_K1002_AE#EVNT ne "" or I_K1002_AE#EVNT eq ""</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#_STP_DT" Name="AE#_STP_DT">
+        <Description>AE stop date can not be in the future</Description>
+        <Expression>I_K1002_AE#SPDT gt _CURRENT_DATE</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#_STP_DT2" Name="AE#_STP_DT2">
+        <Description>AE stop date can not be prior to onset date</Description>
+        <Expression>I_K1002_AE#SPDT lt I_K1002_AE#STDT</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#_STP_DT3" Name="AE#_STP_DT3">
+        <Description>If AE stop date not empty then add to summary page</Description>
+        <Expression>I_K1002_AE#EVNT ne "" or I_K1002_AE#EVNT eq ""</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#_STP_DT4" Name="AE#_STP_DT4">
+        <Description>SAE stop date not answered and outcome is resolved</Description>
+        <Expression>I_K1002_AE#SPDT eq "" and I_K1002_AE#OTC eq 1</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#_STP_DT5" Name="AE#_STP_DT5">
+        <Description>SAE stop date answered and outcome is unresolved</Description>
+        <Expression>I_K1002_AE#SPDT ne "" and I_K1002_AE#OTC eq 2</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#OTC1" Name="AE#OTC1">
+        <Description>AE stop date answered and outcome is unanswered</Description>
+        <Expression>I_K1002_AE#SPDT ne "" and I_K1002_AE#OTC eq ""</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#_SAE_EMAIL" Name="AE_SAE_EMAIL">
+        <Description>SAE Email notification</Description>
+        <Expression>I_K1002_AE#SAE eq 1</Expression>
+    </RuleDef>
+    <RuleDef OID="AE#_SAE_SHW" Name="AE#_SAE_SHW">
+        <Description>Show onset date if SAE equals yes</Description>
+        <Expression>I_K1002_AE#SAE eq 1</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_SRT_DT" Name="AE_STP_DT">
+        <Description>SAE onset date can not be in the future</Description>
+        <Expression>I_K1002_SAE#ONS gt _CURRENT_DATE</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_SRT_DT2" Name="AE_STP_DT2">
+        <Description>SAE Onset date can not be prior to AE onset date</Description>
+        <Expression>I_K1002_SAE#ONS lt I_K1002_AE#STDT</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_SRT_DT3" Name="SAE#_SRT_DT3">
+        <Description>SAE onset date not answered and SAE is yes</Description>
+        <Expression>I_K1002_SAE#ONS eq "" and I_K1002_AE#SAE eq 1</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_SRT_DT4" Name="SAE#_SRT_DT4">
+        <Description>SAE onset date answered and SAE is no</Description>
+        <Expression>I_K1002_SAE#ONS ne "" and I_K1002_AE#SAE eq 0</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_STP_DT" Name="SAE_STP_DT">
+        <Description>SAE stop date can not be in the future</Description>
+        <Expression>I_K1002_SAE#STP gt _CURRENT_DATE</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_STP_DT2" Name="SAE_STP_DT2">
+        <Description>SAE stop date can not be prior to SAE onset date</Description>
+        <Expression>I_K1002_SAE#STP lt I_K1002_SAE#ONS</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_STP_DT3" Name="SAE#_STP_DT3">
+        <Description>SAE stop date not answered and SAE is yes and outcome is resolved</Description>
+        <Expression>I_K1002_SAE#STP eq "" and I_K1002_AE#SAE eq 1  and I_K1002_SAE#OTC eq 2</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_STP_DT4" Name="SAE#_STP_DT4">
+        <Description>SAE stop date answered and SAE is yes and outcome is persisting</Description>
+        <Expression>I_K1002_SAE#STP ne "" and I_K1002_AE#SAE eq 1  and I_K1002_SAE#OTC eq 5</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_STP_DT5" Name="SAE#_STP_DT5">
+        <Description>SAE stop date answered and SAE is no</Description>
+        <Expression>I_K1002_SAE#STP ne "" and I_K1002_AE#SAE eq 0</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_TYPE_FATAL" Name="SAE_TYPE_FATAL">
+        <Description>If fatal entered into SAE type then Death notification needs to be entered</Description>
+        <Expression>I_K1002_SAE#TYP eq 1 and SE_V1002_TERMINATION.F_U1002_STUDYT.IG_U1002_STUDY_TERMINATION.I_U1002_DEATH_DT eq ""</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#TYP1" Name="SAE#TYP1">
+        <Description>SAE type not answered and SAE is yes</Description>
+        <Expression>I_K1002_SAE#TYP eq "" and I_K1002_AE#SAE eq 1</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#TYP2" Name="SAE#TYP2">
+        <Description>SAE type answered and SAE is no</Description>
+        <Expression>I_K1002_SAE#TYP ne "" and I_K1002_AE#SAE eq 0</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#CAU_SHW" Name="SAE#CAU_SHW">
+        <Description>If specify in SAE cause field Specify field should be shown</Description>
+        <Expression>I_K1002_SAE#CAU eq 2 or I_K1002_SAE#CAU eq 3 or I_K1002_SAE#CAU eq 4 or I_K1002_SAE#CAU eq 77</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#CAU1" Name="SAE#CAU1">
+        <Description>SAE cause not answered and SAE is yes</Description>
+        <Expression>I_K1002_SAE#CAU eq "" and I_K1002_AE#SAE eq 1</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#CAU2" Name="SAE#CAU2">
+        <Description>SAE cause answered and SAE is no</Description>
+        <Expression>I_K1002_SAE#CAU ne "" and I_K1002_AE#SAE eq 0</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_CAUSESP" Name="SAE_CAUSESP">
+        <Description>If specify in SAE cause field Specify field should be answered</Description>
+        <Expression>(I_K1002_SAE#CAU eq 2 or I_K1002_SAE#CAU eq 3 or I_K1002_SAE#CAU eq 4 or I_K1002_SAE#CAU eq 77) and I_K1002_SAE#CAS eq ""</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#_CAUSESP2" Name="SAE_CAUSESP2">
+        <Description>If not specify in SAE cause fieldSpecify field should not be answered</Description>
+        <Expression>I_K1002_SAE#CAU eq 1 and I_K1002_SAE#CAS ne ""</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#OTC1" Name="SAE#OTC1">
+        <Description>SAE outcome empty stop date completed and SAE is yes</Description>
+        <Expression>I_K1002_SAE#OTC eq "" and I_K1002_SAE#STP ne "" and I_K1002_AE#SAE eq 1</Expression>
+    </RuleDef>
+    <RuleDef OID="SAE#OTC2" Name="SAE#OTC2">
+        <Description>SAE was answered no but SAE outcome is complete</Description>
+        <Expression>I_K1002_SAE#OTC ne "" and I_K1002_AE#SAE eq 0</Expression>
+    </RuleDef>
+</RuleImport>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://webcrf.kirby.unsw.edu.au/" />
+<title>AE_SAE_EMAIL</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AE_SAE_EMAIL</td></tr>
+</thead><tbody>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[img/@src=&quot;images/bt_EnterData.gif&quot; and ancestor::tr/td/text()[contains(.,&quot;Adverse Events/SAE&quot;)]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'1 AE')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>label</td>
+	<td>ae_section</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=1]</td>
+	<td>Toe ache</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=2]</td>
+	<td>javascript{Date.prototype.addDays = function (days) {var dat = new Date(this.valueOf());&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dat.setDate(dat.getDate() + days); return dat; }; var dat = new Date(); dat.addDays(20).toLocaleFormat('%d-%b-%Y');}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=3]</td>
+	<td>javascript{Date.prototype.addDays = function (days) {var dat = new Date(this.valueOf());&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dat.setDate(dat.getDate() + days); return dat; }; var dat = new Date(); dat.addDays(19).toLocaleFormat('%d-%b-%Y');}</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=4]</td>
+	<td>Moderate</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=5]</td>
+	<td>none</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>//*[@tabindex=5]</td>
+	<td>other, specify</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=6]</td>
+	<td>other outcome</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=7]</td>
+	<td>Unrelated</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=8]</td>
+	<td>Resolved</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=9]</td>
+	<td>Yes</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>//td[@class=&quot;crfHeaderTabs&quot; and not(descendant::a)]//span[@class=&quot;tabtext&quot;]</td>
+	<td>current_ae_parse</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>javascript{Number(storedVars['current_ae_parse'].substr(0,storedVars['current_ae_parse'].indexOf(' AE')))}</td>
+	<td>current_ae</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE NOTIFICATION: You must notify the Project Coordinator/Study Monitor within 24 hours of knowledge of this SAE and complete and fax the SAE form.Please confirm this is a SAE by pressing the Save button.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*AE onset date: AE onset date should not be in the future. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*AE stop date: Stop date should not be in the future. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*AE stop date: Stop date should not be prior to onset date of AE. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=10]</td>
+	<td>javascript{Date.prototype.addDays = function (days) {var dat = new Date(this.valueOf());&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dat.setDate(dat.getDate() + days); return dat; }; var dat = new Date(); dat.addDays(10).toLocaleFormat('%d-%b-%Y');}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=11]</td>
+	<td>javascript{Date.prototype.addDays = function (days) {var dat = new Date(this.valueOf());&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dat.setDate(dat.getDate() + days); return dat; }; var dat = new Date(); dat.addDays(9).toLocaleFormat('%d-%b-%Y');}</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=12]</td>
+	<td>Is medically significant or requires intervention to prevent one or other of the outcomes listed above ,specify condition</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//*[@tabindex=13]</td>
+	<td>Soreness</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=14]</td>
+	<td>Pre-existing/ underlying disease</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//*[@tabindex=16]</td>
+	<td>Resolved</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE onset date: SAE Onset date should not be in the future. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE onset date: Onset date should not be prior to onset date of AE. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE Stop date: SAE stop date should not be in the future. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id=&quot;errorMessagesContainer&quot;]</td>
+	<td>*SAE Stop date: SAE stop date should not be prior to onset date of SAE. Please review and amend or press save and a discrepancy note will be logged.*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=srl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>gotoIf</td>
+	<td>javascript{storedVars['current_ae']==50}</td>
+	<td>ae_exit</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>//td[@class=&quot;crfHeaderTabs&quot; and not(descendant::a)]//span[@class=&quot;tabtext&quot;]</td>
+	<td>next_ae_parse</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>javascript{Number(storedVars['next_ae_parse'].substr(0,storedVars['next_ae_parse'].indexOf(' AE')))}</td>
+	<td>next_ae</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>${current_ae}+1</td>
+	<td>${next_ae}</td>
+</tr>
+<tr>
+	<td>gotoIf</td>
+	<td>javascript{storedVars['next_ae']&lt;=50}</td>
+	<td>ae_section</td>
+</tr>
+<tr>
+	<td>label</td>
+	<td>ae_exit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@class=&quot;sidebar_tab_content&quot;]//div[@class=&quot;alert&quot;]</td>
+	<td>Your data has been saved. You can continue entering/editing data now or return at a later time.</td>
+</tr>
+</tbody></table>
+</body>
+</html>
