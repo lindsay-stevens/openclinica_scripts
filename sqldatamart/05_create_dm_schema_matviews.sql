@@ -12,12 +12,9 @@ USING BTREE
 (user_id);
 
 /* make a new schema for the tables to go in */
-
-DROP SCHEMA IF EXISTS dm CASCADE;
 CREATE SCHEMA dm;
 
 /* response sets to rows */
-
 CREATE MATERIALIZED VIEW dm.response_sets AS
 
   SELECT
@@ -66,6 +63,226 @@ CREATE MATERIALIZED VIEW dm.response_sets AS
 
 
 ANALYZE dm.response_sets;
+
+/* metadata without items for multi values */
+
+CREATE MATERIALIZED VIEW dm.metadata_no_multi AS
+  SELECT
+    *
+  FROM (
+
+         SELECT
+             (CASE
+              WHEN parents.name IS NOT NULL
+              THEN parents.name
+              ELSE study.name
+              END)                     AS study_name
+           , study.oc_oid              AS site_oid
+           , study.name                AS site_name
+           , sed.oc_oid                AS event_oid
+           , sed.ordinal               AS event_order
+           , sed.name                  AS event_name
+           , sed.repeating             AS event_repeating
+           , crf.oc_oid                AS crf_parent_oid
+           , crf.name                  AS crf_parent_name
+           , cv.name                   AS crf_version
+           , cv.oc_oid                 AS crf_version_oid
+           , edc.required_crf          AS crf_is_required
+           , edc.double_entry          AS crf_is_double_entry
+           , edc.hide_crf              AS crf_is_hidden
+           , edc.null_values           AS crf_null_values
+           , sct.label                 AS crf_section_label
+           , sct.title                 AS crf_section_title
+           , ig.oc_oid                 AS item_group_oid
+           , ig.name                   AS item_group_name
+           , ifm.ordinal               AS item_form_order
+           , i.oc_oid                  AS item_oid
+           , i.units                   AS item_units
+           , idt.code                  AS item_data_type
+           , rt.name                   AS item_response_type
+           , (CASE
+              WHEN rs.label IN ('text', 'textarea')
+              THEN NULL
+              ELSE rs.label
+              END)                     AS item_response_set_label
+           , rs.response_set_id        AS item_response_set_id
+           , rs.version_id             AS item_response_set_version
+           , ifm.question_number_label AS item_question_number
+           , i.name                    AS item_name
+           , i.description             AS item_description
+
+         FROM study
+
+           INNER JOIN study_event_definition AS sed
+             ON sed.study_id = study.study_id
+
+           INNER JOIN event_definition_crf AS edc
+             ON edc.study_event_definition_id = sed.study_event_definition_id
+
+           INNER JOIN crf_version AS cv
+             ON cv.crf_id = edc.crf_id
+
+           INNER JOIN crf
+             ON crf.crf_id = cv.crf_id
+                AND crf.crf_id = edc.crf_id
+
+           INNER JOIN item_group AS ig
+             ON ig.crf_id = crf.crf_id
+
+           INNER JOIN item_group_metadata AS igm
+             ON igm.item_group_id = ig.item_group_id
+                AND igm.crf_version_id = cv.crf_version_id
+
+           INNER JOIN item_form_metadata AS ifm
+             ON cv.crf_version_id = ifm.crf_version_id
+
+           INNER JOIN "section" AS sct
+             ON sct.crf_version_id = cv.crf_version_id
+                AND sct.section_id = ifm.section_id
+
+           INNER JOIN response_set AS rs
+             ON rs.response_set_id = ifm.response_set_id
+                AND rs.version_id = ifm.crf_version_id
+
+           INNER JOIN response_type AS rt
+             ON rs.response_type_id = rt.response_type_id
+
+           INNER JOIN item AS i
+             ON i.item_id = ifm.item_id
+                AND i.item_id = igm.item_id
+
+           INNER JOIN item_data_type AS idt
+             ON idt.item_data_type_id = i.item_data_type_id
+
+           LEFT JOIN (
+                       SELECT
+                         study.study_id
+                         , study.oc_oid
+                         , study.name
+                       FROM study) AS parents
+             ON parents.study_id = study.parent_study_id
+
+         WHERE edc.parent_id IS NULL
+               AND study.status_id NOT IN (5, 7) --removed, auto-removed
+               AND sed.status_id NOT IN (5, 7)
+               AND edc.status_id NOT IN (5, 7)
+               AND cv.status_id NOT IN (5, 7)
+               AND crf.status_id NOT IN (5, 7)
+               AND ig.status_id NOT IN (5, 7)
+               AND i.status_id NOT IN (5, 7)
+               AND sct.status_id NOT IN (5, 7)) AS metadata_no_multi_src;
+
+ANALYZE dm.metadata_no_multi;
+
+/* metadata with items for multi values */
+
+CREATE MATERIALIZED VIEW dm.metadata AS
+  SELECT
+    *
+  FROM (
+         SELECT
+           metadata_no_multi.study_name
+           , metadata_no_multi.site_oid
+           , metadata_no_multi.site_name
+           , metadata_no_multi.event_oid
+           , metadata_no_multi.event_order
+           , metadata_no_multi.event_name
+           , metadata_no_multi.event_repeating
+           , metadata_no_multi.crf_parent_oid
+           , metadata_no_multi.crf_parent_name
+           , metadata_no_multi.crf_version
+           , metadata_no_multi.crf_version_oid
+           , metadata_no_multi.crf_is_required
+           , metadata_no_multi.crf_is_double_entry
+           , metadata_no_multi.crf_is_hidden
+           , metadata_no_multi.crf_null_values
+           , CAST(metadata_no_multi.crf_section_label AS VARCHAR(255))
+           , /* stored as 2000 but isn't */
+           metadata_no_multi.crf_section_title
+           , metadata_no_multi.item_group_oid
+           , metadata_no_multi.item_group_name
+           , metadata_no_multi.item_form_order
+           , CASE
+             WHEN metadata_no_multi.item_response_type NOT IN
+                  ('multi-select', 'checkbox')
+             THEN metadata_no_multi.item_oid
+             WHEN metadata_no_multi.item_response_type IN
+                  ('multi-select', 'checkbox')
+             THEN mv.item_oid
+             ELSE 'unhandled'
+             END AS item_oid
+           , metadata_no_multi.item_units
+           , metadata_no_multi.item_data_type
+           , metadata_no_multi.item_response_type
+           , metadata_no_multi.item_response_set_label
+           , metadata_no_multi.item_response_set_id
+           , metadata_no_multi.item_response_set_version
+           , metadata_no_multi.item_question_number
+           , CASE
+             WHEN metadata_no_multi.item_response_type NOT IN
+                  ('multi-select', 'checkbox')
+             THEN metadata_no_multi.item_name
+             WHEN metadata_no_multi.item_response_type IN
+                  ('multi-select', 'checkbox')
+             THEN mv.item_name
+             ELSE 'unhandled'
+             END AS item_name
+           , metadata_no_multi.item_description
+         FROM dm.metadata_no_multi
+           LEFT JOIN (SELECT
+                          mnm.item_oid                          AS item_oid_orig
+                        , mnm.item_oid || '_' ||
+                          dm.response_sets.options_values_split AS item_oid
+                        , mnm.item_name || '_' ||
+                          dm.response_sets.options_values_split AS item_name
+                      FROM dm.response_sets
+                        LEFT JOIN (
+                                    SELECT
+                                      DISTINCT ON (dm.metadata_no_multi.item_oid)
+                                      dm.metadata_no_multi.item_oid
+                                      , dm.metadata_no_multi.item_name
+                                      , dm.metadata_no_multi.item_response_set_id
+                                      , dm.metadata_no_multi.item_response_set_version
+                                    FROM dm.metadata_no_multi
+                                    WHERE
+                                      dm.metadata_no_multi.item_response_type
+                                      IN ('multi-select', 'checkbox')) AS mnm
+                          ON mnm.item_response_set_id =
+                             dm.response_sets.response_set_id
+                             AND mnm.item_response_set_version =
+                                 dm.response_sets.version_id
+                      UNION ALL
+                      SELECT DISTINCT ON (dm.metadata_no_multi.item_oid)
+                        dm.metadata_no_multi.item_oid AS item_oid_orig
+                        , dm.metadata_no_multi.item_oid
+                        , dm.metadata_no_multi.item_name
+                      FROM dm.metadata_no_multi
+                      WHERE dm.metadata_no_multi.item_response_type IN
+                            ('multi-select', 'checkbox')) AS mv
+             ON mv.item_oid_orig = metadata_no_multi.item_oid) AS metadata_src;
+
+ANALYZE dm.metadata;
+
+/* metadata, showing event and crf info only */
+CREATE MATERIALIZED VIEW dm.metadata_event_crf_ig AS
+SELECT DISTINCT ON (study_name, event_oid, crf_version_oid)
+  study_name, site_oid, site_name, event_oid, event_order, event_name,
+       event_repeating, crf_parent_oid, crf_parent_name, crf_version,
+       crf_version_oid, crf_is_required, crf_is_double_entry, crf_is_hidden,
+       crf_null_values, crf_section_label, crf_section_title, item_group_oid,
+       item_group_name
+  FROM dm.metadata;
+
+/* metadata, showing crf and item info only */
+CREATE MATERIALIZED VIEW dm.metadata_crf_ig_item AS
+SELECT DISTINCT  ON (study_name, crf_version_oid, item_oid)
+  study_name, site_oid, site_name, crf_parent_oid, crf_parent_name, crf_version,
+       crf_version_oid, crf_is_required, crf_is_double_entry, crf_is_hidden,
+       crf_null_values, crf_section_label, crf_section_title, item_group_oid,
+       item_group_name, item_form_order, item_oid, item_units, item_data_type,
+       item_response_type, item_response_set_label, item_response_set_id,
+       item_response_set_version, item_question_number, item_name, item_description
+  FROM dm.metadata;
 
 /* clinicaldata */
 
@@ -320,7 +537,7 @@ CREATE MATERIALIZED VIEW dm.clinicaldata AS
     LEFT JOIN dm.response_sets
       ON response_sets.response_set_id = rs.response_set_id
          AND response_sets.version_id = rs.version_id
-         AND response_sets.options_values_split = id.value
+         AND (response_sets.options_values_split = id.value OR response_sets.options_values_split = multi_split.split_value)
          AND id.value != ''
 
     LEFT JOIN user_account ua_ss_o
@@ -418,226 +635,6 @@ USING BTREE
 (study_name, item_group_oid);
 
 ANALYZE dm.clinicaldata;
-
-/* metadata without items for multi values */
-
-CREATE MATERIALIZED VIEW dm.metadata_no_multi AS
-  SELECT
-    *
-  FROM (
-
-         SELECT
-             (CASE
-              WHEN parents.name IS NOT NULL
-              THEN parents.name
-              ELSE study.name
-              END)                     AS study_name
-           , study.oc_oid              AS site_oid
-           , study.name                AS site_name
-           , sed.oc_oid                AS event_oid
-           , sed.ordinal               AS event_order
-           , sed.name                  AS event_name
-           , sed.repeating             AS event_repeating
-           , crf.oc_oid                AS crf_parent_oid
-           , crf.name                  AS crf_parent_name
-           , cv.name                   AS crf_version
-           , cv.oc_oid                 AS crf_version_oid
-           , edc.required_crf          AS crf_is_required
-           , edc.double_entry          AS crf_is_double_entry
-           , edc.hide_crf              AS crf_is_hidden
-           , edc.null_values           AS crf_null_values
-           , sct.label                 AS crf_section_label
-           , sct.title                 AS crf_section_title
-           , ig.oc_oid                 AS item_group_oid
-           , ig.name                   AS item_group_name
-           , ifm.ordinal               AS item_form_order
-           , i.oc_oid                  AS item_oid
-           , i.units                   AS item_units
-           , idt.code                  AS item_data_type
-           , rt.name                   AS item_response_type
-           , (CASE
-              WHEN rs.label IN ('text', 'textarea')
-              THEN NULL
-              ELSE rs.label
-              END)                     AS item_response_set_label
-           , rs.response_set_id        AS item_response_set_id
-           , rs.version_id             AS item_response_set_version
-           , ifm.question_number_label AS item_question_number
-           , i.name                    AS item_name
-           , i.description             AS item_description
-
-         FROM study
-
-           INNER JOIN study_event_definition AS sed
-             ON sed.study_id = study.study_id
-
-           INNER JOIN event_definition_crf AS edc
-             ON edc.study_event_definition_id = sed.study_event_definition_id
-
-           INNER JOIN crf_version AS cv
-             ON cv.crf_id = edc.crf_id
-
-           INNER JOIN crf
-             ON crf.crf_id = cv.crf_id
-                AND crf.crf_id = edc.crf_id
-
-           INNER JOIN item_group AS ig
-             ON ig.crf_id = crf.crf_id
-
-           INNER JOIN item_group_metadata AS igm
-             ON igm.item_group_id = ig.item_group_id
-                AND igm.crf_version_id = cv.crf_version_id
-
-           INNER JOIN item_form_metadata AS ifm
-             ON cv.crf_version_id = ifm.crf_version_id
-
-           INNER JOIN "section" AS sct
-             ON sct.crf_version_id = cv.crf_version_id
-                AND sct.section_id = ifm.section_id
-
-           INNER JOIN response_set AS rs
-             ON rs.response_set_id = ifm.response_set_id
-                AND rs.version_id = ifm.crf_version_id
-
-           INNER JOIN response_type AS rt
-             ON rs.response_type_id = rt.response_type_id
-
-           INNER JOIN item AS i
-             ON i.item_id = ifm.item_id
-                AND i.item_id = igm.item_id
-
-           INNER JOIN item_data_type AS idt
-             ON idt.item_data_type_id = i.item_data_type_id
-
-           LEFT JOIN (
-                       SELECT
-                         study.study_id
-                         , study.oc_oid
-                         , study.name
-                       FROM study) AS parents
-             ON parents.study_id = study.parent_study_id
-
-         WHERE edc.parent_id IS NULL
-               AND study.status_id NOT IN (5, 7) --removed, auto-removed
-               AND sed.status_id NOT IN (5, 7)
-               AND edc.status_id NOT IN (5, 7)
-               AND cv.status_id NOT IN (5, 7)
-               AND crf.status_id NOT IN (5, 7)
-               AND ig.status_id NOT IN (5, 7)
-               AND i.status_id NOT IN (5, 7)
-               AND sct.status_id NOT IN (5, 7)) AS metadata_no_multi_src;
-
-ANALYZE dm.metadata_no_multi;
-
-/* metadata with items for multi values */
-
-CREATE MATERIALIZED VIEW dm.metadata AS
-  SELECT
-    *
-  FROM (
-         SELECT
-           metadata_no_multi.study_name
-           , metadata_no_multi.site_oid
-           , metadata_no_multi.site_name
-           , metadata_no_multi.event_oid
-           , metadata_no_multi.event_order
-           , metadata_no_multi.event_name
-           , metadata_no_multi.event_repeating
-           , metadata_no_multi.crf_parent_oid
-           , metadata_no_multi.crf_parent_name
-           , metadata_no_multi.crf_version
-           , metadata_no_multi.crf_version_oid
-           , metadata_no_multi.crf_is_required
-           , metadata_no_multi.crf_is_double_entry
-           , metadata_no_multi.crf_is_hidden
-           , metadata_no_multi.crf_null_values
-           , CAST(metadata_no_multi.crf_section_label AS VARCHAR(255))
-           , /* stored as 2000 but isn't */
-           metadata_no_multi.crf_section_title
-           , metadata_no_multi.item_group_oid
-           , metadata_no_multi.item_group_name
-           , metadata_no_multi.item_form_order
-           , CASE
-             WHEN metadata_no_multi.item_response_type NOT IN
-                  ('multi-select', 'checkbox')
-             THEN metadata_no_multi.item_oid
-             WHEN metadata_no_multi.item_response_type IN
-                  ('multi-select', 'checkbox')
-             THEN mv.item_oid
-             ELSE 'unhandled'
-             END AS item_oid
-           , metadata_no_multi.item_units
-           , metadata_no_multi.item_data_type
-           , metadata_no_multi.item_response_type
-           , metadata_no_multi.item_response_set_label
-           , metadata_no_multi.item_response_set_id
-           , metadata_no_multi.item_response_set_version
-           , metadata_no_multi.item_question_number
-           , CASE
-             WHEN metadata_no_multi.item_response_type NOT IN
-                  ('multi-select', 'checkbox')
-             THEN metadata_no_multi.item_name
-             WHEN metadata_no_multi.item_response_type IN
-                  ('multi-select', 'checkbox')
-             THEN mv.item_name
-             ELSE 'unhandled'
-             END AS item_name
-           , metadata_no_multi.item_description
-         FROM dm.metadata_no_multi
-           LEFT JOIN (SELECT
-                          mnm.item_oid                          AS item_oid_orig
-                        , mnm.item_oid || '_' ||
-                          dm.response_sets.options_values_split AS item_oid
-                        , mnm.item_name || '_' ||
-                          dm.response_sets.options_values_split AS item_name
-                      FROM dm.response_sets
-                        LEFT JOIN (
-                                    SELECT
-                                      DISTINCT ON (dm.metadata_no_multi.item_oid)
-                                      dm.metadata_no_multi.item_oid
-                                      , dm.metadata_no_multi.item_name
-                                      , dm.metadata_no_multi.item_response_set_id
-                                      , dm.metadata_no_multi.item_response_set_version
-                                    FROM dm.metadata_no_multi
-                                    WHERE
-                                      dm.metadata_no_multi.item_response_type
-                                      IN ('multi-select', 'checkbox')) AS mnm
-                          ON mnm.item_response_set_id =
-                             dm.response_sets.response_set_id
-                             AND mnm.item_response_set_version =
-                                 dm.response_sets.version_id
-                      UNION ALL
-                      SELECT DISTINCT ON (dm.metadata_no_multi.item_oid)
-                        dm.metadata_no_multi.item_oid AS item_oid_orig
-                        , dm.metadata_no_multi.item_oid
-                        , dm.metadata_no_multi.item_name
-                      FROM dm.metadata_no_multi
-                      WHERE dm.metadata_no_multi.item_response_type IN
-                            ('multi-select', 'checkbox')) AS mv
-             ON mv.item_oid_orig = metadata_no_multi.item_oid) AS metadata_src;
-
-ANALYZE dm.metadata;
-
-/* metadata, showing event and crf info only */
-CREATE MATERIALIZED VIEW metadata_event_crf_ig AS
-SELECT DISTINCT ON (study_name, event_oid, crf_version_oid)
-  study_name, site_oid, site_name, event_oid, event_order, event_name,
-       event_repeating, crf_parent_oid, crf_parent_name, crf_version,
-       crf_version_oid, crf_is_required, crf_is_double_entry, crf_is_hidden,
-       crf_null_values, crf_section_label, crf_section_title, item_group_oid,
-       item_group_name
-  FROM dm.metadata;
-
-/* metadata, showing crf and item info only */
-CREATE MATERIALIZED VIEW metadata_crf_ig_item AS
-SELECT DISTINCT  ON (study_name, crf_version_oid, item_oid)
-  study_name, site_oid, site_name, crf_parent_oid, crf_parent_name, crf_version,
-       crf_version_oid, crf_is_required, crf_is_double_entry, crf_is_hidden,
-       crf_null_values, crf_section_label, crf_section_title, item_group_oid,
-       item_group_name, item_form_order, item_oid, item_units, item_data_type,
-       item_response_type, item_response_set_label, item_response_set_id,
-       item_response_set_version, item_question_number, item_name, item_description
-  FROM dm.metadata;
 
 /* distinct subjects */
 
@@ -823,7 +820,7 @@ ANALYZE dm.subject_event_crf_join;
 
 /* discrepancy notes all */
 
-CREATE MATERIALIZED VIEW dm.discrepancy_notes_all2 AS
+CREATE MATERIALIZED VIEW dm.discrepancy_notes_all AS
   SELECT
     dn_src.discrepancy_note_id
     , dn_src.study_name

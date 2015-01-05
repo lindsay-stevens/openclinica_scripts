@@ -11,6 +11,8 @@ WITH table_list AS (
       , ('discrepancy_notes_all')
       , ('discrepancy_notes_parent')
       , ('metadata')
+      , ('metadata_event_crf_ig')
+      , ('metadata_crf_ig_item')
       , ('response_set_labels')
       , ('subject_event_crf_expected')
       , ('subject_event_crf_join')

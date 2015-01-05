@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE FUNCTION execute(TEXT)
+CREATE OR REPLACE FUNCTION execute(TEXT)
   RETURNS VOID AS $BODY$ BEGIN EXECUTE $1;
 END;$BODY$ LANGUAGE plpgsql;
 
@@ -13,8 +13,8 @@ END;$BODY$ LANGUAGE plpgsql;
 */
 WITH
     filter_study_name AS (SELECT
-                            NULL), filter_item_group AS (SELECT
-                                                           NULL), met AS (
+                            ''::text AS fsn), filter_item_group AS (SELECT
+                                                           ''::text AS fig), met AS (
     SELECT
       study_name
       , item_group_oid
@@ -35,14 +35,14 @@ WITH
                             SELECT
                               max(length(item_name))
                             FROM dm.metadata
-                            WHERE dm_meta.study_name = dm.metadata
-                            LIMIT 1) > 8
+                            WHERE dm_meta.study_name = metadata.study_name
+                            LIMIT 1) > 12
            THEN item_oid
                 WHEN (
                        SELECT
                          max(length(item_name))
                        FROM dm.metadata
-                       WHERE dm_meta.study_name = dm.metadata AND
+                       WHERE dm_meta.study_name = metadata.study_name AND
                              item_name ~ '^[0-9].+$'
                        LIMIT 1) > 0
                 THEN item_oid
@@ -57,7 +57,6 @@ WITH
                                   $$[\s]+$$,
                                   '_',
                                   'g')
-
                               ,
                               $$[^\w]$$,
                               '',
@@ -92,18 +91,16 @@ WITH
                                     '') AS s1),
                             ','))))
                         END, $$''$$) AS crf_null_values
-           FROM dm.metadata AS dm_meta
-           WHERE CASE WHEN filter_study_name IS NOT NULL THEN dm.study_name =
-                                                              filter_study_name END
-                 AND
-                 CASE WHEN filter_item_group IS NOT NULL THEN dm.study_name =
-                                                              filter_study_name END
+           FROM dm.metadata AS dm_meta, filter_study_name, filter_item_group
+          WHERE dm_meta.study_name ~ (CASE WHEN length(filter_study_name.fsn) > 0 THEN 
+                                                              fsn ELSE '.+' END) AND
+                                                              dm_meta.item_group_oid ~ (CASE WHEN length(filter_item_group.fig) > 0 THEN 
+                                                              fig ELSE '.+' END)
            GROUP BY study_name, item_group_oid, item_oid, item_name,
              item_description, item_data_type,
              item_response_set_label) AS namecheck
     GROUP BY study_name, item_group_oid, item_oid, item_name_hint,
-      item_data_type, crf_null_values
-)
+      item_data_type, crf_null_values)
 SELECT
   execute(statements.create_statements)
 FROM (
