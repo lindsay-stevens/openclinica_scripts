@@ -1,7 +1,7 @@
 -- set up a foreign data wrapper to openclinica
-create extension if not exists postgres_fdw;
-create server :FDWSERVERNAME
- foreign data wrapper postgres_fdw 
-  options (host :FDWSERVERHOST, port :FDWSERVERPORT, dbname :FDWSERVERDBNAME);
-create user mapping for public server :FDWSERVERNAME
- options (user :FDWSERVERUSER, password :FDWSERVERPASS);
+CREATE EXTENSION IF NOT EXISTS postgres_fdw;
+CREATE SERVER :FDWSERVERNAME
+FOREIGN DATA WRAPPER postgres_fdw
+OPTIONS (host :FDWSERVERHOST, port :FDWSERVERPORT, dbname :FDWSERVERDBNAME);
+CREATE USER MAPPING FOR PUBLIC SERVER :FDWSERVERNAME
+OPTIONS (USER :FDWSERVERUSER, PASSWORD :FDWSERVERPASS);
