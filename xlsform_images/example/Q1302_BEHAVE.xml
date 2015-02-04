@@ -1,0 +1,4177 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>SToP-C Enrolment Questionnaire</h:title>
+    <model>
+      <itext>
+        <translation default="true()" lang="english">
+          <text id="/Q1302_BEHAVE/reval/spgtf:label">
+            <value form="image">jr://images/spgtf_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobs:label">
+            <value form="image">jr://images/cobs_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrcl12m/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/itlr/0:label">
+            <value>Did not have HIV</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf:jr:constraintMsg">
+            <value>Expected value is one of the options selected in the previous question</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/riao/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mf:label">
+            <value form="image">jr://images/rfcl6mf_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6md/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt:label">
+            <value form="image">jr://images/rftt_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdbe/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/sdmc:label">
+            <value form="image">jr://images/sdmc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdco:label">
+            <value form="image">jr://images/il1mdco_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/1:label">
+            <value>A1</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/smaxk:label">
+            <value form="image">jr://images/smaxk_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cdyl:label">
+            <value form="image">jr://images/cdyl_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/4:label">
+            <value>B2</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttla:label">
+            <value form="image">jr://images/cttla_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdke/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmfs:label">
+            <value form="image">jr://images/il1mdmfs_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdec:label">
+            <value form="image">jr://images/il1mdec_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/riai/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cdmcp:label">
+            <value form="image">jr://images/cdmcp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcpc/2:label">
+            <value>I am unable to wash or dress myself</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/4:label">
+            <value>Methadone / subutex / buprenorphine / suboxone</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcmo/0:label">
+            <value>I have no problems in walking around</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctteg:label">
+            <value form="image">jr://images/ctteg_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcpd/2:label">
+            <value>I have extreme pain or discomfort</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mboa/1:label">
+            <value>Once or twice</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobm/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mf/3:label">
+            <value>Once a day</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrl/2:label">
+            <value>Opioid treatment / methadone clinic</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/riaf/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/7:label">
+            <value>Oxycodone</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/mls/2:label">
+            <value>SToP-C study nurse</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmo/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttlg:label">
+            <value form="image">jr://images/cttlg_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1muf/4:label">
+            <value>More than 5 times</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostds:label">
+            <value form="image">jr://images/ostds_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1muf/2:label">
+            <value>Two times</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/12:label">
+            <value>Ecstasy</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctter:label">
+            <value form="image">jr://images/ctter_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cte:label">
+            <value form="image">jr://images/cte_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttlr/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttea:label">
+            <value form="image">jr://images/cttea_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttlg/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobms:label">
+            <value form="image">jr://images/cobms_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mboa/3:label">
+            <value>More than 5 times</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcs:jr:constraintMsg">
+            <value>Expected value between 0 and 100</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdo:label">
+            <value form="image">jr://images/il1mdo_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/oste/2:label">
+            <value>Yes - previously received opioid substitution treatment but not now</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsp/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mf/4:label">
+            <value>More than weekly but not daily (between 1 and 6 days per week)</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/educ/2:label">
+            <value>Completed primary school</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6ms/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctted/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/impp/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdst/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cdkl/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrl/5:label">
+            <value>General practitioner</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spml/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cdycp:label">
+            <value form="image">jr://images/cdycp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/itlr/99:label">
+            <value>Don't know result</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mboa:label">
+            <value form="image">jr://images/il1mboa_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mue/3:label">
+            <value>Water</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsi:label">
+            <value form="image">jr://images/ipsi_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mp:label">
+            <value form="image">jr://images/mhl6mp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhea/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mboa/2:label">
+            <value>3 to 5 times</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/ific/2:label">
+            <value>Inside of prison</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctted/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdst/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mf/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/riaf:label">
+            <value form="image">jr://images/riaf_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mue/0:label">
+            <value>Didn't share any of the above in the last month</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmo/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/csc/2:label">
+            <value>I have cleared the virus without treatment</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cte/2:label">
+            <value>Yes - more than a year ago</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/oste:label">
+            <value form="image">jr://images/oste_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il6m:label">
+            <value form="image">jr://images/il6m_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mheo/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcad/2:label">
+            <value>I am extremely anxious or depressed</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/educ/1:label">
+            <value>Partially completed primary school</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhet/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostd/3:label">
+            <value>Buprenorphine / naloxone (suboxone)</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mt/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhep/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/sdkc/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/smaxk/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttlr:label">
+            <value form="image">jr://images/cttlr_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/9:label">
+            <value>Fentanyl</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrl/1:label">
+            <value>Hospital (liver clinic / other specialist clinic)</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mf/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mheb/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwib/2:label">
+            <value>Somewhat unwilling</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctteg/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/3:label">
+            <value>To avoid infecting other inmates</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/2:label">
+            <value>To avoid infecting family / friends</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmf/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/oste/1:label">
+            <value>Yes - currently receiving opioid substitution treatment</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1msf/4:label">
+            <value>Some of the time</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mt:label">
+            <value form="image">jr://images/rfcl1mt_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrl/3:label">
+            <value>Needle and syringe program</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mx:label">
+            <value form="image">jr://images/rfcl6mx_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/isccp/1:label">
+            <value>Yes - always</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcad/0:label">
+            <value>I am not anxious or depressed</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/iinit:label">
+            <value form="image">jr://images/iinit_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdos:label">
+            <value form="image">jr://images/il1mdos_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/mls/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhet:label">
+            <value form="image">jr://images/mhet_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdke:label">
+            <value form="image">jr://images/il1mdke_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrpifp/3:label">
+            <value>In the next 2 to 5 years</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/lshm/1:label">
+            <value>English</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mb/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spme:label">
+            <value form="image">jr://images/spme_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/stfc:label">
+            <value form="image">jr://images/stfc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cbc:jr:constraintMsg">
+            <value>Expected date is less than or equal to current date</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mx:label">
+            <value form="image">jr://images/rfcl1mx_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/da2d10ye:label">
+            <value form="image">jr://images/da2d10ye_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mo:label">
+            <value form="image">jr://images/mhl6mo_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mh/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/2:label">
+            <value>A2</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/sexid/3:label">
+            <value>Bisexual</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostd/1:label">
+            <value>Methadone (including biodone)</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsb/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf:label">
+            <value form="image">jr://images/il1mdmf_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/tc_eq5d:label">
+            <value form="image">jr://images/tc_eq5d_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcad/1:label">
+            <value>I am moderately anxious or depressed</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/gender/2:label">
+            <value>Transgender</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhep:label">
+            <value form="image">jr://images/mhep_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostd/99:label">
+            <value>Unknown</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmh/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/atsi/3:label">
+            <value>Both Aboriginal and Torres Strait Islander</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/8:label">
+            <value>C4</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcua/2:label">
+            <value>I am unable to perform my usual activities</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mb:label">
+            <value form="image">jr://images/mhl6mb_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spml/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/10:label">
+            <value>Unsure</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mheh:label">
+            <value form="image">jr://images/mheh_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1maon/1:label">
+            <value>One person</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwif/4:label">
+            <value>Somewhat willing</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdhe/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/gender/1:label">
+            <value>Male</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmh/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/riaos:label">
+            <value form="image">jr://images/riaos_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/sent/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mue/1:label">
+            <value>Spoons or mixing containers</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/stfc/1:label">
+            <value>Current daily smoker</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/ifa:jr:constraintMsg">
+            <value>Expected age is less than or equal to current age</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/mls/6:label">
+            <value>Education centre staff</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1msf:label">
+            <value form="image">jr://images/il1msf_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmo/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttld/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrpife:label">
+            <value form="image">jr://images/ctrpife_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttlo/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mt:label">
+            <value form="image">jr://images/mhl6mt_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/ific/1:label">
+            <value>Outside of prison</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/educ/0:label">
+            <value>No formal schooling</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/iice/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1maon/3:label">
+            <value>3 - 5 people</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/idcc/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/lshms:label">
+            <value form="image">jr://images/lshms_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/lshm/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmp:label">
+            <value form="image">jr://images/spmp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cdkcp/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwif/3:label">
+            <value>Neither willing nor unwilling</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mt/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrpifp/1:label">
+            <value>In the next 12 months</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/6:label">
+            <value>C2</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/iice/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1maon/2:label">
+            <value>Two people</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/iscca/1:label">
+            <value>Yes - always</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1maon/99:label">
+            <value>Don't know how many people</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/tc_visit:label">
+            <value form="image">jr://images/tc_visit_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmi/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsos:label">
+            <value form="image">jr://images/ipsos_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1msf/2:label">
+            <value>Most of the time</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttla/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/5:label">
+            <value>Benzodiazepines</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/3:label">
+            <value>B1</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/sexid/2:label">
+            <value>Homosexual / gay / lesbian</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/tc_reval:label">
+            <value form="image">jr://images/tc_reval_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1ms/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cob/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/imppok/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostdu:label">
+            <value form="image">jr://images/ostdu_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/ucfl1m/3:label">
+            <value>Less than weekly</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mf/2:label">
+            <value>2 to 3 times most days</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spme/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/sdyc:label">
+            <value form="image">jr://images/sdyc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrpife/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1muf/1:label">
+            <value>One time</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttlo:label">
+            <value form="image">jr://images/cttlo_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spgts/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/sid:jr:constraintMsg">
+            <value>Expected Subject ID format is 1302-XXXXX-YYY</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/itlr:label">
+            <value form="image">jr://images/itlr_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdox:label">
+            <value form="image">jr://images/il1mdox_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mos:label">
+            <value form="image">jr://images/mhl6mos_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/smaxk/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcpd/0:label">
+            <value>I have no pain or discomfort</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/inje/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobf:label">
+            <value form="image">jr://images/cobf_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdco/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttlr/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/iice:label">
+            <value form="image">jr://images/iice_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mo/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhed/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobm:label">
+            <value form="image">jr://images/cobm_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mheo/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwif/5:label">
+            <value>Definitely willing</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cdkl:label">
+            <value form="image">jr://images/cdkl_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/sinit:label">
+            <value form="image">jr://images/sinit_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/idyk/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/csc/99:label">
+            <value>Don't know</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrer/3:label">
+            <value>telaprevir + ribavirin + interferon</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdgh:label">
+            <value form="image">jr://images/il1mdgh_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mt/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1maon/5:label">
+            <value>More than 5 people</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdox/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mheos:label">
+            <value form="image">jr://images/mheos_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/csc:label">
+            <value form="image">jr://images/csc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il6m/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/tc_odu:label">
+            <value form="image">jr://images/tc_odu_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spgts:label">
+            <value form="image">jr://images/spgts_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdi:label">
+            <value form="image">jr://images/il1mdi_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/isccp:label">
+            <value form="image">jr://images/isccp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/visd:jr:constraintMsg">
+            <value>Expected date is less than or equal to current date</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrpife/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/da2d10ye/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mf:label">
+            <value form="image">jr://images/rfcl1mf_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdec/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmc/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cdyk/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/oste/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostd:label">
+            <value form="image">jr://images/ostd_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/imppok:label">
+            <value form="image">jr://images/imppok_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdco/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/10:label">
+            <value>Steroids</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhed:label">
+            <value form="image">jr://images/mhed_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctter/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6ms/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mheh/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/lshm:label">
+            <value form="image">jr://images/lshm_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/gender:label">
+            <value form="image">jr://images/gender_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1msf/3:label">
+            <value>Half of the time</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttea/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cob:label">
+            <value form="image">jr://images/cob_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhet/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mt:label">
+            <value form="image">jr://images/rfcl6mt_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mf/0:label">
+            <value>I have not injected drugs in the past month</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdst:label">
+            <value form="image">jr://images/il1mdst_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mf/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctre:label">
+            <value form="image">jr://images/ctre_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctted:label">
+            <value form="image">jr://images/ctted_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctre/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cdkl/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/1:label">
+            <value>Heroin</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrcl12m/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/7:label">
+            <value>C3</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhes/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttea/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/idcc/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/5:label">
+            <value>To get information from the nurse</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6ma/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/tc_demo:label">
+            <value form="image">jr://images/tc_demo_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/dob:label">
+            <value form="image">jr://images/dob_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdbu/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mh:label">
+            <value form="image">jr://images/mhl6mh_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6md:label">
+            <value form="image">jr://images/mhl6md_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrl/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6ms:label">
+            <value form="image">jr://images/mhl6ms_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/imppok/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/tc_rfc:label">
+            <value form="image">jr://images/tc_rfc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cdkcp/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdik:label">
+            <value form="image">jr://images/il1mdik_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmc/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1ms:label">
+            <value form="image">jr://images/rfcl1ms_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdfe/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostd/2:label">
+            <value>Buprenorphine (subutex)</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdha/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cde:label">
+            <value form="image">jr://images/cde_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrer/2:label">
+            <value>ribavirin + interferon</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostd/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsm/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mp/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/sil1m/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/6:label">
+            <value>Morphine</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/mls/3:label">
+            <value>Other clinic nurses</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdfe:label">
+            <value form="image">jr://images/il1mdfe_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/da6d10ye/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdhe/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ite:label">
+            <value form="image">jr://images/ite_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmo/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwif:label">
+            <value form="image">jr://images/ctrwif_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrpifp/4:label">
+            <value>Not for at least another 5 years</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmo:label">
+            <value form="image">jr://images/spmo_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdfe/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mx/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/educ:label">
+            <value form="image">jr://images/educ_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/inje/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcpd/1:label">
+            <value>I have moderate pain or discomfort</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/ucfl1m/4:label">
+            <value>No use in the last month but a past regular user (more than monthly)</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmf:label">
+            <value form="image">jr://images/spmf_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cbc:label">
+            <value form="image">jr://images/cbc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/tc_hivhcv:label">
+            <value form="image">jr://images/tc_hivhcv_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1muf/0:label">
+            <value>None</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwib:label">
+            <value form="image">jr://images/ctrwib_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/inje:label">
+            <value form="image">jr://images/inje_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcpd:label">
+            <value form="image">jr://images/hcpd_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mh/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsi/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/smaxy:label">
+            <value form="image">jr://images/smaxy_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhes:label">
+            <value form="image">jr://images/mhes_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1muf:label">
+            <value form="image">jr://images/il1muf_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/educ/3:label">
+            <value>Completed high school up to Year 10</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/2:label">
+            <value>Cocaine</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdec/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/iscca/99:label">
+            <value>Don't recall</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/visd:label">
+            <value form="image">jr://images/visd_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhea/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/impp:label">
+            <value form="image">jr://images/impp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/sent/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/9:label">
+            <value>To &quot;get clean&quot; and improve health</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrls:label">
+            <value form="image">jr://images/ctrls_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/tc_idu:label">
+            <value form="image">jr://images/tc_idu_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6ms/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/impp/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mue/2:label">
+            <value>Drug solution / mix</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mp:label">
+            <value form="image">jr://images/rfcl6mp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobf/99:label">
+            <value>Unknown</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/iscca/0:label">
+            <value>Never</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwib/5:label">
+            <value>Definitely willing</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmu/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/smink:label">
+            <value form="image">jr://images/smink_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/ucfl1m:label">
+            <value form="image">jr://images/ucfl1m_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1msf/1:label">
+            <value>All injections</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcs:label">
+            <value form="image">jr://images/hcs_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/stfc/0:label">
+            <value>Never a smoker</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mheh/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/idy:label">
+            <value form="image">jr://images/idy_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spme/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmd/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcua/1:label">
+            <value>I have some problems with performing my usual activities</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsb:label">
+            <value form="image">jr://images/ipsb_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctter/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcpc/0:label">
+            <value>I have no problems with personal care</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftts:label">
+            <value form="image">jr://images/rftts_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdbu:label">
+            <value form="image">jr://images/il1mdbu_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spnl:label">
+            <value form="image">jr://images/spnl_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spgtf/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/sminm:label">
+            <value form="image">jr://images/sminm_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/ucfl1m/2:label">
+            <value>More than weekly but not daily</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmd:label">
+            <value form="image">jr://images/il1mdmd_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/4:label">
+            <value>To get treated</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/sdkc/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/mls/4:label">
+            <value>Corrective services officer</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdo/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cde/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttld/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipso/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmo:label">
+            <value form="image">jr://images/il1mdmo_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6ma/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/educ/99:label">
+            <value>Unknown</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/da6d10ye/0:label">
+            <value>No - never</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1ms/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdgh/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mp/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/smink/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/riao:label">
+            <value form="image">jr://images/riao_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mf/1:label">
+            <value>More than 3 times most days</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cob/99:label">
+            <value>Unknown</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/educ/5:label">
+            <value>Completed TAFE / College / University degree</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/idyk:label">
+            <value form="image">jr://images/idyk_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmos:label">
+            <value form="image">jr://images/spmos_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/sexid/1:label">
+            <value>Heterosexual / straight</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttld:label">
+            <value form="image">jr://images/cttld_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctteo/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/da2d10ye/99:label">
+            <value>Unsure</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mb/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc:label">
+            <value form="image">jr://images/scc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/sinit:jr:constraintMsg">
+            <value>Expected initials format is AA-ZZ</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/idcc:label">
+            <value form="image">jr://images/idcc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/da6d10ye/99:label">
+            <value>Unsure</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mue/4:label">
+            <value>Filter</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mf/5:label">
+            <value>Less than weekly (on 1 to 5 days)</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/ucfl1m/0:label">
+            <value>Never a regular user</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6ma:label">
+            <value form="image">jr://images/mhl6ma_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mp/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/sdkc:label">
+            <value form="image">jr://images/sdkc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/imppo:label">
+            <value form="image">jr://images/imppo_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmc:label">
+            <value form="image">jr://images/spmc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttla/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/7:label">
+            <value>To receive the $10 payment</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostdu/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mp:label">
+            <value form="image">jr://images/rfcl1mp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ite/2:label">
+            <value>Yes - more than a year ago</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/atsi/99:label">
+            <value>Unknown</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwib/1:label">
+            <value>Definitely unwilling</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/mls/5:label">
+            <value>Other inmate</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spnl/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/sid:label">
+            <value form="image">jr://images/sid_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrl/4:label">
+            <value>Prison</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttlg/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdbe:label">
+            <value form="image">jr://images/il1mdbe_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/atsi:label">
+            <value form="image">jr://images/atsi_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrer/4:label">
+            <value>boceprevir + ribavirin + interferon</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsm/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsj/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipso/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cob/1:label">
+            <value>Australia</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrl:label">
+            <value form="image">jr://images/ctrl_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/9:label">
+            <value>E1</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/riaf/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mf:label">
+            <value form="image">jr://images/il1mf_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrers:label">
+            <value form="image">jr://images/ctrers_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdik/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmf/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ite/0:label">
+            <value>Never tested</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmp/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mx/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/csc/3:label">
+            <value>I have cleared the virus with treatment</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cdml:label">
+            <value form="image">jr://images/cdml_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mheo:label">
+            <value form="image">jr://images/mheo_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/itlr/1:label">
+            <value>I have HIV infection</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mx/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobm/99:label">
+            <value>Unknown</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcpc:label">
+            <value form="image">jr://images/hcpc_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/11:label">
+            <value>LSD or other hallucinogens</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ite/1:label">
+            <value>Yes - in the last year</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipso:label">
+            <value form="image">jr://images/ipso_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsj:label">
+            <value form="image">jr://images/ipsj_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/riai:label">
+            <value form="image">jr://images/riai_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mp/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cttlo/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/gender/0:label">
+            <value>Female</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhed/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwib/3:label">
+            <value>Neither willing nor unwilling</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostdus:label">
+            <value form="image">jr://images/ostdus_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/sminy:label">
+            <value form="image">jr://images/sminy_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/stfc/2:label">
+            <value>Current less than daily smoker</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mp/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/mls/1:label">
+            <value>Poster</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spgtf/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/atsi/2:label">
+            <value>Torres Strait Islander</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/riao/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/10:label">
+            <value>E2</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrer:label">
+            <value form="image">jr://images/ctrer_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il6m/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1maon:label">
+            <value form="image">jr://images/il1maon_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mt/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cdy:jr:constraintMsg">
+            <value>Expected year is less than or equal to current year</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/csc/1:label">
+            <value>I have chronic (ongoing) hepatitis C</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6ms:label">
+            <value form="image">jr://images/rfcl6ms_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/idyk/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhea:label">
+            <value form="image">jr://images/mhea_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdha:label">
+            <value form="image">jr://images/il1mdha_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6ms/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsp:label">
+            <value form="image">jr://images/ipsp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsm:label">
+            <value form="image">jr://images/ipsm_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostdd:label">
+            <value form="image">jr://images/ostdd_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/ific:label">
+            <value form="image">jr://images/ific_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrer/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/sil1m:label">
+            <value form="image">jr://images/sil1m_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/smink/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/8:label">
+            <value>To receive the promotional item (e.g. playing cards)</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwif/2:label">
+            <value>Somewhat unwilling</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcmo/1:label">
+            <value>I have some problems in walking around</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/iscca:label">
+            <value form="image">jr://images/iscca_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmi:label">
+            <value form="image">jr://images/il1mdmi_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrpifp:label">
+            <value form="image">jr://images/ctrpifp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/atsi/1:label">
+            <value>Aboriginal</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mf/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mue:label">
+            <value form="image">jr://images/il1mue_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/isccp/99:label">
+            <value>Don't recall</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdke/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcua:label">
+            <value form="image">jr://images/hcua_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/ucfl1m/1:label">
+            <value>Daily or more</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/5:label">
+            <value>C1</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1muf/3:label">
+            <value>3 - 5 times</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/da2d10ye/0:label">
+            <value>No - never</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwif/1:label">
+            <value>Definitely unwilling</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/tc_dthmh:label">
+            <value form="image">jr://images/tc_dthmh_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/iinit:jr:constraintMsg">
+            <value>Expected initials format is AA-ZZ</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsj/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdik/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctre/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobm/1:label">
+            <value>Australia</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/1:label">
+            <value>To find out if I'm positive</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/13:label">
+            <value>Ketamine</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mt/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdox/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdo/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/14:label">
+            <value>GHB</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/idy:jr:constraintMsg">
+            <value>Expected year is less than or equal to current year</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/iscca/2:label">
+            <value>Yes - sometimes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobfs:label">
+            <value form="image">jr://images/cobfs_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdbu/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctteg/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spml:label">
+            <value form="image">jr://images/spml_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/6:label">
+            <value>To receive a liver scan / find out about my liver health</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmi/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mboa/0:label">
+            <value>None</value>
+          </text>
+          <text id="/Q1302_BEHAVE/visit/dob:jr:constraintMsg">
+            <value>Expected age 18 years or older</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/rftt/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/sexid:label">
+            <value form="image">jr://images/sexid_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctteo/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/cdkcp:label">
+            <value form="image">jr://images/cdkcp_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spnl/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mp/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcmo/2:label">
+            <value>I am confined to bed</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/sil1m/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/stfc/4:label">
+            <value>Previous less than daily smoker</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cte/0:label">
+            <value>Never tested</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsp/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6mo/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrer/1:label">
+            <value>interferon</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mheb/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cdyk/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/smaxm:label">
+            <value form="image">jr://images/smaxm_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/tc_seni:label">
+            <value form="image">jr://images/tc_seni_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrpifp/2:label">
+            <value>In the next 1 to 2 years</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cdyk:label">
+            <value form="image">jr://images/cdyk_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcmo:label">
+            <value form="image">jr://images/hcmo_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdbe/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl1mt/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmd/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcua/0:label">
+            <value>I have no problems with performing my usual activities</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdhe:label">
+            <value form="image">jr://images/il1mdhe_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/riai/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/rfc/rfcl6mx/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhep/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdgh/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/isccp/2:label">
+            <value>Yes - sometimes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/isccp/0:label">
+            <value>Never</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spgts/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/scc/0:label">
+            <value>Unsentenced</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cte/1:label">
+            <value>Yes - in the last year</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsb/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctteo:label">
+            <value form="image">jr://images/ctteo_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/seni/sent:label">
+            <value form="image">jr://images/sent_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdha/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1msf/5:label">
+            <value>Not in the last month</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/stfc/3:label">
+            <value>Previous daily smoker</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cdy:label">
+            <value form="image">jr://images/cdy_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mheb:label">
+            <value form="image">jr://images/mheb_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobf/77:label">
+            <value>Other - specify</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/ostdu/1:label">
+            <value>mg</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhes/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/ifa:label">
+            <value form="image">jr://images/ifa_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/atsi/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmp/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/cobf/1:label">
+            <value>Australia</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrwib/4:label">
+            <value>Somewhat willing</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/8:label">
+            <value>Buprenorphine</value>
+          </text>
+          <text id="/Q1302_BEHAVE/demo/educ/4:label">
+            <value>Completed high school up to Year 12</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcad:label">
+            <value form="image">jr://images/hcad_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/eq5d/hcpc/1:label">
+            <value>I have some problems washing or dressing myself</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/cde/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/odu/da6d10ye:label">
+            <value form="image">jr://images/da6d10ye_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/mls:label">
+            <value form="image">jr://images/mls_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/idu/il1mdmf/3:label">
+            <value>Methamphetamine (ice / base / speed / meth crystal)</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmu:label">
+            <value form="image">jr://images/spmu_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/dthmh/mhl6md/0:label">
+            <value>No</value>
+          </text>
+          <text id="/Q1302_BEHAVE/hivhcv/ctrcl12m:label">
+            <value form="image">jr://images/ctrcl12m_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmu/1:label">
+            <value>Yes</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/spmh:label">
+            <value form="image">jr://images/spmh_english.png</value>
+          </text>
+          <text id="/Q1302_BEHAVE/reval/ipsi/0:label">
+            <value>No</value>
+          </text>
+        </translation>
+      </itext>
+      <instance>
+        <Q1302_BEHAVE id="Q1302_BEHAVE" version="1">
+          <start/>
+          <end/>
+          <deviceid/>
+          <visit>
+            <tc_visit/>
+            <visd/>
+            <sid/>
+            <sinit/>
+            <dob/>
+            <iinit/>
+          </visit>
+          <seni>
+            <tc_seni/>
+            <cbc/>
+            <cdkcp/>
+            <cdycp/>
+            <cdmcp/>
+            <sent/>
+            <sdkc/>
+            <sdyc/>
+            <sdmc/>
+            <smaxk/>
+            <smaxy/>
+            <smaxm/>
+            <smink/>
+            <sminy/>
+            <sminm/>
+            <cdkl/>
+            <cdyl/>
+            <cdml/>
+            <scc/>
+            <impp/>
+            <imppok/>
+            <imppo/>
+          </seni>
+          <demo>
+            <tc_demo/>
+            <gender/>
+            <sexid/>
+            <atsi/>
+            <cob/>
+            <cobs/>
+            <cobm/>
+            <cobms/>
+            <cobf/>
+            <cobfs/>
+            <lshm/>
+            <lshms/>
+            <educ/>
+          </demo>
+          <reval>
+            <tc_reval/>
+            <mls/>
+            <sil1m/>
+            <ipsp/>
+            <ipsb/>
+            <ipsi/>
+            <ipsj/>
+            <ipsm/>
+            <ipso/>
+            <ipsos/>
+            <riaf/>
+            <riai/>
+            <riao/>
+            <riaos/>
+            <rftt/>
+            <rftts/>
+            <spgtf/>
+            <spgts/>
+            <spnl/>
+            <spme/>
+            <spmf/>
+            <spmh/>
+            <spmp/>
+            <spml/>
+            <spmc/>
+            <spmu/>
+            <spmo/>
+            <spmos/>
+          </reval>
+          <rfc>
+            <tc_rfc/>
+            <rfcl6mt/>
+            <rfcl6mp/>
+            <rfcl6mf/>
+            <rfcl6ms/>
+            <rfcl6mx/>
+            <rfcl1mt/>
+            <rfcl1mp/>
+            <rfcl1mf/>
+            <rfcl1ms/>
+            <rfcl1mx/>
+          </rfc>
+          <idu>
+            <tc_idu/>
+            <inje/>
+            <ifa/>
+            <ific/>
+            <iice/>
+            <idcc/>
+            <il6m/>
+            <il1mf/>
+            <il1mdik/>
+            <il1mdi/>
+            <il1mdhe/>
+            <il1mdco/>
+            <il1mdmi/>
+            <il1mdmd/>
+            <il1mdbe/>
+            <il1mdmo/>
+            <il1mdox/>
+            <il1mdbu/>
+            <il1mdfe/>
+            <il1mdst/>
+            <il1mdha/>
+            <il1mdec/>
+            <il1mdke/>
+            <il1mdgh/>
+            <il1mdo/>
+            <il1mdos/>
+            <il1mdmf/>
+            <il1mdmfs/>
+            <il1msf/>
+            <il1mue/>
+            <il1mboa/>
+            <il1muf/>
+            <il1maon/>
+            <iscca/>
+            <isccp/>
+          </idu>
+          <odu>
+            <tc_odu/>
+            <ucfl1m/>
+            <stfc/>
+            <da2d10ye/>
+            <da6d10ye/>
+          </odu>
+          <dthmh>
+            <tc_dthmh/>
+            <oste/>
+            <ostd/>
+            <ostds/>
+            <ostdd/>
+            <ostdu/>
+            <ostdus/>
+            <mheb/>
+            <mhep/>
+            <mhes/>
+            <mhed/>
+            <mhea/>
+            <mheh/>
+            <mhet/>
+            <mheo/>
+            <mheos/>
+            <mhl6mb/>
+            <mhl6mp/>
+            <mhl6ms/>
+            <mhl6md/>
+            <mhl6ma/>
+            <mhl6mh/>
+            <mhl6mt/>
+            <mhl6mo/>
+            <mhl6mos/>
+          </dthmh>
+          <hivhcv>
+            <tc_hivhcv/>
+            <ite/>
+            <itlr/>
+            <idyk/>
+            <idy/>
+            <cte/>
+            <cttea/>
+            <ctter/>
+            <ctteg/>
+            <ctteo/>
+            <ctted/>
+            <cttla/>
+            <cttlr/>
+            <cttlg/>
+            <cttlo/>
+            <cttld/>
+            <cde/>
+            <cdyk/>
+            <cdy/>
+            <ctre/>
+            <ctrer/>
+            <ctrers/>
+            <ctrl/>
+            <ctrls/>
+            <ctrcl12m/>
+            <csc/>
+            <ctrwib/>
+            <ctrwif/>
+            <ctrpife/>
+            <ctrpifp/>
+          </hivhcv>
+          <eq5d>
+            <tc_eq5d/>
+            <hcmo/>
+            <hcpc/>
+            <hcua/>
+            <hcpd/>
+            <hcad/>
+            <hcs/>
+          </eq5d>
+          <meta>
+            <instanceID/>
+            <instanceName/>
+          </meta>
+        </Q1302_BEHAVE>
+      </instance>
+      <bind jr:preload="timestamp" jr:preloadParams="start" nodeset="/Q1302_BEHAVE/start" type="dateTime"/>
+      <bind jr:preload="timestamp" jr:preloadParams="end" nodeset="/Q1302_BEHAVE/end" type="dateTime"/>
+      <bind jr:preload="property" jr:preloadParams="deviceid" nodeset="/Q1302_BEHAVE/deviceid" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/visit/tc_visit" readonly="true()" type="string"/>
+      <bind constraint=". &lt;= today()" jr:constraintMsg="jr:itext('/Q1302_BEHAVE/visit/visd:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/visit/visd" required="true()" type="date"/>
+      <bind constraint="regex(.,'^1302-[0-9]{5}-[0-9]{3}$')" jr:constraintMsg="jr:itext('/Q1302_BEHAVE/visit/sid:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/visit/sid" required="true()" type="string"/>
+      <bind constraint="regex(.,'^[A-Z]{2}-[A-Z]{2}$')" jr:constraintMsg="jr:itext('/Q1302_BEHAVE/visit/sinit:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/visit/sinit" required="true()" type="string"/>
+      <bind constraint="((today()-.) div 365.25) &gt;= 18" jr:constraintMsg="jr:itext('/Q1302_BEHAVE/visit/dob:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/visit/dob" required="true()" type="date"/>
+      <bind constraint="regex(.,'^[A-Z]{2}-[A-Z]{2}$')" jr:constraintMsg="jr:itext('/Q1302_BEHAVE/visit/iinit:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/visit/iinit" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/tc_seni" readonly="true()" type="string"/>
+      <bind constraint=". &lt;= today()" jr:constraintMsg="jr:itext('/Q1302_BEHAVE/seni/cbc:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/seni/cbc" required="true()" type="date"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/cdkcp" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/cdycp" relevant="selected( /Q1302_BEHAVE/seni/cdkcp ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/cdmcp" relevant="selected( /Q1302_BEHAVE/seni/cdkcp ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/sent" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/sdkc" relevant="selected( /Q1302_BEHAVE/seni/sent ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/sdyc" relevant="selected( /Q1302_BEHAVE/seni/sent ,'1') and selected( /Q1302_BEHAVE/seni/sdkc ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/sdmc" relevant="selected( /Q1302_BEHAVE/seni/sent ,'1') and selected( /Q1302_BEHAVE/seni/sdkc ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/smaxk" relevant="selected( /Q1302_BEHAVE/seni/sent ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/smaxy" relevant="selected( /Q1302_BEHAVE/seni/sent ,'1') and selected( /Q1302_BEHAVE/seni/smaxk ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/smaxm" relevant="selected( /Q1302_BEHAVE/seni/sent ,'1') and selected( /Q1302_BEHAVE/seni/smaxk ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/smink" relevant="selected( /Q1302_BEHAVE/seni/sent ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/sminy" relevant="selected( /Q1302_BEHAVE/seni/sent ,'1') and selected( /Q1302_BEHAVE/seni/smink ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/sminm" relevant="selected( /Q1302_BEHAVE/seni/sent ,'1') and selected( /Q1302_BEHAVE/seni/smink ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/cdkl" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/cdyl" relevant="selected( /Q1302_BEHAVE/seni/cdkl ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/cdml" relevant="selected( /Q1302_BEHAVE/seni/cdkl ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/scc" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/impp" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/imppok" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/seni/imppo" relevant="selected( /Q1302_BEHAVE/seni/imppok ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/tc_demo" readonly="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/gender" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/sexid" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/atsi" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/cob" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/cobs" relevant="selected( /Q1302_BEHAVE/demo/cob ,'77')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/cobm" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/cobms" relevant="selected( /Q1302_BEHAVE/demo/cobm ,'77')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/cobf" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/cobfs" relevant="selected( /Q1302_BEHAVE/demo/cobf ,'77')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/lshm" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/lshms" relevant="selected( /Q1302_BEHAVE/demo/lshm ,'77')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/demo/educ" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/tc_reval" readonly="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/mls" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/sil1m" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/ipsp" relevant="selected( /Q1302_BEHAVE/reval/sil1m ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/ipsb" relevant="selected( /Q1302_BEHAVE/reval/sil1m ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/ipsi" relevant="selected( /Q1302_BEHAVE/reval/sil1m ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/ipsj" relevant="selected( /Q1302_BEHAVE/reval/sil1m ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/ipsm" relevant="selected( /Q1302_BEHAVE/reval/sil1m ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/ipso" relevant="selected( /Q1302_BEHAVE/reval/sil1m ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/ipsos" relevant="selected( /Q1302_BEHAVE/reval/ipso ,'1')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/riaf" relevant="selected( /Q1302_BEHAVE/reval/sil1m ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/riai" relevant="selected( /Q1302_BEHAVE/reval/sil1m ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/riao" relevant="selected( /Q1302_BEHAVE/reval/sil1m ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/riaos" relevant="selected( /Q1302_BEHAVE/reval/riao ,'1')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/rftt" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/rftts" relevant="selected( /Q1302_BEHAVE/reval/rftt ,'99')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spgtf" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spgts" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spnl" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spme" relevant="selected( /Q1302_BEHAVE/reval/spgtf ,'1') or selected( /Q1302_BEHAVE/reval/spgts ,'1') or selected( /Q1302_BEHAVE/reval/spnl ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spmf" relevant="selected( /Q1302_BEHAVE/reval/spgtf ,'1') or selected( /Q1302_BEHAVE/reval/spgts ,'1') or selected( /Q1302_BEHAVE/reval/spnl ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spmh" relevant="selected( /Q1302_BEHAVE/reval/spgtf ,'1') or selected( /Q1302_BEHAVE/reval/spgts ,'1') or selected( /Q1302_BEHAVE/reval/spnl ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spmp" relevant="selected( /Q1302_BEHAVE/reval/spgtf ,'1') or selected( /Q1302_BEHAVE/reval/spgts ,'1') or selected( /Q1302_BEHAVE/reval/spnl ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spml" relevant="selected( /Q1302_BEHAVE/reval/spgtf ,'1') or selected( /Q1302_BEHAVE/reval/spgts ,'1') or selected( /Q1302_BEHAVE/reval/spnl ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spmc" relevant="selected( /Q1302_BEHAVE/reval/spgtf ,'1') or selected( /Q1302_BEHAVE/reval/spgts ,'1') or selected( /Q1302_BEHAVE/reval/spnl ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spmu" relevant="selected( /Q1302_BEHAVE/reval/spgtf ,'1') or selected( /Q1302_BEHAVE/reval/spgts ,'1') or selected( /Q1302_BEHAVE/reval/spnl ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spmo" relevant="selected( /Q1302_BEHAVE/reval/spgtf ,'1') or selected( /Q1302_BEHAVE/reval/spgts ,'1') or selected( /Q1302_BEHAVE/reval/spnl ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/reval/spmos" relevant="(selected( /Q1302_BEHAVE/reval/spgtf ,'1') or selected( /Q1302_BEHAVE/reval/spgts ,'1') or selected( /Q1302_BEHAVE/reval/spnl ,'1')) and selected( /Q1302_BEHAVE/reval/spmo ,'1')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/tc_rfc" readonly="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/rfcl6mt" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/rfcl6mp" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/rfcl6mf" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/rfcl6ms" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/rfcl6mx" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/rfcl1mt" relevant="selected( /Q1302_BEHAVE/rfc/rfcl6mt ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mp ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mf ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6ms ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mx ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/rfcl1mp" relevant="selected( /Q1302_BEHAVE/rfc/rfcl6mt ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mp ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mf ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6ms ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mx ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/rfcl1mf" relevant="selected( /Q1302_BEHAVE/rfc/rfcl6mt ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mp ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mf ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6ms ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mx ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/rfcl1ms" relevant="selected( /Q1302_BEHAVE/rfc/rfcl6mt ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mp ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mf ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6ms ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mx ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/rfc/rfcl1mx" relevant="selected( /Q1302_BEHAVE/rfc/rfcl6mt ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mp ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mf ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6ms ,'1') or selected( /Q1302_BEHAVE/rfc/rfcl6mx ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/tc_idu" readonly="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/inje" required="true()" type="select1"/>
+      <bind constraint="((today()- /Q1302_BEHAVE/visit/dob ) div 365.25) &gt;= ." jr:constraintMsg="jr:itext('/Q1302_BEHAVE/idu/ifa:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/idu/ifa" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/ific" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/iice" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/idcc" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il6m" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mf" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdik" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdi" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0')) and selected( /Q1302_BEHAVE/idu/il1mdik ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdhe" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdco" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdmi" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdmd" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdbe" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdmo" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdox" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdbu" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdfe" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdst" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdha" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdec" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdke" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdgh" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdo" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdos" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0')) and selected( /Q1302_BEHAVE/idu/il1mdo ,'1')" required="true()" type="string"/>
+      <bind constraint="(selected( /Q1302_BEHAVE/idu/il1mdhe ,'1') and selected(.,'1')) or (selected( /Q1302_BEHAVE/idu/il1mdco ,'1') and selected(.,'2')) or (selected( /Q1302_BEHAVE/idu/il1mdmi ,'1') and selected(.,'3')) or (selected( /Q1302_BEHAVE/idu/il1mdmd ,'1') and selected(.,'4')) or (selected( /Q1302_BEHAVE/idu/il1mdbe ,'1') and selected(.,'5')) or (selected( /Q1302_BEHAVE/idu/il1mdmo ,'1') and selected(.,'6')) or (selected( /Q1302_BEHAVE/idu/il1mdox ,'1') and selected(.,'7')) or (selected( /Q1302_BEHAVE/idu/il1mdbu ,'1') and selected(.,'8')) or (selected( /Q1302_BEHAVE/idu/il1mdfe ,'1') and selected(.,'9')) or (selected( /Q1302_BEHAVE/idu/il1mdst ,'1') and selected(.,'10')) or (selected( /Q1302_BEHAVE/idu/il1mdha ,'1') and selected(.,'11')) or (selected( /Q1302_BEHAVE/idu/il1mdec ,'1') and selected(.,'12')) or (selected( /Q1302_BEHAVE/idu/il1mdke ,'1') and selected(.,'13')) or (selected( /Q1302_BEHAVE/idu/il1mdgh ,'1') and selected(.,'14')) or (selected( /Q1302_BEHAVE/idu/il1mdo ,'1') and selected(.,'77'))" jr:constraintMsg="jr:itext('/Q1302_BEHAVE/idu/il1mdmf:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/idu/il1mdmf" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mdmfs" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0')) and selected( /Q1302_BEHAVE/idu/il1mdmf ,'1')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1msf" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mue" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1mboa" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1muf" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/il1maon" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0')) and not(selected( /Q1302_BEHAVE/idu/il1muf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/iscca" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0')) and not(selected( /Q1302_BEHAVE/idu/il1muf ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/idu/isccp" relevant="selected( /Q1302_BEHAVE/idu/inje ,'1') and selected( /Q1302_BEHAVE/idu/il6m ,'1') and not(selected( /Q1302_BEHAVE/idu/il1mf ,'0')) and not(selected( /Q1302_BEHAVE/idu/il1muf ,'0')) and (selected( /Q1302_BEHAVE/idu/iscca ,'1') or selected( /Q1302_BEHAVE/idu/iscca ,'2'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/odu/tc_odu" readonly="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/odu/ucfl1m" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/odu/stfc" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/odu/da2d10ye" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/odu/da6d10ye" relevant="not(selected( /Q1302_BEHAVE/odu/da2d10ye ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/tc_dthmh" readonly="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/oste" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/ostd" relevant="not(selected( /Q1302_BEHAVE/dthmh/oste ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/ostds" relevant="not(selected( /Q1302_BEHAVE/dthmh/oste ,'0')) and selected( /Q1302_BEHAVE/dthmh/ostd ,'77')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/ostdd" relevant="not(selected( /Q1302_BEHAVE/dthmh/oste ,'0')) and not(selected( /Q1302_BEHAVE/dthmh/ostd ,'99'))" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/ostdu" relevant="not(selected( /Q1302_BEHAVE/dthmh/oste ,'0')) and not(selected( /Q1302_BEHAVE/dthmh/ostd ,'99'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/ostdus" relevant="not(selected( /Q1302_BEHAVE/dthmh/oste ,'0')) and not(selected( /Q1302_BEHAVE/dthmh/ostd ,'99')) and selected( /Q1302_BEHAVE/dthmh/ostdu ,'77')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mheb" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhep" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhes" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhed" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhea" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mheh" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhet" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mheo" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mheos" relevant="selected( /Q1302_BEHAVE/dthmh/mheo ,'1')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhl6mb" relevant="selected( /Q1302_BEHAVE/dthmh/mheb ,'1') or selected( /Q1302_BEHAVE/dthmh/mhep ,'1') or selected( /Q1302_BEHAVE/dthmh/mhes ,'1') or selected( /Q1302_BEHAVE/dthmh/mhed ,'1') or selected( /Q1302_BEHAVE/dthmh/mhea ,'1') or selected( /Q1302_BEHAVE/dthmh/mheh ,'1') or selected( /Q1302_BEHAVE/dthmh/mhet ,'1') or selected( /Q1302_BEHAVE/dthmh/mheo ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhl6mp" relevant="selected( /Q1302_BEHAVE/dthmh/mheb ,'1') or selected( /Q1302_BEHAVE/dthmh/mhep ,'1') or selected( /Q1302_BEHAVE/dthmh/mhes ,'1') or selected( /Q1302_BEHAVE/dthmh/mhed ,'1') or selected( /Q1302_BEHAVE/dthmh/mhea ,'1') or selected( /Q1302_BEHAVE/dthmh/mheh ,'1') or selected( /Q1302_BEHAVE/dthmh/mhet ,'1') or selected( /Q1302_BEHAVE/dthmh/mheo ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhl6ms" relevant="selected( /Q1302_BEHAVE/dthmh/mheb ,'1') or selected( /Q1302_BEHAVE/dthmh/mhep ,'1') or selected( /Q1302_BEHAVE/dthmh/mhes ,'1') or selected( /Q1302_BEHAVE/dthmh/mhed ,'1') or selected( /Q1302_BEHAVE/dthmh/mhea ,'1') or selected( /Q1302_BEHAVE/dthmh/mheh ,'1') or selected( /Q1302_BEHAVE/dthmh/mhet ,'1') or selected( /Q1302_BEHAVE/dthmh/mheo ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhl6md" relevant="selected( /Q1302_BEHAVE/dthmh/mheb ,'1') or selected( /Q1302_BEHAVE/dthmh/mhep ,'1') or selected( /Q1302_BEHAVE/dthmh/mhes ,'1') or selected( /Q1302_BEHAVE/dthmh/mhed ,'1') or selected( /Q1302_BEHAVE/dthmh/mhea ,'1') or selected( /Q1302_BEHAVE/dthmh/mheh ,'1') or selected( /Q1302_BEHAVE/dthmh/mhet ,'1') or selected( /Q1302_BEHAVE/dthmh/mheo ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhl6ma" relevant="selected( /Q1302_BEHAVE/dthmh/mheb ,'1') or selected( /Q1302_BEHAVE/dthmh/mhep ,'1') or selected( /Q1302_BEHAVE/dthmh/mhes ,'1') or selected( /Q1302_BEHAVE/dthmh/mhed ,'1') or selected( /Q1302_BEHAVE/dthmh/mhea ,'1') or selected( /Q1302_BEHAVE/dthmh/mheh ,'1') or selected( /Q1302_BEHAVE/dthmh/mhet ,'1') or selected( /Q1302_BEHAVE/dthmh/mheo ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhl6mh" relevant="selected( /Q1302_BEHAVE/dthmh/mheb ,'1') or selected( /Q1302_BEHAVE/dthmh/mhep ,'1') or selected( /Q1302_BEHAVE/dthmh/mhes ,'1') or selected( /Q1302_BEHAVE/dthmh/mhed ,'1') or selected( /Q1302_BEHAVE/dthmh/mhea ,'1') or selected( /Q1302_BEHAVE/dthmh/mheh ,'1') or selected( /Q1302_BEHAVE/dthmh/mhet ,'1') or selected( /Q1302_BEHAVE/dthmh/mheo ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhl6mt" relevant="selected( /Q1302_BEHAVE/dthmh/mheb ,'1') or selected( /Q1302_BEHAVE/dthmh/mhep ,'1') or selected( /Q1302_BEHAVE/dthmh/mhes ,'1') or selected( /Q1302_BEHAVE/dthmh/mhed ,'1') or selected( /Q1302_BEHAVE/dthmh/mhea ,'1') or selected( /Q1302_BEHAVE/dthmh/mheh ,'1') or selected( /Q1302_BEHAVE/dthmh/mhet ,'1') or selected( /Q1302_BEHAVE/dthmh/mheo ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhl6mo" relevant="selected( /Q1302_BEHAVE/dthmh/mheb ,'1') or selected( /Q1302_BEHAVE/dthmh/mhep ,'1') or selected( /Q1302_BEHAVE/dthmh/mhes ,'1') or selected( /Q1302_BEHAVE/dthmh/mhed ,'1') or selected( /Q1302_BEHAVE/dthmh/mhea ,'1') or selected( /Q1302_BEHAVE/dthmh/mheh ,'1') or selected( /Q1302_BEHAVE/dthmh/mhet ,'1') or selected( /Q1302_BEHAVE/dthmh/mheo ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/dthmh/mhl6mos" relevant="(selected( /Q1302_BEHAVE/dthmh/mheb ,'1') or selected( /Q1302_BEHAVE/dthmh/mhep ,'1') or selected( /Q1302_BEHAVE/dthmh/mhes ,'1') or selected( /Q1302_BEHAVE/dthmh/mhed ,'1') or selected( /Q1302_BEHAVE/dthmh/mhea ,'1') or selected( /Q1302_BEHAVE/dthmh/mheh ,'1') or selected( /Q1302_BEHAVE/dthmh/mhet ,'1') or selected( /Q1302_BEHAVE/dthmh/mheo ,'1')) and selected( /Q1302_BEHAVE/dthmh/mhl6mo ,'1')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/tc_hivhcv" readonly="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ite" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/itlr" relevant="not(selected( /Q1302_BEHAVE/hivhcv/ite ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/idyk" relevant="not(selected( /Q1302_BEHAVE/hivhcv/ite ,'0')) and selected( /Q1302_BEHAVE/hivhcv/itlr ,'1')" required="true()" type="select1"/>
+      <bind constraint=". &lt;= number(format-date(today(),'%Y'))" jr:constraintMsg="jr:itext('/Q1302_BEHAVE/hivhcv/idy:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/hivhcv/idy" relevant="not(selected( /Q1302_BEHAVE/hivhcv/ite ,'0')) and selected( /Q1302_BEHAVE/hivhcv/itlr ,'1') and selected( /Q1302_BEHAVE/hivhcv/idyk ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/cte" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/cttea" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctter" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctteg" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctteo" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctted" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/cttla" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/cttlr" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/cttlg" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/cttlo" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/cttld" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/cde" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/cdyk" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0'))" required="true()" type="select1"/>
+      <bind constraint=". &lt;= number(format-date(today(),'%Y'))" jr:constraintMsg="jr:itext('/Q1302_BEHAVE/hivhcv/cdy:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/hivhcv/cdy" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/cdyk ,'1')" required="true()" type="int"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctre" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0'))" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctrer" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/ctre ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctrers" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/ctre ,'1') and selected( /Q1302_BEHAVE/hivhcv/ctrer ,'99')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctrl" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/ctre ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctrls" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/ctre ,'1') and selected( /Q1302_BEHAVE/hivhcv/ctrl ,'99')" required="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctrcl12m" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/ctre ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/csc" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/ctre ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctrwib" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/ctre ,'1') and selected( /Q1302_BEHAVE/hivhcv/csc ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctrwif" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/ctre ,'1') and selected( /Q1302_BEHAVE/hivhcv/csc ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctrpife" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/ctre ,'1') and selected( /Q1302_BEHAVE/hivhcv/csc ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/hivhcv/ctrpifp" relevant="not(selected( /Q1302_BEHAVE/hivhcv/cte ,'0')) and not(selected( /Q1302_BEHAVE/hivhcv/cde ,'0')) and selected( /Q1302_BEHAVE/hivhcv/ctre ,'1') and selected( /Q1302_BEHAVE/hivhcv/csc ,'1') and selected( /Q1302_BEHAVE/hivhcv/ctrpife ,'1')" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/eq5d/tc_eq5d" readonly="true()" type="string"/>
+      <bind nodeset="/Q1302_BEHAVE/eq5d/hcmo" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/eq5d/hcpc" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/eq5d/hcua" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/eq5d/hcpd" required="true()" type="select1"/>
+      <bind nodeset="/Q1302_BEHAVE/eq5d/hcad" required="true()" type="select1"/>
+      <bind constraint=". &gt;= 0 and . &lt;= 100" jr:constraintMsg="jr:itext('/Q1302_BEHAVE/eq5d/hcs:jr:constraintMsg')" nodeset="/Q1302_BEHAVE/eq5d/hcs" required="true()" type="int"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/Q1302_BEHAVE/meta/instanceID" readonly="true()" type="string"/>
+      <bind calculate="concat('Q1302_BEHAVE-', /Q1302_BEHAVE/visit/sid ,'-', /Q1302_BEHAVE/visit/visd ,'-',uuid())" nodeset="/Q1302_BEHAVE/meta/instanceName" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <group ref="/Q1302_BEHAVE/visit">
+      <input ref="/Q1302_BEHAVE/visit/tc_visit">
+        <label ref="jr:itext('/Q1302_BEHAVE/visit/tc_visit:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/visit/visd">
+        <label ref="jr:itext('/Q1302_BEHAVE/visit/visd:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/visit/sid">
+        <label ref="jr:itext('/Q1302_BEHAVE/visit/sid:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/visit/sinit">
+        <label ref="jr:itext('/Q1302_BEHAVE/visit/sinit:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/visit/dob">
+        <label ref="jr:itext('/Q1302_BEHAVE/visit/dob:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/visit/iinit">
+        <label ref="jr:itext('/Q1302_BEHAVE/visit/iinit:label')"/>
+      </input>
+    </group>
+    <group ref="/Q1302_BEHAVE/seni">
+      <input ref="/Q1302_BEHAVE/seni/tc_seni">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/tc_seni:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/seni/cbc">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/cbc:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/seni/cdkcp">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/cdkcp:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/cdkcp/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/cdkcp/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/seni/cdycp">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/cdycp:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/seni/cdmcp">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/cdmcp:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/seni/sent">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/sent:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/sent/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/sent/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/seni/sdkc">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/sdkc:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/sdkc/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/sdkc/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/seni/sdyc">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/sdyc:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/seni/sdmc">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/sdmc:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/seni/smaxk">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/smaxk:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/smaxk/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/smaxk/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/seni/smaxy">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/smaxy:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/seni/smaxm">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/smaxm:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/seni/smink">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/smink:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/smink/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/smink/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/seni/sminy">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/sminy:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/seni/sminm">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/sminm:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/seni/cdkl">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/cdkl:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/cdkl/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/cdkl/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/seni/cdyl">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/cdyl:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/seni/cdml">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/cdml:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/seni/scc">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/scc:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/5:label')"/>
+          <value>5</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/6:label')"/>
+          <value>6</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/7:label')"/>
+          <value>7</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/8:label')"/>
+          <value>8</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/9:label')"/>
+          <value>9</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/10:label')"/>
+          <value>10</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/scc/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/seni/impp">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/impp:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/impp/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/impp/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/seni/imppok">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/imppok:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/imppok/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/seni/imppok/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/seni/imppo">
+        <label ref="jr:itext('/Q1302_BEHAVE/seni/imppo:label')"/>
+      </input>
+    </group>
+    <group ref="/Q1302_BEHAVE/demo">
+      <input ref="/Q1302_BEHAVE/demo/tc_demo">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/tc_demo:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/demo/gender">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/gender:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/gender/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/gender/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/gender/2:label')"/>
+          <value>2</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/demo/sexid">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/sexid:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/sexid/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/sexid/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/sexid/3:label')"/>
+          <value>3</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/demo/atsi">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/atsi:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/atsi/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/atsi/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/atsi/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/atsi/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/atsi/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/demo/cob">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/cob:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/cob/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/cob/77:label')"/>
+          <value>77</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/cob/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/demo/cobs">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/cobs:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/demo/cobm">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/cobm:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/cobm/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/cobm/77:label')"/>
+          <value>77</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/cobm/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/demo/cobms">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/cobms:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/demo/cobf">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/cobf:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/cobf/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/cobf/77:label')"/>
+          <value>77</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/cobf/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/demo/cobfs">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/cobfs:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/demo/lshm">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/lshm:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/lshm/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/lshm/77:label')"/>
+          <value>77</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/demo/lshms">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/lshms:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/demo/educ">
+        <label ref="jr:itext('/Q1302_BEHAVE/demo/educ:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/educ/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/educ/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/educ/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/educ/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/educ/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/educ/5:label')"/>
+          <value>5</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/demo/educ/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+    </group>
+    <group ref="/Q1302_BEHAVE/reval">
+      <input ref="/Q1302_BEHAVE/reval/tc_reval">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/tc_reval:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/mls">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/mls:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/mls/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/mls/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/mls/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/mls/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/mls/5:label')"/>
+          <value>5</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/mls/6:label')"/>
+          <value>6</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/mls/77:label')"/>
+          <value>77</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/sil1m">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/sil1m:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/sil1m/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/sil1m/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/ipsp">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsp:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsp/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsp/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/ipsb">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsb:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsb/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsb/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/ipsi">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsi:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsi/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsi/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/ipsj">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsj:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsj/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsj/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/ipsm">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsm:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsm/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsm/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/ipso">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/ipso:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipso/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/ipso/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/reval/ipsos">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/ipsos:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/riaf">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/riaf:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/riaf/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/riaf/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/riai">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/riai:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/riai/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/riai/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/riao">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/riao:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/riao/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/riao/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/reval/riaos">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/riaos:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/rftt">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/5:label')"/>
+          <value>5</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/6:label')"/>
+          <value>6</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/7:label')"/>
+          <value>7</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/8:label')"/>
+          <value>8</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/9:label')"/>
+          <value>9</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/10:label')"/>
+          <value>10</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/rftt/77:label')"/>
+          <value>77</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/reval/rftts">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/rftts:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spgtf">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spgtf:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spgtf/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spgtf/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spgts">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spgts:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spgts/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spgts/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spnl">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spnl:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spnl/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spnl/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spme">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spme:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spme/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spme/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spmf">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spmf:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmf/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmf/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spmh">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spmh:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmh/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmh/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spmp">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spmp:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmp/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmp/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spml">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spml:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spml/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spml/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spmc">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spmc:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmc/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmc/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spmu">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spmu:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmu/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmu/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/reval/spmo">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spmo:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmo/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/reval/spmo/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/reval/spmos">
+        <label ref="jr:itext('/Q1302_BEHAVE/reval/spmos:label')"/>
+      </input>
+    </group>
+    <group ref="/Q1302_BEHAVE/rfc">
+      <input ref="/Q1302_BEHAVE/rfc/tc_rfc">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/tc_rfc:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/rfc/rfcl6mt">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mt:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mt/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mt/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/rfc/rfcl6mp">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mp:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mp/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mp/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/rfc/rfcl6mf">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mf:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mf/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mf/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/rfc/rfcl6ms">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6ms:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6ms/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6ms/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/rfc/rfcl6mx">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mx:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mx/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl6mx/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/rfc/rfcl1mt">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mt:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mt/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mt/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/rfc/rfcl1mp">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mp:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mp/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mp/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/rfc/rfcl1mf">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mf:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mf/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mf/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/rfc/rfcl1ms">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1ms:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1ms/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1ms/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/rfc/rfcl1mx">
+        <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mx:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mx/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/rfc/rfcl1mx/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+    </group>
+    <group ref="/Q1302_BEHAVE/idu">
+      <input ref="/Q1302_BEHAVE/idu/tc_idu">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/tc_idu:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/inje">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/inje:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/inje/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/inje/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/idu/ifa">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/ifa:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/ific">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/ific:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/ific/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/ific/2:label')"/>
+          <value>2</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/iice">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/iice:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/iice/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/iice/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/idcc">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/idcc:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/idcc/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/idcc/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il6m">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il6m:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il6m/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il6m/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mf">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mf:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mf/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mf/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mf/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mf/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mf/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mf/5:label')"/>
+          <value>5</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdik">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdik:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdik/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdik/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/idu/il1mdi">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdi:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdhe">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdhe:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdhe/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdhe/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdco">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdco:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdco/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdco/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdmi">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmi:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmi/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmi/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdmd">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmd:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmd/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmd/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdbe">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdbe:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdbe/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdbe/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdmo">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmo:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmo/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmo/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdox">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdox:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdox/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdox/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdbu">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdbu:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdbu/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdbu/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdfe">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdfe:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdfe/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdfe/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdst">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdst:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdst/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdst/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdha">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdha:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdha/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdha/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdec">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdec:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdec/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdec/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdke">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdke:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdke/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdke/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdgh">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdgh:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdgh/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdgh/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdo">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdo:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdo/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdo/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/idu/il1mdos">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdos:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mdmf">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/5:label')"/>
+          <value>5</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/6:label')"/>
+          <value>6</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/7:label')"/>
+          <value>7</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/8:label')"/>
+          <value>8</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/9:label')"/>
+          <value>9</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/10:label')"/>
+          <value>10</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/11:label')"/>
+          <value>11</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/12:label')"/>
+          <value>12</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/13:label')"/>
+          <value>13</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/14:label')"/>
+          <value>14</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmf/77:label')"/>
+          <value>77</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/idu/il1mdmfs">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mdmfs:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1msf">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1msf:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1msf/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1msf/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1msf/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1msf/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1msf/5:label')"/>
+          <value>5</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mue">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mue:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mue/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mue/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mue/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mue/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mue/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1mboa">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mboa:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mboa/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mboa/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mboa/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1mboa/3:label')"/>
+          <value>3</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1muf">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1muf:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1muf/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1muf/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1muf/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1muf/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1muf/4:label')"/>
+          <value>4</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/il1maon">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/il1maon:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1maon/5:label')"/>
+          <value>5</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1maon/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1maon/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1maon/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/il1maon/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/iscca">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/iscca:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/iscca/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/iscca/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/iscca/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/iscca/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/idu/isccp">
+        <label ref="jr:itext('/Q1302_BEHAVE/idu/isccp:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/isccp/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/isccp/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/isccp/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/idu/isccp/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+    </group>
+    <group ref="/Q1302_BEHAVE/odu">
+      <input ref="/Q1302_BEHAVE/odu/tc_odu">
+        <label ref="jr:itext('/Q1302_BEHAVE/odu/tc_odu:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/odu/ucfl1m">
+        <label ref="jr:itext('/Q1302_BEHAVE/odu/ucfl1m:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/ucfl1m/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/ucfl1m/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/ucfl1m/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/ucfl1m/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/ucfl1m/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/odu/stfc">
+        <label ref="jr:itext('/Q1302_BEHAVE/odu/stfc:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/stfc/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/stfc/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/stfc/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/stfc/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/stfc/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/odu/da2d10ye">
+        <label ref="jr:itext('/Q1302_BEHAVE/odu/da2d10ye:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/da2d10ye/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/da2d10ye/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/da2d10ye/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/odu/da6d10ye">
+        <label ref="jr:itext('/Q1302_BEHAVE/odu/da6d10ye:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/da6d10ye/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/da6d10ye/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/odu/da6d10ye/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+    </group>
+    <group ref="/Q1302_BEHAVE/dthmh">
+      <input ref="/Q1302_BEHAVE/dthmh/tc_dthmh">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/tc_dthmh:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/oste">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/oste:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/oste/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/oste/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/oste/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/ostd">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostd:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostd/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostd/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostd/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostd/77:label')"/>
+          <value>77</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostd/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/dthmh/ostds">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostds:label')"/>
+      </input>
+      <input ref="/Q1302_BEHAVE/dthmh/ostdd">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostdd:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/ostdu">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostdu:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostdu/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostdu/77:label')"/>
+          <value>77</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/dthmh/ostdus">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/ostdus:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mheb">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mheb:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mheb/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mheb/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhep">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhep:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhep/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhep/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhes">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhes:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhes/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhes/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhed">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhed:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhed/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhed/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhea">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhea:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhea/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhea/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mheh">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mheh:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mheh/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mheh/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhet">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhet:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhet/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhet/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mheo">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mheo:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mheo/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mheo/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/dthmh/mheos">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mheos:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhl6mb">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mb:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mb/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mb/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhl6mp">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mp:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mp/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mp/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhl6ms">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6ms:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6ms/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6ms/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhl6md">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6md:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6md/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6md/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhl6ma">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6ma:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6ma/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6ma/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhl6mh">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mh:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mh/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mh/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhl6mt">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mt:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mt/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mt/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/dthmh/mhl6mo">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mo:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mo/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mo/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/dthmh/mhl6mos">
+        <label ref="jr:itext('/Q1302_BEHAVE/dthmh/mhl6mos:label')"/>
+      </input>
+    </group>
+    <group ref="/Q1302_BEHAVE/hivhcv">
+      <input ref="/Q1302_BEHAVE/hivhcv/tc_hivhcv">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/tc_hivhcv:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ite">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ite:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ite/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ite/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ite/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/itlr">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/itlr:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/itlr/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/itlr/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/itlr/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/idyk">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/idyk:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/idyk/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/idyk/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/hivhcv/idy">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/idy:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/cte">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cte:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cte/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cte/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cte/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/cttea">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttea:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttea/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttea/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctter">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctter:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctter/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctter/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctteg">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctteg:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctteg/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctteg/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctteo">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctteo:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctteo/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctteo/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctted">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctted:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctted/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctted/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/cttla">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttla:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttla/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttla/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/cttlr">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttlr:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttlr/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttlr/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/cttlg">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttlg:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttlg/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttlg/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/cttlo">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttlo:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttlo/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttlo/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/cttld">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttld:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttld/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cttld/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/cde">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cde:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cde/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cde/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/cdyk">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cdyk:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cdyk/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cdyk/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/hivhcv/cdy">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/cdy:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctre">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctre:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctre/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctre/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctrer">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrer:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrer/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrer/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrer/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrer/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrer/77:label')"/>
+          <value>77</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/hivhcv/ctrers">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrers:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctrl">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrl:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrl/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrl/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrl/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrl/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrl/5:label')"/>
+          <value>5</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrl/77:label')"/>
+          <value>77</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/hivhcv/ctrls">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrls:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctrcl12m">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrcl12m:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrcl12m/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrcl12m/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/csc">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/csc:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/csc/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/csc/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/csc/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/csc/99:label')"/>
+          <value>99</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctrwib">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwib:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwib/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwib/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwib/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwib/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwib/5:label')"/>
+          <value>5</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctrwif">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwif:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwif/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwif/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwif/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwif/4:label')"/>
+          <value>4</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrwif/5:label')"/>
+          <value>5</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctrpife">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrpife:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrpife/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrpife/0:label')"/>
+          <value>0</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/hivhcv/ctrpifp">
+        <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrpifp:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrpifp/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrpifp/2:label')"/>
+          <value>2</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrpifp/3:label')"/>
+          <value>3</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/hivhcv/ctrpifp/4:label')"/>
+          <value>4</value>
+        </item>
+      </select1>
+    </group>
+    <group ref="/Q1302_BEHAVE/eq5d">
+      <input ref="/Q1302_BEHAVE/eq5d/tc_eq5d">
+        <label ref="jr:itext('/Q1302_BEHAVE/eq5d/tc_eq5d:label')"/>
+      </input>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/eq5d/hcmo">
+        <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcmo:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcmo/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcmo/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcmo/2:label')"/>
+          <value>2</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/eq5d/hcpc">
+        <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcpc:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcpc/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcpc/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcpc/2:label')"/>
+          <value>2</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/eq5d/hcua">
+        <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcua:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcua/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcua/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcua/2:label')"/>
+          <value>2</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/eq5d/hcpd">
+        <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcpd:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcpd/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcpd/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcpd/2:label')"/>
+          <value>2</value>
+        </item>
+      </select1>
+      <select1 appearance="quick" ref="/Q1302_BEHAVE/eq5d/hcad">
+        <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcad:label')"/>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcad/0:label')"/>
+          <value>0</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcad/1:label')"/>
+          <value>1</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcad/2:label')"/>
+          <value>2</value>
+        </item>
+      </select1>
+      <input ref="/Q1302_BEHAVE/eq5d/hcs">
+        <label ref="jr:itext('/Q1302_BEHAVE/eq5d/hcs:label')"/>
+      </input>
+    </group>
+  </h:body>
+</h:html>

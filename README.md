@@ -42,3 +42,6 @@ PHP client for interacting with OpenClinica webservices, and helper classes / fu
 
 ## [xforms](xforms)
 XSL transformation for converting an xform xml form into a flat structure for review.
+
+## [xlsform_images](xlsform_images)
+Python script that reads an ODK xlsform and generates images for each question, in order to provide a layout style that is a bit nicer than the default. Supports multiple languages. Included example xlsform and generated files with image settings ideal for a Galaxy Tab 4.
