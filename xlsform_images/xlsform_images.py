@@ -16,7 +16,7 @@ Creates image files with xlsform question text.
 Run on command line with "-f" parameter which is path to xlsform file.
 Image settings sheet must have all parameters set. Can process multiple langs.
 Places images into "out" subfolder of xlsform file directory.
-Requires PIL and xlrd, written with python 2.7.6.
+Requires pillow and xlrd, written with python 2.7.6.
 """
 
 
