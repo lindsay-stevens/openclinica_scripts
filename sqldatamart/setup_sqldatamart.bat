@@ -1,4 +1,4 @@
-echo %time%
+set start_time=%time%
 set "psql=C:\Program Files\PostgreSQL\9.3\bin\psql"
 set PGHOST=127.0.0.1
 set PGPORT=myOCDM_Port
@@ -9,7 +9,7 @@ set foreign_server_host_address=myOCDM_IP
 set foreign_server_port=myOC_Port
 set foreign_server_database=myOC_DBname
 set foreign_server_user_password=theForeignServer_ocdm_fdw_UserPassword
-set foreign_openclinica_schema_name=myOC_SchemaName
+set foreign_server_openclinica_schema_name=myOC_SchemaName
 set "scripts_path=C:\Users\myUserName\Desktop\sqldatamart"
 
 "%psql%" -q  -d postgres -c "CREATE DATABASE openclinica_fdw_db;" -P pager
@@ -24,6 +24,5 @@ set "scripts_path=C:\Users\myUserName\Desktop\sqldatamart"
     -v foreign_server_user_password=^'%foreign_server_user_password%^' ^
     -v foreign_server_openclinica_schema_name=^'%foreign_server_openclinica_schema_name%^' ^
     -P pager
-"%psql%" -q  -d openclinica_fdw_db -f "%scripts_path%"\dm_utility_views.sql -P pager
-echo %time%
+echo %start_time% %time%
 pause

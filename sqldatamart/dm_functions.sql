@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION dm_create_ft_catalog()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_ft_catalog()
     RETURNS VOID AS
     $BODY$
     DECLARE
@@ -35,8 +35,7 @@ CREATE OR REPLACE FUNCTION dm_create_ft_catalog()
                                                 attacl aclitem[],
                                                 attoptions text[],
                                                 attfdwoptions text[]$$
-                            )
-                            ,
+                            ),
                             (
                                 $$pg_class$$,
                                 $$  "oid" oid,
@@ -57,8 +56,7 @@ CREATE OR REPLACE FUNCTION dm_create_ft_catalog()
                                              relisshared boolean,
                                              relpersistence "char",
                                              relkind "char"$$
-                            )
-                            ,
+                            ),
                             (
                                 $$pg_namespace$$,
                                 $$ "oid" oid,
@@ -70,7 +68,6 @@ CREATE OR REPLACE FUNCTION dm_create_ft_catalog()
                                               tablename name,
                                               indexname name,
                                               indexdef text $$)
-
                     ) AS table_list (table_name, table_def)
         )
         SELECT
@@ -90,7 +87,7 @@ CREATE OR REPLACE FUNCTION dm_create_ft_catalog()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_ft_openclinica(
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_ft_openclinica(
     foreign_openclinica_schema_name TEXT DEFAULT $$public$$
 )
     RETURNS VOID AS
@@ -132,8 +129,7 @@ CREATE OR REPLACE FUNCTION dm_create_ft_openclinica(
                     AND ft_pg_attribute.attnum > 0
                     AND ft_pg_class.relkind IN ($$v$$, $$r$$)
                 GROUP BY
-                    ft_pg_namespace.nspname
-                    ,
+                    ft_pg_namespace.nspname,
                     ft_pg_class.relname
         )
         SELECT
@@ -154,7 +150,7 @@ CREATE OR REPLACE FUNCTION dm_create_ft_openclinica(
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_ft_openclinica_matviews()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_ft_openclinica_matviews()
     RETURNS VOID AS
     $BODY$
     DECLARE
@@ -193,7 +189,7 @@ CREATE OR REPLACE FUNCTION dm_create_ft_openclinica_matviews()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_ft_openclinica_matview_indexes(
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_ft_openclinica_matview_indexes(
     foreign_openclinica_schema_name TEXT DEFAULT $$public$$
 )
     RETURNS VOID AS
@@ -242,7 +238,7 @@ CREATE OR REPLACE FUNCTION dm_create_ft_openclinica_matview_indexes(
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_response_sets()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_response_sets()
     RETURNS VOID AS
     $BODY$
     BEGIN
@@ -382,13 +378,29 @@ CREATE OR REPLACE FUNCTION dm_create_dm_response_sets()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_metadata()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_metadata()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
     CREATE MATERIALIZED VIEW dm.metadata AS
-    WITH metadata_no_multi AS (
+    WITH study_with_status AS (
+                    SELECT
+                        study.parent_study_id,
+                        study.study_id,
+                        study.oc_oid,
+                        study.name,
+                        study.date_created,
+                        study.date_updated,
+                        study.status_id,
+                        status_study.name AS status
+                    FROM
+                        openclinica_fdw.study
+                    LEFT JOIN
+                        status AS status_study
+                        ON status_study.status_id = study.status_id
+                ),
+    metadata_no_multi AS (
             SELECT
                 (
                     CASE
@@ -397,16 +409,43 @@ CREATE OR REPLACE FUNCTION dm_create_dm_metadata()
                     ELSE study.name
                     END
                 )                         AS study_name,
+                (
+                    CASE
+                    WHEN parents.name IS NOT NULL
+                    THEN parents.status
+                    ELSE study.status
+                    END
+                )                         AS study_status,
+                (
+                    CASE
+                    WHEN parents.name IS NOT NULL
+                    THEN parents.date_created
+                    ELSE study.date_created
+                    END
+                )                         AS study_date_created,
+                (
+                    CASE
+                    WHEN parents.name IS NOT NULL
+                    THEN parents.date_updated
+                    ELSE study.date_updated
+                    END
+                )                         AS study_date_updated,
                 study.oc_oid              AS site_oid,
                 study.name                AS site_name,
                 sed.oc_oid                AS event_oid,
                 sed.ordinal               AS event_order,
                 sed.name                  AS event_name,
+                sed.date_created          as event_date_created,
+                sed.date_updated          AS event_date_updated,
                 sed.repeating             AS event_repeating,
                 crf.oc_oid                AS crf_parent_oid,
                 crf.name                  AS crf_parent_name,
+                crf.date_created          AS crf_parent_date_created,
+                crf.date_updated          AS crf_parent_date_updated,
                 cv.name                   AS crf_version,
                 cv.oc_oid                 AS crf_version_oid,
+                cv.date_created           AS crf_version_date_created,
+                cv.date_updated           AS crf_version_date_updated,
                 edc.required_crf          AS crf_is_required,
                 edc.double_entry          AS crf_is_double_entry,
                 edc.hide_crf              AS crf_is_hidden,
@@ -446,78 +485,57 @@ CREATE OR REPLACE FUNCTION dm_create_dm_metadata()
                 ifm.response_layout       AS item_response_layout,
                 ifm.width_decimal         AS item_width_decimal,
                 ifm.show_item             AS item_show_item,
-                sim.item_oid              AS item_scd_control_item_oid,
-                sim.option_value          AS item_scd_control_item_option_value,
-                sim.option_text           AS item_scd_control_item_option_text,
+                sim.item_oid              AS item_scd_item_oid,
+                sim.option_value          AS item_scd_item_option_value,
+                sim.option_text           AS item_scd_item_option_text,
                 sim.message               AS item_scd_validation_message
             FROM
-                openclinica_fdw.study
-
+                study_with_status AS study
                 INNER JOIN
                 openclinica_fdw.study_event_definition AS sed
                     ON sed.study_id = study.study_id
-
                 INNER JOIN
                 openclinica_fdw.event_definition_crf AS edc
                     ON edc.study_event_definition_id =
                        sed.study_event_definition_id
-
                 INNER JOIN
                 openclinica_fdw.crf_version AS cv
                     ON cv.crf_id = edc.crf_id
-
                 INNER JOIN
                 openclinica_fdw.crf
                     ON crf.crf_id = cv.crf_id
                        AND crf.crf_id = edc.crf_id
-
                 INNER JOIN
                 openclinica_fdw.item_group AS ig
                     ON ig.crf_id = crf.crf_id
-
                 INNER JOIN
                 openclinica_fdw.item_group_metadata AS igm
                     ON igm.item_group_id = ig.item_group_id
                        AND igm.crf_version_id = cv.crf_version_id
-
                 INNER JOIN
                 openclinica_fdw.item_form_metadata AS ifm
                     ON cv.crf_version_id = ifm.crf_version_id
-
                 INNER JOIN
                 openclinica_fdw."section" AS sct
                     ON sct.crf_version_id = cv.crf_version_id
                        AND sct.section_id = ifm.section_id
-
                 INNER JOIN
                 openclinica_fdw.response_set AS rs
                     ON rs.response_set_id = ifm.response_set_id
                        AND rs.version_id = ifm.crf_version_id
-
                 INNER JOIN
                 openclinica_fdw.response_type AS rt
                     ON rs.response_type_id = rt.response_type_id
-
                 INNER JOIN
                 openclinica_fdw.item AS i
                     ON i.item_id = ifm.item_id
                        AND i.item_id = igm.item_id
-
                 INNER JOIN
                 openclinica_fdw.item_data_type AS idt
                     ON idt.item_data_type_id = i.item_data_type_id
-
                 LEFT JOIN
-                (
-                    SELECT
-                        study.study_id,
-                        study.oc_oid,
-                        study.name
-                    FROM
-                        openclinica_fdw.study
-                ) AS parents
+                study_with_status AS parents
                     ON parents.study_id = study.parent_study_id
-
                 LEFT JOIN
                 (
                     SELECT
@@ -557,28 +575,32 @@ CREATE OR REPLACE FUNCTION dm_create_dm_metadata()
                 AND i.status_id NOT IN (5, 7)
                 AND sct.status_id NOT IN (5, 7)
     )
-
 SELECT
     metadata_no_multi.study_name,
+    metadata_no_multi.study_status,
+    metadata_no_multi.study_date_created,
+    metadata_no_multi.study_date_updated,
     metadata_no_multi.site_oid,
     metadata_no_multi.site_name,
     metadata_no_multi.event_oid,
     metadata_no_multi.event_order,
     metadata_no_multi.event_name,
+    metadata_no_multi.event_date_created,
+    metadata_no_multi.event_date_updated,
     metadata_no_multi.event_repeating,
     metadata_no_multi.crf_parent_oid,
     metadata_no_multi.crf_parent_name,
+    metadata_no_multi.crf_parent_date_created,
+    metadata_no_multi.crf_parent_date_updated,
     metadata_no_multi.crf_version,
     metadata_no_multi.crf_version_oid,
+    metadata_no_multi.crf_version_date_created,
+    metadata_no_multi.crf_version_date_updated,
     metadata_no_multi.crf_is_required,
     metadata_no_multi.crf_is_double_entry,
     metadata_no_multi.crf_is_hidden,
     metadata_no_multi.crf_null_values,
-    CAST(
-            metadata_no_multi.crf_section_label
-            AS
-            VARCHAR(255)
-    ) AS crf_section_label,
+    metadata_no_multi.crf_section_label,
     metadata_no_multi.crf_section_title,
     metadata_no_multi.item_group_oid,
     metadata_no_multi.item_group_name,
@@ -638,9 +660,9 @@ SELECT
     metadata_no_multi.item_response_layout,
     metadata_no_multi.item_width_decimal,
     metadata_no_multi.item_show_item,
-    metadata_no_multi.item_scd_control_item_oid,
-    metadata_no_multi.item_scd_control_item_option_value,
-    metadata_no_multi.item_scd_control_item_option_text,
+    metadata_no_multi.item_scd_item_oid,
+    metadata_no_multi.item_scd_item_option_value,
+    metadata_no_multi.item_scd_item_option_text,
     metadata_no_multi.item_scd_validation_message
 FROM
     metadata_no_multi
@@ -704,7 +726,7 @@ FROM
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_metadata_event_crf_ig()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_metadata_event_crf_ig()
     RETURNS VOID AS
     $BODY$
     BEGIN
@@ -712,42 +734,33 @@ CREATE OR REPLACE FUNCTION dm_create_dm_metadata_event_crf_ig()
     CREATE MATERIALIZED VIEW dm.metadata_event_crf_ig AS
         SELECT
             DISTINCT ON (study_name, event_oid, crf_version_oid)
-            study_name
-            ,
-            site_oid
-            ,
-            site_name
-            ,
-            event_oid
-            ,
-            event_order
-            ,
-            event_name
-            ,
-            event_repeating
-            ,
-            crf_parent_oid
-            ,
-            crf_parent_name
-            ,
-            crf_version
-            ,
-            crf_version_oid
-            ,
-            crf_is_required
-            ,
-            crf_is_double_entry
-            ,
-            crf_is_hidden
-            ,
-            crf_null_values
-            ,
-            crf_section_label
-            ,
-            crf_section_title
-            ,
-            item_group_oid
-            ,
+            study_name,
+            study_status,
+            study_date_created,
+            study_date_updated,
+            site_oid,
+            site_name,
+            event_oid,
+            event_order,
+            event_name,
+            event_date_created,
+            event_date_updated,
+            event_repeating,
+            crf_parent_oid,
+            crf_parent_name,
+            crf_parent_date_created,
+            crf_parent_date_updated,
+            crf_version,
+            crf_version_oid,
+            crf_version_date_created,
+            crf_version_date_updated,
+            crf_is_required,
+            crf_is_double_entry,
+            crf_is_hidden,
+            crf_null_values,
+            crf_section_label,
+            crf_section_title,
+            item_group_oid,
             item_group_name
         FROM
             dm.metadata;
@@ -756,7 +769,7 @@ CREATE OR REPLACE FUNCTION dm_create_dm_metadata_event_crf_ig()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_metadata_crf_ig_item()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_metadata_crf_ig_item()
     RETURNS VOID AS
     $BODY$
     BEGIN
@@ -765,12 +778,19 @@ CREATE OR REPLACE FUNCTION dm_create_dm_metadata_crf_ig_item()
         SELECT
             DISTINCT ON (study_name, crf_version_oid, item_oid)
             study_name,
+            study_status,
+            study_date_created,
+            study_date_updated,
             site_oid,
             site_name,
             crf_parent_oid,
             crf_parent_name,
+            crf_parent_date_created,
+            crf_parent_date_updated,
             crf_version,
             crf_version_oid,
+            crf_version_date_created,
+            crf_version_date_updated,
             crf_section_label,
             crf_section_title,
             item_group_oid,
@@ -799,9 +819,9 @@ CREATE OR REPLACE FUNCTION dm_create_dm_metadata_crf_ig_item()
             item_response_layout,
             item_width_decimal,
             item_show_item,
-            item_scd_control_item_oid,
-            item_scd_control_item_option_value,
-            item_scd_control_item_option_text,
+            item_scd_item_oid,
+            item_scd_item_option_value,
+            item_scd_item_option_text,
             item_scd_validation_message
         FROM
             dm.metadata;
@@ -810,685 +830,936 @@ CREATE OR REPLACE FUNCTION dm_create_dm_metadata_crf_ig_item()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_clinicaldata()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_metadata_study()
+    RETURNS VOID AS
+    $BODY$
+    BEGIN
+        EXECUTE $query$
+    CREATE MATERIALIZED VIEW dm.metadata_study AS
+        SELECT
+            DISTINCT ON (study_name)
+            study_name,
+            study_status,
+            study_date_created,
+            study_date_updated,
+            dm_clean_name_string(study_name) AS study_name_clean
+        FROM
+            dm.metadata;
+            $query$;
+    END;
+    $BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_clinicaldata()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
     CREATE MATERIALIZED VIEW dm.clinicaldata AS
-        WITH multi_split AS (
-                SELECT
-                    id.item_data_id
-                    ,
-                    regexp_split_to_table(
-                            id.value,
-                            $$,$$) AS split_value
-                FROM
-                    openclinica_fdw.item_data AS id
-                    INNER JOIN
-                    openclinica_fdw.event_crf AS ec
-                        ON ec.event_crf_id = id.event_crf_id
-                    INNER JOIN
-                    openclinica_fdw.item_form_metadata AS ifm
-                        ON ifm.crf_version_id = ec.crf_version_id
-                           AND ifm.item_id = id.item_id
-                    INNER JOIN
-                    openclinica_fdw.response_set AS rs
-                        ON rs.response_set_id = ifm.response_set_id
-                           AND rs.version_id = ifm.crf_version_id
-                    INNER JOIN
-                    openclinica_fdw.response_type AS rt
-                        ON rt.response_type_id = rs.response_type_id
-                WHERE
-                    id.status_id NOT IN (5, 7)
-                    AND rt.name IN ('checkbox', 'multi-select')
-        ), ec_ale_sdv AS (
-                SELECT
-                    ale.event_crf_id
-                    ,
-                    max(
-                            ale.audit_date) AS audit_date
-                FROM
-                    openclinica_fdw.audit_log_event AS ale
-                WHERE
-                    ale.event_crf_id IS NOT NULL
-                    AND ale.audit_log_event_type_id = 32 -- event crf sdv status
-                GROUP BY
-                    ale.event_crf_id
-        )
-        SELECT
-            COALESCE(
-                    parents.name,
-                    study.name,
-                    'no parent study')    AS study_name
-            ,
-            study.oc_oid                  AS site_oid
-            ,
-            study.name                    AS site_name
-            ,
-            sub.unique_identifier         AS subject_person_id
-            ,
-            ss.oc_oid                     AS subject_oid
-            ,
-            ss.label                      AS subject_id
-            ,
-            ss.study_subject_id
-            ,
-            ss.secondary_label            AS subject_secondary_label
-            ,
-            sub.date_of_birth             AS subject_date_of_birth
-            ,
-            sub.gender                    AS subject_sex
-            ,
-            sub.subject_id                AS subject_id_seq
-            ,
-            ss.enrollment_date            AS subject_enrol_date
-            ,
-            sub.unique_identifier         AS person_id
-            ,
-            ss.owner_id                   AS ss_owner_id
-            ,
-            ss.update_id                  AS ss_update_id
-            ,
-            sed.oc_oid                    AS event_oid
-            ,
-            sed.ordinal                   AS event_order
-            ,
-            sed.name                      AS event_name
-            ,
-            se.study_event_id
-            ,
-            se.sample_ordinal             AS event_repeat
-            ,
-            se.date_start                 AS event_start
-            ,
-            se.date_end                   AS event_end
-            ,
-            ses.name                      AS event_status
-            ,
-            se.owner_id                   AS se_owner_id
-            ,
-            se.update_id                  AS se_update_id
-            ,
-            crf.oc_oid                    AS crf_parent_oid
-            ,
-            crf.name                      AS crf_parent_name
-            ,
-            cv.name                       AS crf_version
-            ,
-            cv.oc_oid                     AS crf_version_oid
-            ,
-            edc.required_crf              AS crf_is_required
-            ,
-            edc.double_entry              AS crf_is_double_entry
-            ,
-            edc.hide_crf                  AS crf_is_hidden
-            ,
-            edc.null_values               AS crf_null_values
-            ,
-            edc.status_id                 AS edc_status_id
-            ,
-            ec.event_crf_id
-            ,
-            ec.date_created               AS crf_date_created
-            ,
-            ec.date_updated               AS crf_last_update
-            ,
-            ec.date_completed             AS crf_date_completed
-            ,
-            ec.date_validate              AS crf_date_validate
-            ,
-            ec.date_validate_completed    AS crf_date_validate_completed
-            ,
-            ec.owner_id                   AS ec_owner_id
-            ,
-            ec.update_id                  AS ec_update_id
-            ,
-            CASE
-            WHEN ses.subject_event_status_id IN
-                 (5, 6, 7) --stopped,skipped,locked
-            THEN 'locked'
-            WHEN cv.status_id <> 1 --available
-            THEN 'locked'
-            WHEN ec.status_id = 1 --available
-            THEN 'initial data entry'
-            WHEN ec.status_id = 2 --unavailable
-            THEN
+    WITH status_filter AS (
+            SELECT
+                status.status_id,
+                status.name
+            FROM
+                openclinica_fdw.status
+            WHERE
+                status.name
+                NOT IN ($$removed$$, $$auto-removed$$)
+    ), user_id_name AS (
+    SELECT user_account.user_id, user_account.user_name
+        FROM openclinica_fdw.user_account
+    ), study_details AS (
+    SELECT
+        COALESCE(
+                parent_study.oc_oid,
+                study.oc_oid,
+                $$no parent study$$) AS study_oid,
+        COALESCE(
+                parent_study.name,
+                study.name,
+                $$no parent study$$) AS study_name,
+        COALESCE(
+                parent_study.study_id,
+                study.study_id) AS   study_id,
+        study.oc_oid                 AS site_oid,
+        study.name                   AS site_name,
+        study.study_id as site_id
+    FROM
+        openclinica_fdw.study
+        LEFT JOIN
+        (
+            SELECT
+                study.study_id,
+                study.oc_oid,
+                study.name
+            FROM
+                openclinica_fdw.study
+                INNER JOIN
+                status_filter AS status_pstudy
+                    ON status_pstudy.status_id = study.status_id
+        ) AS parent_study
+            ON parent_study.study_id = study.parent_study_id
+        INNER JOIN
+        status_filter AS status_study
+            ON status_study.status_id = study.status_id      
+    ), subject_details AS (
+            SELECT
+                ss.study_subject_id   AS study_subject_id_seq,
+                ss.label              AS subject_id,
+                ss.secondary_label    AS subject_secondary_label,
+                ss.subject_id         AS subject_id_seq,
+                ss.study_id           AS subject_study_id,
+                ss.enrollment_date    AS subject_enrol_date,
+                ss.date_created       AS subject_date_created,
+                ss.date_updated       AS subject_date_updated,
+                ua_ss_o.user_name     AS subject_created_by,
+                ua_ss_u.user_name     AS subject_updated_by,
+                ss.oc_oid             AS subject_oid,
+                sub.date_of_birth     AS subject_date_of_birth,
+                sub.gender            AS subject_sex,
+                sub.unique_identifier AS subject_person_id,
+                status_ss.name        AS subject_status
+            FROM
+                openclinica_fdw.study_subject AS ss
+                INNER JOIN
+                openclinica_fdw.subject AS sub
+                    ON ss.subject_id = sub.subject_id
+                INNER JOIN
+                status_filter AS status_ss
+                    ON ss.status_id = status_ss.status_id
+                INNER JOIN
+                user_id_name AS ua_ss_o
+                    ON ss.owner_id = ua_ss_o.user_id
+                LEFT JOIN
+                user_id_name AS ua_ss_u
+                    ON ss.owner_id = ua_ss_u.user_id
+    ), event_details AS (
+            SELECT
+                se.study_event_id             AS study_event_id_seq,
+                se.study_subject_id           AS event_study_subject_id_seq,
+                se.location                   AS event_location,
+                se.sample_ordinal             AS event_repeat,
+                se.date_start                 AS event_date_start,
+                se.date_end                   AS event_date_end,
+                ses.name                      AS event_status,
+                status_se.name                AS event_status_internal,
+                se.date_created               AS event_date_created,
+                se.date_updated               AS event_date_updated,
+                ua_se_o.user_name             AS event_created_by,
+                ua_se_u.user_name             AS event_updated_by,
+                sed.study_event_definition_id AS study_event_definition_id_seq,
+                sed.oc_oid                    AS event_oid,
+                sed.name                      AS event_name,
+                sed.ordinal                   AS event_order
+            FROM
+                openclinica_fdw.study_event AS se
+                INNER JOIN
+                openclinica_fdw.study_event_definition AS sed
+                    ON sed.study_event_definition_id = se.study_event_definition_id
+                INNER JOIN
+                openclinica_fdw.subject_event_status AS ses
+                    ON ses.subject_event_status_id = se.subject_event_status_id
+                INNER JOIN
+                status_filter AS status_se
+                    ON se.status_id = status_se.status_id
+                INNER JOIN
+                user_id_name AS ua_se_o
+                    ON se.owner_id = ua_se_o.user_id
+                LEFT JOIN
+                user_id_name AS ua_se_u
+                    ON se.update_id = ua_se_u.user_id
+    ), crf_details AS (
+            WITH ec_ale_sdv AS (
+                    SELECT
+                        ale.event_crf_id,
+                        max(
+                                ale.audit_date) AS audit_date
+                    FROM
+                        openclinica_fdw.audit_log_event AS ale
+                        INNER JOIN
+                        openclinica_fdw.audit_log_event_type AS alet
+                            ON alet.audit_log_event_type_id =
+                            ale.audit_log_event_type_id
+                    WHERE
+                        ale.event_crf_id IS NOT NULL
+                        AND alet.name = $$EventCRF SDV Status$$
+                    GROUP BY
+                        ale.event_crf_id
+            )
+            SELECT
+                crf.crf_id                     AS crf_id_seq,
+                crf.oc_oid                     AS crf_parent_oid,
+                crf.name                       AS crf_parent_name,
+                cv.crf_version_id              AS crf_version_id_seq,
+                cv.oc_oid                      AS crf_version_oid,
+                cv.name                        AS crf_version_name,
+                ec.event_crf_id                AS event_crf_id_seq,
+                ec.study_event_id              AS crf_study_event_id_seq,
+                ec.date_interviewed            AS crf_date_interviewed,
+                ec.interviewer_name            AS crf_interviewer_name,
+                ec.date_completed              AS crf_date_completed,
+                ec.date_validate               AS crf_date_validate,
+                ua_ec_v.user_name              AS crf_validated_by,
+                ec.date_validate_completed     AS crf_date_validate_completed,
+                ec.electronic_signature_status AS crf_esignature_status,
+                ec.sdv_status                  AS crf_sdv_status,
+                ec_ale_sdv.audit_date          AS crf_sdv_status_last_updated,
+                ua_ec_s.user_name              AS crf_sdv_status_last_updated_by,
+                ec.date_created                AS crf_date_created,
+                ec.date_updated                AS crf_date_updated,
+                ua_ec_o.user_name              AS crf_created_by,
+                ua_ec_u.user_name              AS crf_updated_by,
                 CASE
-                WHEN edc.double_entry = TRUE
-                THEN 'validation completed'
-                WHEN edc.double_entry = FALSE
-                THEN 'data entry complete'
-                ELSE 'unhandled'
-                END
-            WHEN ec.status_id = 4 --pending
-            THEN
-                CASE
-                WHEN ec.validator_id <>
-                     0 --default zero, blank if event_crf created by insertaction
-                THEN 'double data entry'
-                WHEN ec.validator_id = 0
-                THEN 'initial data entry complete'
-                ELSE 'unhandled'
-                END
-            ELSE ec_s.name
-            END                           AS crf_status
-            ,
-            ec.validator_id
-            ,
-            ec.sdv_status                 AS crf_sdv_status
-            ,
-            ec_ale_sdv.audit_date         AS crf_sdv_status_last_updated
-            ,
-            ec.sdv_update_id
-            ,
-            ec.interviewer_name           AS crf_interviewer_name
-            ,
-            ec.date_interviewed           AS crf_interview_date
-            ,
-            sct.label                     AS crf_section_label
-            ,
-            sct.title                     AS crf_section_title
-            ,
-            ig.oc_oid                     AS item_group_oid
-            ,
-            ig.name                       AS item_group_name
-            ,
-            id.ordinal                    AS item_group_repeat
-            ,
-            ifm.ordinal                   AS item_form_order
-            ,
-            ifm.question_number_label     AS item_question_number
-            ,
-            CASE
-            WHEN rt.name IN ('checkbox', 'multi-select') AND
-                 id.value <> ''
-            THEN concat(
-                    i.oc_oid,
-                    $$_$$,
-                    multi_split.split_value)
-            ELSE i.oc_oid
-            END                           AS item_oid
-            ,
-            CASE
-            WHEN rt.name IN ('checkbox', 'multi-select') AND
-                 id.value <> ''
-            THEN i.oc_oid
-            ELSE NULL
-            END                           AS item_oid_multi_orig
-            ,
-            i.units                       AS item_units
-            ,
-            idt.code                      AS item_data_type
-            ,
-            rt.name            AS item_response_type
-            ,
-            CASE
-            WHEN response_sets.label IN ('text', 'textarea')
-            THEN NULL
-            ELSE response_sets.label
-            END                           AS item_response_set_label
-            ,
-            response_sets.response_set_id AS item_response_set_id
-            ,
-            response_sets.version_id      AS item_response_set_version
-            ,
-            CASE
-            WHEN rt.name IN ('checkbox', 'multi-select') AND
-                 id.value <> ''
-            THEN concat(
-                    i.name,
-                    $$_$$,
-                    multi_split.split_value)
-            ELSE i.name
-            END                           AS item_name
-            ,
-            i.description                 AS item_description
-            ,
-            CASE
-            WHEN rt.name IN ('checkbox', 'multi-select')
-            THEN multi_split.split_value
-            ELSE id.value
-            END                           AS item_value
-            ,
-            id.date_created               AS item_value_created
-            ,
-            id.date_updated               AS item_value_last_updated
-            ,
-            id.owner_id                   AS id_owner_id
-            ,
-            id.update_id                  AS id_update_id
-            ,
-            id.item_data_id
-            ,
-            response_sets.option_text
-            ,
-            ua_ss_o.user_name             AS subject_owned_by_user
-            ,
-            ua_ss_u.user_name             AS subject_last_updated_by_user
-            ,
-            ua_se_o.user_name             AS event_owned_by_user
-            ,
-            ua_se_u.user_name             AS event_last_updated_by_user
-            ,
-            ua_ec_o.user_name             AS crf_owned_by_user
-            ,
-            ua_ec_u.user_name             AS crf_last_updated_by_user
-            ,
-            ua_ec_v.user_name             AS crf_validated_by_user
-            ,
-            CURRENT_TIMESTAMP             AS warehouse_timestamp
-            ,
-            (CASE
-             WHEN ec.sdv_status IS FALSE
-             THEN NULL
-             WHEN ec.sdv_status IS TRUE
-             THEN ua_ec_s.user_name
-             ELSE 'unhandled'
-             END)                         AS crf_sdv_by_user
-            ,
-            ua_id_o.user_name             AS item_value_owned_by_user
-            ,
-            ua_id_u.user_name             AS item_value_last_updated_by_user
-
-        FROM
-            openclinica_fdw.study
-
-            LEFT JOIN
-            (
-                SELECT
-                    study.*
-                FROM
-                    openclinica_fdw.study
-                WHERE
-                    study.status_id NOT IN
-                    (5, 7) /*removed, auto-removed*/) AS parents
-                ON parents.study_id = study.parent_study_id
-
-            INNER JOIN
-            openclinica_fdw.study_subject AS ss
-                ON ss.study_id = study.study_id
-
-            INNER JOIN
-            openclinica_fdw.subject AS sub
-                ON sub.subject_id = ss.subject_id
-
-            INNER JOIN
-            openclinica_fdw.study_event AS se
-                ON se.study_subject_id = ss.study_subject_id
-
-            INNER JOIN
-            openclinica_fdw.study_event_definition AS sed
-                ON sed.study_event_definition_id = se.study_event_definition_id
-
-            INNER JOIN
-            openclinica_fdw.subject_event_status AS ses
-                ON ses.subject_event_status_id = se.subject_event_status_id
-
-            INNER JOIN
-            openclinica_fdw.event_definition_crf AS edc
-                ON edc.study_event_definition_id = se.study_event_definition_id
-
-            INNER JOIN
-            openclinica_fdw.event_crf AS ec
-                ON se.study_event_id = ec.study_event_id
-                   AND ec.study_subject_id = ss.study_subject_id
-
-            INNER JOIN
-            openclinica_fdw.status AS ec_s
-                ON ec.status_id = ec_s.status_id
-
-            LEFT JOIN
-            ec_ale_sdv
-                ON ec_ale_sdv.event_crf_id = ec.event_crf_id
-
-            INNER JOIN
-            openclinica_fdw.crf_version AS cv
-                ON cv.crf_version_id = ec.crf_version_id
-                   AND cv.crf_id = edc.crf_id
-
-            INNER JOIN
-            openclinica_fdw.crf
-                ON crf.crf_id = cv.crf_id
-                   AND crf.crf_id = edc.crf_id
-
-            INNER JOIN
-            openclinica_fdw.item_group AS ig
-                ON ig.crf_id = crf.crf_id
-
-            INNER JOIN
-            openclinica_fdw.item_group_metadata AS igm
-                ON igm.item_group_id = ig.item_group_id
-                   AND igm.crf_version_id = cv.crf_version_id
-
-            INNER JOIN
-            openclinica_fdw.item_form_metadata AS ifm
-                ON cv.crf_version_id = ifm.crf_version_id
-
-            INNER JOIN
-            openclinica_fdw.item AS i
-                ON i.item_id = ifm.item_id
-                   AND i.item_id = igm.item_id
-
-            INNER JOIN
-            openclinica_fdw.item_data_type AS idt
-                ON idt.item_data_type_id = i.item_data_type_id
-
-            INNER JOIN
-            openclinica_fdw.response_set AS rs
-                ON rs.response_set_id = ifm.response_set_id
-                   AND rs.version_id = ifm.crf_version_id
-
-            INNER JOIN
-            openclinica_fdw.response_type AS rt
-                ON rs.response_type_id = rt.response_type_id
-
-            INNER JOIN
-            openclinica_fdw."section" AS sct
-                ON sct.crf_version_id = cv.crf_version_id
-                   AND sct.section_id = ifm.section_id
-
-            INNER JOIN
-            openclinica_fdw.item_data AS id
-                ON id.item_id = i.item_id
-                   AND id.event_crf_id = ec.event_crf_id
-
-            LEFT JOIN
-            multi_split
-                ON multi_split.item_data_id = id.item_data_id
-
-            LEFT JOIN
-            dm.response_sets
-                ON response_sets.response_set_id = rs.response_set_id
-                   AND response_sets.version_id = rs.version_id
-                   AND (response_sets.option_value = id.value OR
-                        response_sets.option_value =
-                        multi_split.split_value)
-                   AND id.value != ''
-
-            LEFT JOIN
-            openclinica_fdw.user_account AS ua_ss_o
-                ON ua_ss_o.user_id = ss.owner_id
-
-            LEFT JOIN
-            openclinica_fdw.user_account AS ua_ss_u
-                ON ua_ss_u.user_id = se.update_id
-
-            LEFT JOIN
-            openclinica_fdw.user_account AS ua_se_o
-                ON ua_se_o.user_id = se.owner_id
-
-            LEFT JOIN
-            openclinica_fdw.user_account AS ua_se_u
-                ON ua_se_u.user_id = se.update_id
-
-            LEFT JOIN
-            openclinica_fdw.user_account AS ua_ec_o
-                ON ua_ec_o.user_id = ec.owner_id
-
-            LEFT JOIN
-            openclinica_fdw.user_account AS ua_ec_u
-                ON ua_ec_u.user_id = ec.update_id
-
-            LEFT JOIN
-            openclinica_fdw.user_account AS ua_ec_v
-                ON ua_ec_v.user_id = ec.validator_id
-
-            LEFT JOIN
-            openclinica_fdw.user_account AS ua_ec_s
-                ON ua_ec_s.user_id = ec.sdv_update_id
-
-            LEFT JOIN
-            openclinica_fdw.user_account AS ua_id_o
-                ON ua_id_o.user_id = id.owner_id
-
-            LEFT JOIN
-            openclinica_fdw.user_account AS ua_id_u
-                ON ua_id_u.user_id = id.update_id
-
-        WHERE
-            study.status_id NOT IN (5, 7) --removed, auto-removed
-            AND ss.status_id NOT IN (5, 7)
-            AND se.status_id NOT IN (5, 7)
-            AND ec.status_id NOT IN (5, 7)
-            AND sed.status_id NOT IN (5, 7)
-            AND edc.status_id NOT IN (5, 7)
-            AND cv.status_id NOT IN (5, 7)
-            AND crf.status_id NOT IN (5, 7)
-            AND ig.status_id NOT IN (5, 7)
-            AND i.status_id NOT IN (5, 7)
-            AND sct.status_id NOT IN (5, 7)
-            AND id.status_id NOT IN (5, 7)
-            -- the follow conditions result in study level event definitions
-            AND
-            CASE WHEN
-                CASE WHEN edc.parent_id IS NOT NULL THEN
-                    edc.event_definition_crf_id =
-                    (
-                        SELECT
-                            max(
-                                    edc_max.event_definition_crf_id) edc_max
-                        FROM
-                            openclinica_fdw.event_definition_crf AS edc_max
-                        WHERE
-                            edc_max.study_event_definition_id
-                            =
-                            se.study_event_definition_id
-                            AND
-                            edc_max.crf_id = crf.crf_id
-                        GROUP BY
-                            edc_max.study_event_definition_id,
-                            edc_max.crf_id) END
-            THEN TRUE
-            ELSE
-                CASE WHEN edc.parent_id IS NULL AND
-                          (
-                              SELECT
-                                  count(
-                                          edc_count.event_definition_crf_id) edc_count
-                              FROM
-                                  openclinica_fdw.event_definition_crf AS edc_count
-                              WHERE
-                                  edc_count.study_event_definition_id =
-                                  se.study_event_definition_id
-                                  AND edc_count.crf_id = crf.crf_id
-                              GROUP BY
-                                  edc_count.study_event_definition_id,
-                                  edc_count.crf_id) = 1
+                WHEN ses.name IN
+                    ($$stopped$$, $$skipped$$, $$locked$$)
+                THEN $$locked$$
+                WHEN status_cv.name <> $$available$$
+                THEN $$locked$$
+                WHEN status_ec.name = $$available$$
+                THEN $$initial data entry$$
+                WHEN status_ec.name = $$unavailable$$
                 THEN
-                    edc.event_definition_crf_id =
-                    (
-                        SELECT
-                            min(
-                                    edc_min.event_definition_crf_id) edc_min
-                        FROM
-                            openclinica_fdw.event_definition_crf AS edc_min
-                        WHERE
-                            edc_min.study_event_definition_id =
-                            se.study_event_definition_id
-                            AND edc_min.crf_id = crf.crf_id
-                        GROUP BY
-                            edc_min.study_event_definition_id,
-                            edc_min.crf_id)
-                END
-            END;
+                    CASE
+                    WHEN edc.double_entry = TRUE
+                    THEN $$validation completed$$
+                    WHEN edc.double_entry = FALSE
+                    THEN $$data entry complete$$
+                    ELSE $$unhandled$$
+                    END
+                WHEN status_ec.name = $$pending$$
+                THEN
+                    CASE
+                    WHEN ec.validator_id <>
+                        0 /* default zero, blank if event_crf created by insertaction */
+                    THEN $$double data entry$$
+                    WHEN ec.validator_id =
+                        0 /* default value present means non-dde run done */
+                    THEN $$initial data entry complete$$
+                    ELSE $$unhandled$$
+                    END
+                ELSE status_ec.name
+                END                            AS crf_status,
+                status_ec.name                 AS crf_status_internal,
+                edc.study_id                   AS edc_study_id
+            FROM
+                openclinica_fdw.event_crf AS ec
+                INNER JOIN
+                openclinica_fdw.crf_version AS cv
+                    ON cv.crf_version_id = ec.crf_version_id
+                INNER JOIN
+                openclinica_fdw.crf
+                    ON crf.crf_id = cv.crf_id
+                INNER JOIN
+                openclinica_fdw.study_event AS se
+                    ON ec.study_event_id = se.study_event_id
+                INNER JOIN
+                openclinica_fdw.subject_event_status AS ses
+                    ON ses.subject_event_status_id = se.subject_event_status_id
+                INNER JOIN
+                openclinica_fdw.event_definition_crf AS edc
+                    ON edc.crf_id = cv.crf_id
+                    AND edc.study_event_definition_id =
+                        se.study_event_definition_id
+                INNER JOIN
+                status_filter AS status_ec
+                    ON ec.status_id = status_ec.status_id
+                INNER JOIN
+                status_filter AS status_cv
+                    ON cv.status_id = status_cv.status_id
+                INNER JOIN
+                user_id_name AS ua_ec_o
+                    ON ec.owner_id = ua_ec_o.user_id
+                LEFT JOIN
+                user_id_name AS ua_ec_u
+                    ON ec.update_id = ua_ec_u.user_id
+                LEFT JOIN
+                user_id_name AS ua_ec_v
+                    ON ec.validator_id = ua_ec_v.user_id
+                LEFT JOIN
+                ec_ale_sdv
+                    ON ec_ale_sdv.event_crf_id = ec.event_crf_id
+                LEFT JOIN
+                user_id_name AS ua_ec_s
+                    ON ec.sdv_update_id = ua_ec_s.user_id
+                    AND ec.sdv_status = TRUE
+    ), response_sets AS (
+            WITH response_type_filter AS (
+    
+                    SELECT
+                        response_type.response_type_id,
+                        response_type.name
+                    FROM
+                        response_type
+                    WHERE
+                        response_type.name IN
+                        ($$checkbox$$, $$radio$$, $$single-select$$, $$multi-select$$)
+            )
+            SELECT
+                rs_opt_value_min.version_id,
+                rs_opt_value_min.response_set_id,
+                rs_opt_value_min.label,
+                rs_opt_text.option_text,
+                rs_opt_value_min.option_value,
+                rs_opt_value_min.option_order
+            FROM
+                (
+                    SELECT
+                        version_id,
+                        response_set_id,
+                        label,
+                        replace(
+                                option_text,
+                                $$##@##@##$$,
+                                $$,$$
+                        ) AS option_text,
+                        option_order
+                    FROM
+                        (
+                            SELECT
+                                version_id,
+                                response_set_id,
+                                label,
+                                trim(
+                                        BOTH
+                                        FROM
+                                        (
+                                            option_text_array [
+                                            option_order
+                                            ]
+                                        )
+                                ) AS option_text,
+                                option_order
+                            FROM
+                                (
+                                    SELECT
+                                        version_id,
+                                        response_set_id,
+                                        label,
+                                        option_text_array,
+                                        generate_subscripts(
+                                                option_text_array,
+                                                1
+                                        ) AS option_order
+                                    FROM
+                                        (
+                                            SELECT
+                                                version_id,
+                                                response_set_id,
+                                                label,
+                                                string_to_array(
+                                                        option_text,
+                                                        $$,$$
+                                                ) AS option_text_array
+                                            FROM
+                                                (
+                                                    SELECT
+                                                        version_id,
+                                                        response_set_id,
+                                                        label,
+                                                        replace(
+                                                                options_text,
+                                                                $$\,$$,
+                                                                $$##@##@##$$
+                                                        ) AS option_text
+                                                    FROM
+                                                        response_set
+                                                        INNER JOIN
+                                                        response_type_filter
+                                                            ON
+                                                                response_type_filter.response_type_id
+                                                                =
+                                                                response_set.response_type_id
+                                                ) AS rs_text_replace
+                                        ) AS rs_opt_array
+                                ) AS rs_opt_array_rownum
+                        ) AS rs_opt_split
+                ) AS rs_opt_text
+                INNER JOIN
+                (
+                    SELECT
+                        rs_opt_value.version_id,
+                        rs_opt_value.response_set_id,
+                        rs_opt_value.label,
+                        rs_opt_value.option_value,
+                        min(
+                                rs_opt_value.option_order) AS option_order
+                    FROM
+                        (
+                            SELECT
+                                version_id,
+                                response_set_id,
+                                label,
+                                trim(
+                                        BOTH
+                                        FROM
+                                        (
+                                            option_value_array [
+                                            option_order
+                                            ]
+                                        )
+                                ) AS option_value,
+                                option_order
+                            FROM
+                                (
+                                    SELECT
+                                        version_id,
+                                        response_set_id,
+                                        label,
+                                        option_value_array,
+                                        generate_subscripts(
+                                                option_value_array,
+                                                1
+                                        ) AS option_order
+                                    FROM
+                                        (
+                                            SELECT
+                                                version_id,
+                                                response_set_id,
+                                                label,
+                                                string_to_array(
+                                                        options_values,
+                                                        $$,$$
+                                                ) AS option_value_array
+                                            FROM
+                                                response_set
+                                                INNER JOIN
+                                                response_type_filter
+                                                    ON
+                                                        response_type_filter.response_type_id
+                                                        =
+                                                        response_set.response_type_id
+                                        ) AS rs_opt_array
+                                ) AS rs_opt_array_rownum
+                        ) AS rs_opt_value
+                    GROUP BY
+                        rs_opt_value.version_id,
+                        rs_opt_value.response_set_id,
+                        rs_opt_value.label,
+                        rs_opt_value.option_value
+                ) AS rs_opt_value_min
+                    ON rs_opt_text.version_id = rs_opt_value_min.version_id
+                    AND
+                    rs_opt_text.response_set_id =
+                    rs_opt_value_min.response_set_id
+                    AND rs_opt_text.option_order = rs_opt_value_min.option_order
+    ), item_details AS (
+            WITH item_details_raw AS (
+                    SELECT
+                        ig.item_group_id         AS item_group_id_seq,
+                        ig.name                  AS item_group_name,
+                        ig.oc_oid                AS item_group_oid,
+                        item_data.ordinal        AS item_group_repeat,
+                        item.item_id             AS item_id_seq,
+                        item.name                AS item_name_raw,
+                        item.oc_oid              AS item_oid_raw,
+                        rt.name                  AS item_response_type,
+                        rs.response_set_id       AS item_response_set_id,
+                        rs.version_id            AS item_response_set_version_id,
+                        item_data.item_data_id   AS item_data_id_seq,
+                        item_data.event_crf_id   AS item_event_crf_id_seq,
+                        item_data.value          AS item_value_raw,
+                        item_data.date_created   AS item_data_date_created,
+                        item_data.date_updated   AS item_data_date_updated,
+                        ua_item_data_o.user_name AS item_data_created_by,
+                        ua_item_data_u.user_name AS item_data_updated_by,
+                        status_item_data.name    AS item_data_status
+                    FROM
+                        openclinica_fdw.item_data
+                        INNER JOIN
+                        openclinica_fdw.item
+                            ON item.item_id = item_data.item_id
+                        INNER JOIN
+                        openclinica_fdw.item_group_metadata AS igm
+                            ON item.item_id = igm.item_id
+                        INNER JOIN
+                        openclinica_fdw.item_group AS ig
+                            ON ig.item_group_id =
+                            igm.item_group_id
+                        INNER JOIN
+                        openclinica_fdw.item_form_metadata AS ifm
+                            ON ifm.item_id = item.item_id
+                        INNER JOIN
+                        openclinica_fdw.response_set AS rs
+                            ON rs.response_set_id =
+                            ifm.response_set_id
+                            AND
+                            rs.version_id = ifm.crf_version_id
+                        INNER JOIN
+                        openclinica_fdw.response_type AS rt
+                            ON rs.response_type_id =
+                            rt.response_type_id
+                        INNER JOIN
+                        status_filter AS status_item_data
+                            ON item_data.status_id =
+                            status_item_data.status_id
+                        INNER JOIN
+                        user_id_name AS ua_item_data_o
+                            ON item_data.owner_id =
+                            ua_item_data_o.user_id
+                        LEFT JOIN
+                        user_id_name AS ua_item_data_u
+                            ON item_data.update_id =
+                            ua_item_data_u.user_id
+                    WHERE
+                        item_data.value <> $$$$
+            ), multi_split AS (
+                    SELECT
+                        item_data_id_seq,
+                        item_value_split,
+                        concat_ws(
+                                $$_$$,
+                                item_oid_raw,
+                                item_value_split) AS item_oid_multi,
+                        concat_ws(
+                                $$_$$,
+                                item_name_raw,
+                                item_value_split) AS item_name_multi
+                    FROM
+                        (
+                            SELECT
+                                item_data_id_seq,
+                                item_oid_raw,
+                                item_name_raw,
+                                regexp_split_to_table(
+                                        item_value_raw,
+                                        $$,$$) AS item_value_split
+                            FROM
+                                item_details_raw
+                            WHERE
+                                item_response_type IN
+                                ($$checkbox$$, $$multi-select$$)
+                        ) AS idr_split
+            )
+            SELECT
+                idr.*,
+                ms.item_value_split,
+                CASE WHEN ms.item_oid_multi IS NOT NULL
+                THEN ms.item_oid_multi
+                ELSE idr.item_oid_raw
+                END AS item_oid,
+                CASE WHEN ms.item_name_multi IS NOT NULL
+                THEN ms.item_name_multi
+                ELSE idr.item_name_raw
+                END AS item_name,
+                CASE WHEN ms.item_value_split IS NOT NULL
+                THEN ms.item_value_split
+                ELSE idr.item_value_raw
+                END AS item_value,
+                response_sets.option_text
+            FROM
+                item_details_raw AS idr
+                LEFT JOIN
+                multi_split AS ms
+                    ON ms.item_data_id_seq = idr.item_data_id_seq
+                LEFT JOIN
+                response_sets
+                    ON response_sets.response_set_id = idr.item_response_set_id
+                    AND
+                    response_sets.version_id = idr.item_response_set_version_id
+                    AND response_sets.option_value =
+                        COALESCE(
+                                ms.item_value_split,
+                                idr.item_value_raw)
+    )
+    SELECT
+        study_details.*,
+        subject_details.*,
+        event_details.*,
+        crf_details.*,
+        item_details.*
+    FROM
+        study_details
+        INNER JOIN
+        subject_details
+            ON subject_details.subject_study_id = study_details.site_id
+        INNER JOIN
+        event_details
+            ON subject_details.study_subject_id_seq =
+            event_details.event_study_subject_id_seq
+        INNER JOIN
+        crf_details
+            ON crf_details.crf_study_event_id_seq = event_details.study_event_id_seq
+            AND crf_details.edc_study_id = study_details.study_id
+        INNER JOIN
+        item_details
+            ON item_details.item_event_crf_id_seq = crf_details.event_crf_id_seq
             $query$;
     END;
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_subjects()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_subjects()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
     CREATE MATERIALIZED VIEW dm.subjects AS
-        SELECT
-            DISTINCT ON (study_name, subject_id)
-            cd.study_name
-            ,
-            cd.site_oid
-            ,
-            cd.site_name
-            ,
-            cd.subject_person_id
-            ,
-            cd.subject_oid
-            ,
-            cd.subject_id
-            ,
-            cd.study_subject_id
-            ,
-            cd.subject_secondary_label
-            ,
-            cd.subject_date_of_birth
-            ,
-            cd.subject_sex
-            ,
-            cd.subject_enrol_date
-            ,
-            cd.person_id
-            ,
-            cd.subject_owned_by_user
-            ,
-            cd.subject_last_updated_by_user
-        FROM
-            dm.clinicaldata AS cd;
+    WITH status_filter AS (
+            SELECT
+                status.status_id,
+                status.name
+            FROM
+                openclinica_fdw.status
+            WHERE
+                status.name
+                NOT IN ($$removed$$, $$auto-removed$$)
+    ), user_id_name AS (
+    SELECT user_account.user_id, user_account.user_name
+        FROM openclinica_fdw.user_account
+    ), study_details AS (
+    SELECT
+        COALESCE(
+                parent_study.oc_oid,
+                study.oc_oid,
+                $$no parent study$$) AS study_oid,
+        COALESCE(
+                parent_study.name,
+                study.name,
+                $$no parent study$$) AS study_name,
+        COALESCE(
+                parent_study.study_id,
+                study.study_id) AS   study_id,
+        study.oc_oid                 AS site_oid,
+        study.name                   AS site_name,
+        study.study_id as site_id
+    FROM
+        openclinica_fdw.study
+        LEFT JOIN
+        (
+            SELECT
+                study.study_id,
+                study.oc_oid,
+                study.name
+            FROM
+                openclinica_fdw.study
+                INNER JOIN
+                status_filter AS status_pstudy
+                    ON status_pstudy.status_id = study.status_id
+        ) AS parent_study
+            ON parent_study.study_id = study.parent_study_id
+        INNER JOIN
+        status_filter AS status_study
+            ON status_study.status_id = study.status_id      
+    ), subject_details AS (
+            SELECT
+                ss.study_subject_id   AS study_subject_id_seq,
+                ss.label              AS subject_id,
+                ss.secondary_label    AS subject_secondary_label,
+                ss.subject_id         AS subject_id_seq,
+                ss.study_id           AS subject_study_id,
+                ss.enrollment_date    AS subject_enrol_date,
+                ss.date_created       AS subject_date_created,
+                ss.date_updated       AS subject_date_updated,
+                ua_ss_o.user_name     AS subject_created_by,
+                ua_ss_u.user_name     AS subject_updated_by,
+                ss.oc_oid             AS subject_oid,
+                sub.date_of_birth     AS subject_date_of_birth,
+                sub.gender            AS subject_sex,
+                sub.unique_identifier AS subject_person_id,
+                status_ss.name        AS subject_status
+            FROM
+                openclinica_fdw.study_subject AS ss
+                INNER JOIN
+                openclinica_fdw.subject AS sub
+                    ON ss.subject_id = sub.subject_id
+                INNER JOIN
+                status_filter AS status_ss
+                    ON ss.status_id = status_ss.status_id
+                INNER JOIN
+                user_id_name AS ua_ss_o
+                    ON ss.owner_id = ua_ss_o.user_id
+                LEFT JOIN
+                user_id_name AS ua_ss_u
+                    ON ss.owner_id = ua_ss_u.user_id
+    )
+    SELECT
+        study_details.*,
+        subject_details.*
+    FROM
+        study_details
+        INNER JOIN
+        subject_details
+            ON subject_details.subject_study_id = study_details.site_id
             $query$;
     END;
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_subject_event_crf_status()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_subject_event_crf_status()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
     CREATE MATERIALIZED VIEW dm.subject_event_crf_status AS
-        SELECT
-            DISTINCT ON (study_name, subject_id, event_oid, crf_version_oid)
-            cd.study_name
-            ,
-            cd.site_oid
-            ,
-            cd.site_name
-            ,
-            cd.subject_person_id
-            ,
-            cd.subject_oid
-            ,
-            cd.subject_id
-            ,
-            cd.study_subject_id
-            ,
-            cd.subject_secondary_label
-            ,
-            cd.subject_date_of_birth
-            ,
-            cd.subject_sex
-            ,
-            cd.subject_enrol_date
-            ,
-            cd.person_id
-            ,
-            cd.subject_owned_by_user
-            ,
-            cd.subject_last_updated_by_user
-            ,
-            cd.event_oid
-            ,
-            cd.event_order
-            ,
-            cd.event_name
-            ,
-            cd.event_repeat
-            ,
-            cd.event_start
-            ,
-            cd.event_end
-            ,
-            cd.event_status
-            ,
-            cd.event_owned_by_user
-            ,
-            cd.event_last_updated_by_user
-            ,
-            cd.crf_parent_oid
-            ,
-            cd.crf_parent_name
-            ,
-            cd.crf_version
-            ,
-            cd.crf_version_oid
-            ,
-            cd.crf_is_required
-            ,
-            cd.crf_is_double_entry
-            ,
-            cd.crf_is_hidden
-            ,
-            cd.crf_null_values
-            ,
-            cd.crf_date_created
-            ,
-            cd.crf_last_update
-            ,
-            cd.crf_date_completed
-            ,
-            cd.crf_date_validate
-            ,
-            cd.crf_date_validate_completed
-            ,
-            cd.crf_owned_by_user
-            ,
-            cd.crf_last_updated_by_user
-            ,
-            cd.crf_status
-            ,
-            cd.crf_validated_by_user
-            ,
-            cd.crf_sdv_status
-            ,
-            cd.crf_sdv_status_last_updated
-            ,
-            cd.crf_sdv_by_user
-            ,
-            cd.crf_interviewer_name
-            ,
-            cd.crf_interview_date
-        FROM
-            dm.clinicaldata AS cd;
+    WITH status_filter AS (
+            SELECT
+                status.status_id,
+                status.name
+            FROM
+                openclinica_fdw.status
+            WHERE
+                status.name
+                NOT IN ($$removed$$, $$auto-removed$$)
+    ), user_id_name AS (
+    SELECT user_account.user_id, user_account.user_name
+        FROM openclinica_fdw.user_account
+    ), study_details AS (
+    SELECT
+        COALESCE(
+                parent_study.oc_oid,
+                study.oc_oid,
+                $$no parent study$$) AS study_oid,
+        COALESCE(
+                parent_study.name,
+                study.name,
+                $$no parent study$$) AS study_name,
+        COALESCE(
+                parent_study.study_id,
+                study.study_id) AS   study_id,
+        study.oc_oid                 AS site_oid,
+        study.name                   AS site_name,
+        study.study_id as site_id
+    FROM
+        openclinica_fdw.study
+        LEFT JOIN
+        (
+            SELECT
+                study.study_id,
+                study.oc_oid,
+                study.name
+            FROM
+                openclinica_fdw.study
+                INNER JOIN
+                status_filter AS status_pstudy
+                    ON status_pstudy.status_id = study.status_id
+        ) AS parent_study
+            ON parent_study.study_id = study.parent_study_id
+        INNER JOIN
+        status_filter AS status_study
+            ON status_study.status_id = study.status_id      
+    ), subject_details AS (
+            SELECT
+                ss.study_subject_id   AS study_subject_id_seq,
+                ss.label              AS subject_id,
+                ss.secondary_label    AS subject_secondary_label,
+                ss.subject_id         AS subject_id_seq,
+                ss.study_id           AS subject_study_id,
+                ss.enrollment_date    AS subject_enrol_date,
+                ss.date_created       AS subject_date_created,
+                ss.date_updated       AS subject_date_updated,
+                ua_ss_o.user_name     AS subject_created_by,
+                ua_ss_u.user_name     AS subject_updated_by,
+                ss.oc_oid             AS subject_oid,
+                sub.date_of_birth     AS subject_date_of_birth,
+                sub.gender            AS subject_sex,
+                sub.unique_identifier AS subject_person_id,
+                status_ss.name        AS subject_status
+            FROM
+                openclinica_fdw.study_subject AS ss
+                INNER JOIN
+                openclinica_fdw.subject AS sub
+                    ON ss.subject_id = sub.subject_id
+                INNER JOIN
+                status_filter AS status_ss
+                    ON ss.status_id = status_ss.status_id
+                INNER JOIN
+                user_id_name AS ua_ss_o
+                    ON ss.owner_id = ua_ss_o.user_id
+                LEFT JOIN
+                user_id_name AS ua_ss_u
+                    ON ss.owner_id = ua_ss_u.user_id
+    ), event_details AS (
+            SELECT
+                se.study_event_id             AS study_event_id_seq,
+                se.study_subject_id           AS event_study_subject_id_seq,
+                se.location                   AS event_location,
+                se.sample_ordinal             AS event_repeat,
+                se.date_start                 AS event_date_start,
+                se.date_end                   AS event_date_end,
+                ses.name                      AS event_status,
+                status_se.name                AS event_status_internal,
+                se.date_created               AS event_date_created,
+                se.date_updated               AS event_date_updated,
+                ua_se_o.user_name             AS event_created_by,
+                ua_se_u.user_name             AS event_updated_by,
+                sed.study_event_definition_id AS study_event_definition_id_seq,
+                sed.oc_oid                    AS event_oid,
+                sed.name                      AS event_name,
+                sed.ordinal                   AS event_order
+            FROM
+                openclinica_fdw.study_event AS se
+                INNER JOIN
+                openclinica_fdw.study_event_definition AS sed
+                    ON sed.study_event_definition_id = se.study_event_definition_id
+                INNER JOIN
+                openclinica_fdw.subject_event_status AS ses
+                    ON ses.subject_event_status_id = se.subject_event_status_id
+                INNER JOIN
+                status_filter AS status_se
+                    ON se.status_id = status_se.status_id
+                INNER JOIN
+                user_id_name AS ua_se_o
+                    ON se.owner_id = ua_se_o.user_id
+                LEFT JOIN
+                user_id_name AS ua_se_u
+                    ON se.update_id = ua_se_u.user_id
+    ), crf_details AS (
+            WITH ec_ale_sdv AS (
+                    SELECT
+                        ale.event_crf_id,
+                        max(
+                                ale.audit_date) AS audit_date
+                    FROM
+                        openclinica_fdw.audit_log_event AS ale
+                        INNER JOIN
+                        openclinica_fdw.audit_log_event_type AS alet
+                            ON alet.audit_log_event_type_id =
+                            ale.audit_log_event_type_id
+                    WHERE
+                        ale.event_crf_id IS NOT NULL
+                        AND alet.name = $$EventCRF SDV Status$$
+                    GROUP BY
+                        ale.event_crf_id
+            )
+            SELECT
+                crf.crf_id                     AS crf_id_seq,
+                crf.oc_oid                     AS crf_parent_oid,
+                crf.name                       AS crf_parent_name,
+                cv.crf_version_id              AS crf_version_id_seq,
+                cv.oc_oid                      AS crf_version_oid,
+                cv.name                        AS crf_version_name,
+                ec.event_crf_id                AS event_crf_id_seq,
+                ec.study_event_id              AS crf_study_event_id_seq,
+                ec.date_interviewed            AS crf_date_interviewed,
+                ec.interviewer_name            AS crf_interviewer_name,
+                ec.date_completed              AS crf_date_completed,
+                ec.date_validate               AS crf_date_validate,
+                ua_ec_v.user_name              AS crf_validated_by,
+                ec.date_validate_completed     AS crf_date_validate_completed,
+                ec.electronic_signature_status AS crf_esignature_status,
+                ec.sdv_status                  AS crf_sdv_status,
+                ec_ale_sdv.audit_date          AS crf_sdv_status_last_updated,
+                ua_ec_s.user_name              AS crf_sdv_status_last_updated_by,
+                ec.date_created                AS crf_date_created,
+                ec.date_updated                AS crf_date_updated,
+                ua_ec_o.user_name              AS crf_created_by,
+                ua_ec_u.user_name              AS crf_updated_by,
+                CASE
+                WHEN ses.name IN
+                    ($$stopped$$, $$skipped$$, $$locked$$)
+                THEN $$locked$$
+                WHEN status_cv.name <> $$available$$
+                THEN $$locked$$
+                WHEN status_ec.name = $$available$$
+                THEN $$initial data entry$$
+                WHEN status_ec.name = $$unavailable$$
+                THEN
+                    CASE
+                    WHEN edc.double_entry = TRUE
+                    THEN $$validation completed$$
+                    WHEN edc.double_entry = FALSE
+                    THEN $$data entry complete$$
+                    ELSE $$unhandled$$
+                    END
+                WHEN status_ec.name = $$pending$$
+                THEN
+                    CASE
+                    WHEN ec.validator_id <>
+                        0 /* default zero, blank if event_crf created by insertaction */
+                    THEN $$double data entry$$
+                    WHEN ec.validator_id =
+                        0 /* default value present means non-dde run done */
+                    THEN $$initial data entry complete$$
+                    ELSE $$unhandled$$
+                    END
+                ELSE status_ec.name
+                END                            AS crf_status,
+                status_ec.name                 AS crf_status_internal,
+                edc.study_id                   AS edc_study_id
+            FROM
+                openclinica_fdw.event_crf AS ec
+                INNER JOIN
+                openclinica_fdw.crf_version AS cv
+                    ON cv.crf_version_id = ec.crf_version_id
+                INNER JOIN
+                openclinica_fdw.crf
+                    ON crf.crf_id = cv.crf_id
+                INNER JOIN
+                openclinica_fdw.study_event AS se
+                    ON ec.study_event_id = se.study_event_id
+                INNER JOIN
+                openclinica_fdw.subject_event_status AS ses
+                    ON ses.subject_event_status_id = se.subject_event_status_id
+                INNER JOIN
+                openclinica_fdw.event_definition_crf AS edc
+                    ON edc.crf_id = cv.crf_id
+                    AND edc.study_event_definition_id =
+                        se.study_event_definition_id
+                INNER JOIN
+                status_filter AS status_ec
+                    ON ec.status_id = status_ec.status_id
+                INNER JOIN
+                status_filter AS status_cv
+                    ON cv.status_id = status_cv.status_id
+                INNER JOIN
+                user_id_name AS ua_ec_o
+                    ON ec.owner_id = ua_ec_o.user_id
+                LEFT JOIN
+                user_id_name AS ua_ec_u
+                    ON ec.update_id = ua_ec_u.user_id
+                LEFT JOIN
+                user_id_name AS ua_ec_v
+                    ON ec.validator_id = ua_ec_v.user_id
+                LEFT JOIN
+                ec_ale_sdv
+                    ON ec_ale_sdv.event_crf_id = ec.event_crf_id
+                LEFT JOIN
+                user_id_name AS ua_ec_s
+                    ON ec.sdv_update_id = ua_ec_s.user_id
+                    AND ec.sdv_status = TRUE
+    )
+    SELECT
+        study_details.*,
+        subject_details.*,
+        event_details.*,
+        crf_details.*
+    FROM
+        study_details
+        INNER JOIN
+        subject_details
+            ON subject_details.subject_study_id = study_details.site_id
+        INNER JOIN
+        event_details
+            ON subject_details.study_subject_id_seq =
+            event_details.event_study_subject_id_seq
+        INNER JOIN
+        crf_details
+            ON crf_details.crf_study_event_id_seq = event_details.study_event_id_seq
+            AND crf_details.edc_study_id = study_details.study_id
             $query$;
     END;
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_subject_event_crf_expected()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_subject_event_crf_expected()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
     CREATE MATERIALIZED VIEW dm.subject_event_crf_expected AS
         SELECT
-            s.study_name
-            ,
-            s.site_oid
-            ,
-            s.subject_id
-            ,
-            e.event_oid
-            ,
+            s.study_name,
+            s.site_oid,
+            s.subject_id,
+            e.event_oid,
             e.crf_parent_name
         FROM
             (
                 SELECT
                     DISTINCT
-                    clinicaldata.study_name
-                    ,
-                    clinicaldata.site_oid
-                    ,
-                    clinicaldata.site_name
-                    ,
+                    clinicaldata.study_name,
+                    clinicaldata.site_oid,
+                    clinicaldata.site_name,
                     clinicaldata.subject_id
                 FROM
                     dm.clinicaldata
@@ -1496,10 +1767,8 @@ CREATE OR REPLACE FUNCTION dm_create_dm_subject_event_crf_expected()
             (
                 SELECT
                     DISTINCT
-                    metadata.study_name
-                    ,
-                    metadata.event_oid
-                    ,
+                    metadata.study_name,
+                    metadata.event_oid,
                     metadata.crf_parent_name
                 FROM
                     dm.metadata
@@ -1511,104 +1780,60 @@ CREATE OR REPLACE FUNCTION dm_create_dm_subject_event_crf_expected()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_subject_event_crf_join()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_subject_event_crf_join()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
     CREATE MATERIALIZED VIEW dm.subject_event_crf_join AS
         SELECT
-            e.study_name
-            ,
-            e.site_oid
-            ,
-            s.site_name
-            ,
-            s.subject_person_id
-            ,
-            s.subject_oid
-            ,
-            e.subject_id
-            ,
-            s.study_subject_id
-            ,
-            s.subject_secondary_label
-            ,
-            s.subject_date_of_birth
-            ,
-            s.subject_sex
-            ,
-            s.subject_enrol_date
-            ,
-            s.person_id
-            ,
-            s.subject_owned_by_user
-            ,
-            s.subject_last_updated_by_user
-            ,
-            e.event_oid
-            ,
-            s.event_order
-            ,
-            s.event_name
-            ,
-            s.event_repeat
-            ,
-            s.event_start
-            ,
-            s.event_end
-            ,
+            e.study_name,
+            e.site_oid,
+            s.site_name,
+            s.subject_person_id,
+            s.subject_oid,
+            e.subject_id,
+            s.study_subject_id,
+            s.subject_secondary_label,
+            s.subject_date_of_birth,
+            s.subject_sex,
+            s.subject_enrol_date,
+            s.person_id,
+            s.subject_owned_by_user,
+            s.subject_last_updated_by_user,
+            e.event_oid,
+            s.event_order,
+            s.event_name,
+            s.event_repeat,
+            s.event_start,
+            s.event_end,
             CASE WHEN s.event_status IS NOT NULL
             THEN s.event_status
             ELSE $$not scheduled$$
-            END AS event_status
-            ,
-            s.event_owned_by_user
-            ,
-            s.event_last_updated_by_user
-            ,
-            s.crf_parent_oid
-            ,
-            e.crf_parent_name
-            ,
-            s.crf_version
-            ,
-            s.crf_version_oid
-            ,
-            s.crf_is_required
-            ,
-            s.crf_is_double_entry
-            ,
-            s.crf_is_hidden
-            ,
-            s.crf_null_values
-            ,
-            s.crf_date_created
-            ,
-            s.crf_last_update
-            ,
-            s.crf_date_completed
-            ,
-            s.crf_date_validate
-            ,
-            s.crf_date_validate_completed
-            ,
-            s.crf_owned_by_user
-            ,
-            s.crf_last_updated_by_user
-            ,
-            s.crf_status
-            ,
-            s.crf_validated_by_user
-            ,
-            s.crf_sdv_status
-            ,
-            s.crf_sdv_status_last_updated
-            ,
-            s.crf_sdv_by_user
-            ,
-            s.crf_interviewer_name
-            ,
+            END AS event_status,
+            s.event_owned_by_user,
+            s.event_last_updated_by_user,
+            s.crf_parent_oid,
+            e.crf_parent_name,
+            s.crf_version,
+            s.crf_version_oid,
+            s.crf_is_required,
+            s.crf_is_double_entry,
+            s.crf_is_hidden,
+            s.crf_null_values,
+            s.crf_date_created,
+            s.crf_last_update,
+            s.crf_date_completed,
+            s.crf_date_validate,
+            s.crf_date_validate_completed,
+            s.crf_owned_by_user,
+            s.crf_last_updated_by_user,
+            s.crf_status,
+            s.crf_validated_by_user,
+            s.crf_sdv_status,
+            s.crf_sdv_status_last_updated,
+            s.crf_sdv_by_user,
+            s.crf_interviewer_name,
             s.crf_interview_date
         FROM
             dm.subject_event_crf_expected AS e
@@ -1625,78 +1850,48 @@ CREATE OR REPLACE FUNCTION dm_create_dm_subject_event_crf_join()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_discrepancy_notes_all()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_discrepancy_notes_all()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
     CREATE MATERIALIZED VIEW dm.discrepancy_notes_all AS
         SELECT
-            dn_src.discrepancy_note_id
-            ,
-            dn_src.study_name
-            ,
-            dn_src.site_name
-            ,
-            dn_src.subject_id
-            ,
-            dn_src.event_name
-            ,
-            dn_src.crf_parent_name
-            ,
-            dn_src.crf_section_label
-            ,
-            dn_src.item_description
-            ,
-            dn_src.column_name
-            ,
-            dn_src.parent_dn_id
-            ,
-            dn_src.entity_type
-            ,
-            dn_src.description
-            ,
-            dn_src.detailed_notes
-            ,
-            dn_src.date_created
-            ,
-            dn_src.discrepancy_note_type
-            ,
-            dn_src.resolution_status
-            ,
+            dn_src.discrepancy_note_id,
+            dn_src.study_name,
+            dn_src.site_name,
+            dn_src.subject_id,
+            dn_src.event_name,
+            dn_src.crf_parent_name,
+            dn_src.crf_section_label,
+            dn_src.item_description,
+            dn_src.column_name,
+            dn_src.parent_dn_id,
+            dn_src.entity_type,
+            dn_src.description,
+            dn_src.detailed_notes,
+            dn_src.date_created,
+            dn_src.discrepancy_note_type,
+            dn_src.resolution_status,
             dn_src.discrepancy_note_owner
         FROM
             (
                 SELECT
                     DISTINCT ON (sua.discrepancy_note_id)
-                    sua.discrepancy_note_id
-                    ,
-                    sua.study_name
-                    ,
-                    sua.site_name
-                    ,
-                    sua.subject_id
-                    ,
-                    sua.event_name
-                    ,
-                    sua.crf_parent_name
-                    ,
-                    sua.crf_section_label
-                    ,
-                    sua.item_description
-                    ,
-                    sua.column_name
-                    ,
-                    dn.parent_dn_id
-                    ,
-                    dn.entity_type
-                    ,
-                    dn.description
-                    ,
-                    dn.detailed_notes
-                    ,
-                    dn.date_created
-                    ,
+                    sua.discrepancy_note_id,
+                    sua.study_name,
+                    sua.site_name,
+                    sua.subject_id,
+                    sua.event_name,
+                    sua.crf_parent_name,
+                    sua.crf_section_label,
+                    sua.item_description,
+                    sua.column_name,
+                    dn.parent_dn_id,
+                    dn.entity_type,
+                    dn.description,
+                    dn.detailed_notes,
+                    dn.date_created,
                     CASE
                     WHEN dn.discrepancy_note_type_id =
                          1 THEN $$Failed Validation Check$$ :: TEXT
@@ -1704,12 +1899,10 @@ CREATE OR REPLACE FUNCTION dm_create_dm_discrepancy_notes_all()
                          2 THEN $$Annotation$$ :: TEXT
                     WHEN dn.discrepancy_note_type_id = 3 THEN $$Query$$ :: TEXT
                     WHEN dn.discrepancy_note_type_id =
-                         4 THEN $$'Reason for Change$$ :: TEXT
-                    ELSE 'unhandled' :: TEXT
-                    END :: CHARACTER VARYING(23) AS discrepancy_note_type
-                    ,
-                    rs.name                      AS resolution_status
-                    ,
+                         4 THEN $$Reason for Change$$ :: TEXT
+                    ELSE $$unhandled$$ :: TEXT
+                    END :: TEXT                  AS discrepancy_note_type,
+                    rs.name                      AS resolution_status,
                     ua.user_name                 AS discrepancy_note_owner
                 FROM
                     (
@@ -1717,22 +1910,14 @@ CREATE OR REPLACE FUNCTION dm_create_dm_discrepancy_notes_all()
                             (
                                 (
                                     SELECT
-                                        didm.discrepancy_note_id
-                                        ,
-                                        didm.column_name
-                                        ,
-                                        cd.study_name
-                                        ,
-                                        cd.site_name
-                                        ,
-                                        cd.subject_id
-                                        ,
-                                        cd.event_name
-                                        ,
-                                        cd.crf_parent_name
-                                        ,
-                                        cd.crf_section_label
-                                        ,
+                                        didm.discrepancy_note_id,
+                                        didm.column_name,
+                                        cd.study_name,
+                                        cd.site_name,
+                                        cd.subject_id,
+                                        cd.event_name,
+                                        cd.crf_parent_name,
+                                        cd.crf_section_label,
                                         cd.item_description
                                     FROM
                                         openclinica_fdw.dn_item_data_map AS didm
@@ -1742,23 +1927,15 @@ CREATE OR REPLACE FUNCTION dm_create_dm_discrepancy_notes_all()
                                                didm.item_data_id
                                     UNION ALL
                                     SELECT
-                                        decm.discrepancy_note_id
-                                        ,
-                                        decm.column_name
-                                        ,
-                                        cd.study_name
-                                        ,
-                                        cd.site_name
-                                        ,
-                                        cd.subject_id
-                                        ,
-                                        cd.event_name
-                                        ,
-                                        cd.crf_parent_name
-                                        ,
-                                        NULL :: CHARACTER VARYING AS crf_section_label
-                                        ,
-                                        NULL :: CHARACTER VARYING AS item_description
+                                        decm.discrepancy_note_id,
+                                        decm.column_name,
+                                        cd.study_name,
+                                        cd.site_name,
+                                        cd.subject_id,
+                                        cd.event_name,
+                                        cd.crf_parent_name,
+                                        NULL :: TEXT AS crf_section_label,
+                                        NULL :: TEXT AS item_description
                                     FROM
                                         openclinica_fdw.dn_event_crf_map AS decm
                                         JOIN
@@ -1768,23 +1945,15 @@ CREATE OR REPLACE FUNCTION dm_create_dm_discrepancy_notes_all()
                                 )
                                 UNION ALL
                                 SELECT
-                                    dsem.discrepancy_note_id
-                                    ,
-                                    dsem.column_name
-                                    ,
-                                    cd.study_name
-                                    ,
-                                    cd.site_name
-                                    ,
-                                    cd.subject_id
-                                    ,
-                                    cd.event_name
-                                    ,
-                                    NULL :: CHARACTER VARYING AS crf_parent_name
-                                    ,
-                                    NULL :: CHARACTER VARYING AS crf_section_label
-                                    ,
-                                    NULL :: CHARACTER VARYING AS item_description
+                                    dsem.discrepancy_note_id,
+                                    dsem.column_name,
+                                    cd.study_name,
+                                    cd.site_name,
+                                    cd.subject_id,
+                                    cd.event_name,
+                                    NULL :: TEXT AS crf_parent_name,
+                                    NULL :: TEXT AS crf_section_label,
+                                    NULL :: TEXT AS item_description
                                 FROM
                                     openclinica_fdw.dn_study_event_map AS dsem
                                     JOIN
@@ -1794,23 +1963,15 @@ CREATE OR REPLACE FUNCTION dm_create_dm_discrepancy_notes_all()
                             )
                             UNION ALL
                             SELECT
-                                dssm.discrepancy_note_id
-                                ,
-                                dssm.column_name
-                                ,
-                                cd.study_name
-                                ,
-                                cd.site_name
-                                ,
-                                cd.subject_id
-                                ,
-                                NULL :: CHARACTER VARYING AS event_name
-                                ,
-                                NULL :: CHARACTER VARYING AS crf_parent_name
-                                ,
-                                NULL :: CHARACTER VARYING AS crf_section_label
-                                ,
-                                NULL :: CHARACTER VARYING AS item_description
+                                dssm.discrepancy_note_id,
+                                dssm.column_name,
+                                cd.study_name,
+                                cd.site_name,
+                                cd.subject_id,
+                                NULL :: TEXT AS event_name,
+                                NULL :: TEXT AS crf_parent_name,
+                                NULL :: TEXT AS crf_section_label,
+                                NULL :: TEXT AS item_description
                             FROM
                                 openclinica_fdw.dn_study_subject_map AS dssm
                                 JOIN
@@ -1820,23 +1981,15 @@ CREATE OR REPLACE FUNCTION dm_create_dm_discrepancy_notes_all()
                         )
                         UNION ALL
                         SELECT
-                            dsm.discrepancy_note_id
-                            ,
-                            dsm.column_name
-                            ,
-                            cd.study_name
-                            ,
-                            cd.site_name
-                            ,
-                            cd.subject_id
-                            ,
-                            NULL :: CHARACTER VARYING AS event_name
-                            ,
-                            NULL :: CHARACTER VARYING AS crf_parent_name
-                            ,
-                            NULL :: CHARACTER VARYING AS crf_section_label
-                            ,
-                            NULL :: CHARACTER VARYING AS item_description
+                            dsm.discrepancy_note_id,
+                            dsm.column_name,
+                            cd.study_name,
+                            cd.site_name,
+                            cd.subject_id,
+                            NULL :: TEXT AS event_name,
+                            NULL :: TEXT AS crf_parent_name,
+                            NULL :: TEXT AS crf_section_label,
+                            NULL :: TEXT AS item_description
                         FROM
                             openclinica_fdw.dn_subject_map AS dsm
                             JOIN
@@ -1858,55 +2011,37 @@ CREATE OR REPLACE FUNCTION dm_create_dm_discrepancy_notes_all()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_discrepancy_notes_parent()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_discrepancy_notes_parent()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
     CREATE MATERIALIZED VIEW dm.discrepancy_notes_parent AS
         SELECT
-            sub.discrepancy_note_id
-            ,
-            sub.study_name
-            ,
-            sub.site_name
-            ,
-            sub.subject_id
-            ,
-            sub.event_name
-            ,
-            sub.crf_parent_name
-            ,
-            sub.crf_section_label
-            ,
-            sub.item_description
-            ,
-            sub.column_name
-            ,
-            sub.parent_dn_id
-            ,
-            sub.entity_type
-            ,
-            sub.description
-            ,
-            sub.detailed_notes
-            ,
-            sub.date_created
-            ,
-            sub.discrepancy_note_type
-            ,
-            sub.resolution_status
-            ,
-            sub.discrepancy_note_owner
-            ,
+            sub.discrepancy_note_id,
+            sub.study_name,
+            sub.site_name,
+            sub.subject_id,
+            sub.event_name,
+            sub.crf_parent_name,
+            sub.crf_section_label,
+            sub.item_description,
+            sub.column_name,
+            sub.parent_dn_id,
+            sub.entity_type,
+            sub.description,
+            sub.detailed_notes,
+            sub.date_created,
+            sub.discrepancy_note_type,
+            sub.resolution_status,
+            sub.discrepancy_note_owner,
             CASE WHEN sub.resolution_status IN ($$Closed$$, $$Not Applicable$$)
             THEN NULL
             WHEN sub.resolution_status IN
                  ($$New$$, $$Updated$$, $$Resolution Proposed$$)
             THEN CURRENT_DATE - sub.date_created
             ELSE NULL
-            END AS days_open
-            ,
+            END AS days_open,
             CASE WHEN sub.resolution_status IN ($$Closed$$, $$Not Applicable$$)
             THEN NULL
             WHEN sub.resolution_status IN
@@ -1969,25 +2104,19 @@ CREATE OR REPLACE FUNCTION dm_create_dm_discrepancy_notes_parent()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_subject_groups()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_subject_groups()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
     CREATE MATERIALIZED VIEW dm.subject_groups AS
         SELECT
-            sub.study_name
-            ,
-            sub.site_name
-            ,
-            sub.subject_id
-            ,
-            gct.name       AS group_class_type
-            ,
-            sgc.name       AS group_class_name
-            ,
-            sg.name        AS group_name
-            ,
+            sub.study_name,
+            sub.site_name,
+            sub.subject_id,
+            gct.name       AS group_class_type,
+            sgc.name       AS group_class_name,
+            sg.name        AS group_name,
             sg.description AS group_description
         FROM
             dm.subjects AS sub
@@ -2008,7 +2137,7 @@ CREATE OR REPLACE FUNCTION dm_create_dm_subject_groups()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_response_set_labels()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_response_set_labels()
     RETURNS VOID AS
     $BODY$
     BEGIN
@@ -2016,32 +2145,19 @@ CREATE OR REPLACE FUNCTION dm_create_dm_response_set_labels()
     CREATE MATERIALIZED VIEW dm.response_set_labels AS
         SELECT
             DISTINCT
-            md.study_name
-            ,
-            md.crf_parent_name
-            ,
-            md.crf_version
-            ,
-            md.item_group_oid
-            ,
-            md.item_group_name
-            ,
-            md.item_form_order
-            ,
-            md.item_oid
-            ,
-            md.item_name
-            ,
-            md.item_description
-            ,
-            rs.version_id
-            ,
-            rs.label
-            ,
-            rs.option_value
-            ,
-            rs.option_text
-            ,
+            md.study_name,
+            md.crf_parent_name,
+            md.crf_version,
+            md.item_group_oid,
+            md.item_group_name,
+            md.item_form_order,
+            md.item_oid,
+            md.item_name,
+            md.item_description,
+            rs.version_id,
+            rs.label,
+            rs.option_value,
+            rs.option_text,
             rs.option_order
         FROM
             dm.metadata AS md
@@ -2063,47 +2179,37 @@ CREATE OR REPLACE FUNCTION dm_create_dm_response_set_labels()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_user_account_roles()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_user_account_roles()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
     CREATE MATERIALIZED VIEW dm.user_account_roles AS
         SELECT
-            ua.user_name
-            ,
-            ua.first_name
-            ,
-            ua.last_name
-            ,
-            ua.email
-            ,
-            ua.date_created              AS account_created
-            ,
-            ua.date_updated              AS account_last_updated
-            ,
-            ua_status.name               AS account_status
-            ,
+            ua.user_id,
+            ua.user_name,
+            ua.first_name,
+            ua.last_name,
+            ua.email,
+            ua.date_created              AS account_created,
+            ua.date_updated              AS account_last_updated,
+            ua_status.name               AS account_status,
             COALESCE(
                     parents.unique_identifier,
                     study.unique_identifier,
-                    $$no parent study$$) AS role_study_code
-            ,
+                    $$no parent study$$) AS role_study_code,
             COALESCE(
                     parents.name,
                     study.name,
-                    $$no parent study$$) AS study_name
-            ,
+                    $$no parent study$$) AS study_name,
             CASE
             WHEN parents.unique_identifier IS NOT NULL
             THEN study.unique_identifier
-            END                          AS role_site_code
-            ,
+            END                          AS role_site_code,
             CASE
             WHEN parents.name IS NOT NULL
             THEN study.name
-            END                          AS role_site_name
-            ,
+            END                          AS role_site_name,
             CASE
             WHEN
                 parents.name IS NULL
@@ -2131,12 +2237,9 @@ CREATE OR REPLACE FUNCTION dm_create_dm_user_account_roles()
                 THEN $$site investigator$$
                 ELSE role_name
                 END
-            END                          AS role_name_ui
-            ,
-            sur.date_created             AS role_created
-            ,
-            sur.date_updated             AS role_last_updated
-            ,
+            END                          AS role_name_ui,
+            sur.date_created             AS role_created,
+            sur.date_updated             AS role_last_updated,
             sur_status.name              AS role_status
         FROM
             openclinica_fdw.user_account AS ua
@@ -2160,33 +2263,23 @@ CREATE OR REPLACE FUNCTION dm_create_dm_user_account_roles()
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_dm_sdv_status()
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_dm_sdv_status_history()
     RETURNS VOID AS
     $BODY$
     BEGIN
         EXECUTE $query$
-    CREATE MATERIALIZED VIEW dm.sdv_status AS
+    CREATE MATERIALIZED VIEW dm.sdv_status_history AS
         SELECT
-            secs.study_name
-            ,
-            secs.subject_id
-            ,
-            secs.event_name
-            ,
-            secs.event_repeat
-            ,
-            secs.event_status
-            ,
-            secs.crf_parent_name
-            ,
-            secs.crf_status
-            ,
-            pale.new_value  AS audit_sdv_status
-            ,
-            pua.user_name   AS audit_sdv_user
-            ,
-            pale.audit_date AS audit_sdv_timestamp
-            ,
+            secs.study_name,
+            secs.subject_id,
+            secs.event_name,
+            secs.event_repeat,
+            secs.event_status,
+            secs.crf_parent_name,
+            secs.crf_status,
+            pale.new_value  AS audit_sdv_status,
+            pua.user_name   AS audit_sdv_user,
+            pale.audit_date AS audit_sdv_timestamp,
             CASE
             WHEN pale.audit_date IS NULL
             THEN NULL
@@ -2201,101 +2294,55 @@ CREATE OR REPLACE FUNCTION dm_create_dm_sdv_status()
             (
                 SELECT
                     DISTINCT ON (study_name, subject_id, event_oid, crf_version_oid)
-                    cd.study_name
-                    ,
-                    cd.site_oid
-                    ,
-                    cd.site_name
-                    ,
-                    cd.subject_person_id
-                    ,
-                    cd.subject_oid
-                    ,
-                    cd.subject_id
-                    ,
-                    cd.study_subject_id
-                    ,
-                    cd.subject_secondary_label
-                    ,
-                    cd.subject_date_of_birth
-                    ,
-                    cd.subject_sex
-                    ,
-                    cd.subject_enrol_date
-                    ,
-                    cd.person_id
-                    ,
-                    cd.subject_owned_by_user
-                    ,
-                    cd.subject_last_updated_by_user
-                    ,
-                    cd.event_oid
-                    ,
-                    cd.event_order
-                    ,
-                    cd.event_name
-                    ,
-                    cd.event_repeat
-                    ,
-                    cd.event_start
-                    ,
-                    cd.event_end
-                    ,
-                    cd.event_status
-                    ,
-                    cd.event_owned_by_user
-                    ,
-                    cd.event_last_updated_by_user
-                    ,
-                    cd.event_crf_id
-                    ,
-                    cd.crf_parent_oid
-                    ,
-                    cd.crf_parent_name
-                    ,
-                    cd.crf_version
-                    ,
-                    cd.crf_version_oid
-                    ,
-                    cd.crf_is_required
-                    ,
-                    cd.crf_is_double_entry
-                    ,
-                    cd.crf_is_hidden
-                    ,
-                    cd.crf_null_values
-                    ,
-                    cd.crf_date_created
-                    ,
-                    cd.crf_last_update
-                    ,
-                    cd.crf_date_completed
-                    ,
-                    cd.crf_date_validate
-                    ,
-                    cd.crf_date_validate_completed
-                    ,
-                    cd.crf_owned_by_user
-                    ,
-                    cd.crf_last_updated_by_user
-                    ,
-                    cd.crf_status
-                    ,
-                    cd.crf_validated_by_user
-                    ,
-                    cd.crf_sdv_status
-                    ,
-                    cd.crf_sdv_status_last_updated
-                    ,
-                    cd.crf_sdv_by_user
-                    ,
-                    cd.crf_interviewer_name
-                    ,
+                    cd.study_name,
+                    cd.site_oid,
+                    cd.site_name,
+                    cd.subject_person_id,
+                    cd.subject_oid,
+                    cd.subject_id,
+                    cd.study_subject_id,
+                    cd.subject_secondary_label,
+                    cd.subject_date_of_birth,
+                    cd.subject_sex,
+                    cd.subject_enrol_date,
+                    cd.person_id,
+                    cd.subject_owned_by_user,
+                    cd.subject_last_updated_by_user,
+                    cd.event_oid,
+                    cd.event_order,
+                    cd.event_name,
+                    cd.event_repeat,
+                    cd.event_start,
+                    cd.event_end,
+                    cd.event_status,
+                    cd.event_owned_by_user,
+                    cd.event_last_updated_by_user,
+                    cd.event_crf_id,
+                    cd.crf_parent_oid,
+                    cd.crf_parent_name,
+                    cd.crf_version,
+                    cd.crf_version_oid,
+                    cd.crf_is_required,
+                    cd.crf_is_double_entry,
+                    cd.crf_is_hidden,
+                    cd.crf_null_values,
+                    cd.crf_date_created,
+                    cd.crf_last_update,
+                    cd.crf_date_completed,
+                    cd.crf_date_validate,
+                    cd.crf_date_validate_completed,
+                    cd.crf_owned_by_user,
+                    cd.crf_last_updated_by_user,
+                    cd.crf_status,
+                    cd.crf_validated_by_user,
+                    cd.crf_sdv_status,
+                    cd.crf_sdv_status_last_updated,
+                    cd.crf_sdv_by_user,
+                    cd.crf_interviewer_name,
                     cd.crf_interview_date
                 FROM
                     dm.clinicaldata AS cd
             ) AS secs
-
             LEFT JOIN
             (
                 SELECT
@@ -2306,29 +2353,22 @@ CREATE OR REPLACE FUNCTION dm_create_dm_sdv_status()
                     audit_log_event_type_id = 32
             ) AS pale
                 ON pale.event_crf_id = secs.event_crf_id
-
             LEFT JOIN
             openclinica_fdw.user_account AS pua
                 ON pale.user_id = pua.user_id
-
         ORDER BY
-            secs.study_name
-            ,
-            secs.subject_id
-            ,
-            secs.event_name
-            ,
-            secs.event_repeat
-            ,
-            secs.crf_parent_name
-            ,
+            secs.study_name,
+            secs.subject_id,
+            secs.event_name,
+            secs.event_repeat,
+            secs.crf_parent_name,
             pale.audit_date DESC
             $query$;
     END;
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_study_schemas(
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_study_schemas(
     filter_study_name TEXT DEFAULT $$$$,
     create_or_drop    TEXT DEFAULT $$create$$
 )
@@ -2340,7 +2380,11 @@ CREATE OR REPLACE FUNCTION dm_create_study_schemas(
         FOR r IN
         SELECT
             format(
-                    $$CREATE SCHEMA %1$I;$$,
+                    $$CREATE SCHEMA %1$I AUTHORIZATION dm_admin; 
+                    CREATE MATERIALIZED VIEW %1$I.timestamp_schema AS 
+                    SELECT %1$L::text AS study_name, now() AS timestamp_schema;
+                    CREATE MATERIALIZED VIEW %1$I.timestamp_data AS 
+                    SELECT %1$L::text AS study_name, now() as timestamp_data;$$,
                     sub.study_name
             ) AS create_statement,
             format(
@@ -2379,7 +2423,7 @@ CREATE OR REPLACE FUNCTION dm_create_study_schemas(
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_study_common_matviews(
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_study_common_matviews(
     filter_study_name TEXT DEFAULT $$$$)
     RETURNS TEXT AS
     $BODY$
@@ -2452,17 +2496,81 @@ CREATE OR REPLACE FUNCTION dm_create_study_common_matviews(
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_study_itemgroup_matviews(
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_study_itemgroup_matviews(
     alias_views          BOOLEAN DEFAULT FALSE,
-    filter_study_name    TEXT DEFAULT $$$$,
-    filter_itemgroup_oid TEXT DEFAULT $$$$
-)
+    filter_study_name    TEXT DEFAULT $$$$ :: TEXT,
+    filter_itemgroup_oid TEXT DEFAULT $$$$ :: TEXT)
     RETURNS TEXT AS
     $BODY$
     DECLARE
         r RECORD;
     BEGIN
         FOR r IN
+        WITH use_item_oid AS (SELECT
+                                  study_name,
+                                  (
+                                      (
+                                          max(
+                                                  length(
+                                                          metadata.item_name
+                                                  )
+                                          )
+                                      ) > 12
+                                      OR (
+                                             max(
+                                                     CASE WHEN
+                                                         metadata.item_name
+                                                         ~
+                                                         $reg$^[0-9].+$$reg$ THEN length(
+                                                                 metadata.item_name) END)
+                                         ) > 0
+                                  ) AS use_item_oid
+                              FROM
+                                  dm.metadata_crf_ig_item AS metadata
+                              GROUP BY
+                                  study_name
+        ),
+                crf_nulls AS
+            (
+                    SELECT
+                        trim(
+                                BOTH
+                                ','
+                                FROM
+                                (array_to_string(
+                                        array_agg(
+                                                quote_literal(
+                                                        trim(
+                                                                BOTH
+                                                                ','
+                                                                FROM
+                                                                (
+                                                                    sub.crf_null_values
+                                                                )
+                                                        )
+                                                )
+                                        ),
+                                        $$,$$
+                                ))
+                        ) AS crf_null_values,
+                        study_name,
+                        item_group_oid
+                    FROM
+                        (
+                            SELECT
+                                metadata.study_name,
+                                metadata.item_group_oid,
+                                metadata.crf_null_values
+                            FROM
+                                dm.metadata_event_crf_ig AS metadata
+                            WHERE
+                                metadata.crf_null_values != $$$$
+                        ) AS sub
+                    GROUP BY
+                        study_name,
+                        item_group_oid
+            )
+
         SELECT
             format(
                     $$CREATE %1$s VIEW %2$I.%3$I AS SELECT study_name,
@@ -2481,8 +2589,7 @@ CREATE OR REPLACE FUNCTION dm_create_study_itemgroup_matviews(
                     ),
                     (
                         CASE
-                        WHEN alias_views
-                        THEN concat(
+                        WHEN alias_views THEN concat(
                                 $$av_$$,
                                 ddl.item_group_oid
                         )
@@ -2524,7 +2631,7 @@ CREATE OR REPLACE FUNCTION dm_create_study_itemgroup_matviews(
                                       ) end) else null end) as %4$I $$,
                                     met.item_oid,
                                     CASE
-                                    WHEN met.crf_null_values = ''
+                                    WHEN met.crf_null_values IS NULL
                                     THEN $$''$$
                                     ELSE met.crf_null_values
                                     END,
@@ -2556,7 +2663,7 @@ CREATE OR REPLACE FUNCTION dm_create_study_itemgroup_matviews(
                                           else null end) as %3$s_label$$,
                                         met.item_oid,
                                         CASE
-                                        WHEN met.crf_null_values = ''
+                                        WHEN met.crf_null_values IS NULL
                                         THEN $$''$$
                                         ELSE met.crf_null_values
                                         END,
@@ -2650,32 +2757,7 @@ CREATE OR REPLACE FUNCTION dm_create_study_itemgroup_matviews(
                                     item_oid,
                                     item_name,
                                     (
-                                        CASE WHEN (
-                                            SELECT
-                                                (
-                                                    (
-                                                        max(
-                                                                length(
-                                                                        metadata.item_name
-                                                                )
-                                                        )
-                                                    ) > 12
-                                                    OR (
-                                                           max(
-                                                                   CASE WHEN
-                                                                       metadata.item_name
-                                                                       ~
-                                                                       $reg$^[0-9].+$$reg$ THEN length(
-                                                                               metadata.item_name) END)
-                                                       ) > 0
-                                                ) AS use_item_oid
-                                            FROM
-                                                dm.metadata
-                                            WHERE
-                                                dm_meta.study_name
-                                                =
-                                                metadata.study_name
-                                        )
+                                        CASE WHEN use_item_oid.use_item_oid
                                         THEN item_oid
                                         ELSE
                                             lower(
@@ -2686,7 +2768,6 @@ CREATE OR REPLACE FUNCTION dm_create_study_itemgroup_matviews(
                                                                             dm_meta.item_name),
                                                                     1,
                                                                     12
-
                                                             ),
                                                             substr(
                                                                     dm_clean_name_string(
@@ -2699,42 +2780,37 @@ CREATE OR REPLACE FUNCTION dm_create_study_itemgroup_matviews(
                                         END
                                     ) AS item_name_hint,
                                     item_data_type,
-                                    max(
-                                            item_form_order
-                                    ) AS item_form_order,
+                                    item_form_order,
                                     item_response_set_label,
-                                    dm_itemgroup_crf_null_values_list(
-                                            dm_meta.study_name,
-                                            dm_meta.item_group_oid
-                                    ) AS crf_null_values
+                                    crf_nulls.crf_null_values
                                 FROM
-                                    dm.metadata AS dm_meta
+                                    dm.metadata_crf_ig_item AS dm_meta
+                                    LEFT JOIN
+                                    use_item_oid
+                                    USING (study_name)
+                                    LEFT JOIN
+                                    crf_nulls
+                                    USING (study_name, item_group_oid)
                                 WHERE
-                                    dm_meta.study_name ~ (
+                                    (
                                         CASE
                                         WHEN length(
                                                      filter_study_name
                                              ) > 0
-                                        THEN filter_study_name
-                                        ELSE $$.+$$ END
+                                        THEN dm_meta.study_name =
+                                             filter_study_name
+                                        ELSE TRUE END
                                     )
                                     AND
-                                    dm_meta.item_group_oid ~ (
+                                    (
                                         CASE
                                         WHEN length(
                                                      filter_itemgroup_oid
                                              ) > 0
-                                        THEN filter_itemgroup_oid
-                                        ELSE $$.+$$ END
+                                        THEN dm_meta.item_group_oid =
+                                             filter_itemgroup_oid
+                                        ELSE TRUE END
                                     )
-                                GROUP BY
-                                    study_name,
-                                    item_group_oid,
-                                    item_oid,
-                                    item_name,
-                                    item_description,
-                                    item_data_type,
-                                    item_response_set_label
                             ) AS namecheck
                         GROUP BY
                             study_name,
@@ -2743,13 +2819,7 @@ CREATE OR REPLACE FUNCTION dm_create_study_itemgroup_matviews(
                             item_name,
                             item_name_hint,
                             item_data_type,
-                            crf_null_values
-                    ) AS met
-                ORDER BY
-                    study_name,
-                    item_group_oid,
-                    item_form_order,
-                    item_oid
+                            crf_null_values) AS met
             ) AS ddl
         GROUP BY
             ddl.study_name,
@@ -2764,7 +2834,7 @@ CREATE OR REPLACE FUNCTION dm_create_study_itemgroup_matviews(
     $BODY$
 LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_create_study_role(
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_create_study_role(
     filter_study_name TEXT DEFAULT $$$$
 )
     RETURNS TEXT AS
@@ -2816,7 +2886,8 @@ CREATE OR REPLACE FUNCTION dm_create_study_role(
     END;
     $BODY$ LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_grant_study_schema_access_to_study_role(
+
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_grant_study_schema_access_to_study_role(
     filter_study_name TEXT DEFAULT $$$$
 )
     RETURNS TEXT AS
@@ -2874,7 +2945,8 @@ CREATE OR REPLACE FUNCTION dm_grant_study_schema_access_to_study_role(
     END;
     $BODY$ LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION dm_clean_name_string(
+
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_clean_name_string(
     name_string TEXT
 )
     RETURNS TEXT AS
@@ -2895,76 +2967,7 @@ CREATE OR REPLACE FUNCTION dm_clean_name_string(
         ) AS cleaned_name_string;
     $BODY$ LANGUAGE SQL STABLE;
 
-CREATE OR REPLACE FUNCTION dm_itemgroup_crf_null_values_list(
-    IN  filter_study_name    TEXT,
-    IN  filter_itemgroup_oid TEXT,
-    OUT crf_null_values_list TEXT
-)
-    RETURNS TEXT AS
-    $BODY$
-    DECLARE crf_null_sql         TEXT;
-            crf_null_result      TEXT;
-            crf_null_result_text TEXT;
-    BEGIN
-        crf_null_sql := format(
-                $query$
-    SELECT
-        trim(
-                BOTH
-                ','
-                FROM
-                (array_to_string(
-                        array_agg(
-                                quote_literal(
-                                        trim(
-                                                BOTH
-                                                ','
-                                                FROM
-                                                (
-                                                    sub.crf_null_values
-                                                )
-                                        )
-
-                                )
-                        ),
-                        $$,$$
-                ))
-        ) AS crf_null_values_list
-    FROM
-        (
-            SELECT
-                DISTINCT
-                metadata.study_name
-                ,
-                metadata.item_group_oid
-                ,
-                metadata.crf_null_values
-            FROM
-                dm.metadata
-            WHERE
-                metadata.crf_null_values != $$$$
-                AND
-                metadata.study_name = %1$L
-                AND
-                metadata.item_group_oid = %2$L
-        ) AS sub;
-        $query$,
-                filter_study_name,
-                filter_itemgroup_oid
-        );
-
-        FOR crf_null_result IN EXECUTE crf_null_sql LOOP
-            crf_null_result_text := concat_ws(
-                    $$,$$,
-                    crf_null_result_text,
-                    crf_null_result);
-        END LOOP;
-        crf_null_values_list := crf_null_result_text;
-    END;
-    $BODY$
-LANGUAGE plpgsql STABLE;
-
-CREATE OR REPLACE FUNCTION dm_refresh_matview(
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_refresh_matview(
     schemaname  TEXT,
     matviewname TEXT
 )
@@ -2986,3 +2989,542 @@ CREATE OR REPLACE FUNCTION dm_refresh_matview(
     END
     $BODY$
 LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_users_new_oc_user_new_login_role()
+    RETURNS TEXT AS
+    $BODY$
+    DECLARE r RECORD;
+    BEGIN
+        FOR r IN
+        SELECT
+            DISTINCT ON (email_local)
+            format(
+                    $$ CREATE ROLE %1$I LOGIN NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION; $$,
+                    email_local
+            ) AS statements,
+            email_local
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    (
+                        SELECT
+                            initcap(
+                                    substring(
+                                            email
+                                            FROM
+                                            $$^([A-z]+)@$$
+                                    )
+                            ) AS email_local,
+                            role_name_ui,
+                            account_status,
+                            user_name
+                        FROM
+                            dm.user_account_roles
+                    ) AS all_users
+                WHERE
+                    role_name_ui LIKE $$study%$$
+                    AND account_status = $$available$$
+                    AND email_local NOT IN (
+                        SELECT
+                            pg_roles.rolname
+                        FROM
+                            pg_catalog.pg_roles
+                    )
+                    AND length(
+                                email_local
+                        ) > 0
+                    AND user_name != $$root$$
+            ) AS users_statements
+        LOOP
+            EXECUTE r.statements;
+        END LOOP;
+        RETURN $$done$$;
+    END;
+    $BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_users_removed_oc_user_alter_role_nologin()
+    RETURNS TEXT AS
+    $BODY$
+    DECLARE r RECORD;
+    BEGIN
+        FOR r IN
+        SELECT
+            DISTINCT ON (email_local)
+            format(
+                    $$ ALTER ROLE %1$I NOLOGIN; $$,
+                    email_local
+            ) AS statements,
+            email_local
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    (
+                        SELECT
+                            initcap(
+                                    substring(
+                                            email
+                                            FROM
+                                            $$^([A-z]+)@$$
+                                    )
+                            ) AS email_local,
+                            role_name_ui,
+                            account_status,
+                            user_name
+                        FROM
+                            dm.user_account_roles
+                    ) AS all_users
+                WHERE
+                    role_name_ui LIKE $$study%$$
+                    AND account_status = $$removed$$
+                    AND email_local IN (
+                        SELECT
+                            pg_roles.rolname
+                        FROM
+                            pg_catalog.pg_roles
+                    )
+                    AND length(
+                                email_local
+                        ) > 0
+                    AND user_name != $$root$$
+            ) AS users_statements
+        LOOP
+            EXECUTE r.statements;
+        END LOOP;
+        RETURN $$done$$;
+    END;
+    $BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_users_restored_oc_user_alter_role_login()
+    RETURNS TEXT AS
+    $BODY$
+    DECLARE r RECORD;
+    BEGIN
+        FOR r IN
+        SELECT
+            DISTINCT ON (email_local)
+            format(
+                    $$ ALTER ROLE %1$I LOGIN; $$,
+                    email_local
+            ) AS statements,
+            email_local
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    (
+                        SELECT
+                            initcap(
+                                    substring(
+                                            email
+                                            FROM
+                                            $$^([A-z]+)@$$
+                                    )
+                            ) AS email_local,
+                            role_name_ui,
+                            account_status,
+                            user_name
+                        FROM
+                            dm.user_account_roles
+                    ) AS all_users
+                WHERE
+                    role_name_ui LIKE $$study%$$
+                    AND account_status = $$available$$
+                    AND email_local IN (
+                        SELECT
+                            pg_roles.rolname
+                        FROM
+                            pg_catalog.pg_roles
+                        WHERE
+                            pg_roles.rolcanlogin IS FALSE
+                    )
+                    AND length(
+                                email_local) > 0
+                    AND user_name != $$root$$
+            ) AS users_statements
+        LOOP
+            EXECUTE r.statements;
+        END LOOP;
+        RETURN $$done$$;
+    END;
+    $BODY$
+LANGUAGE plpgsql VOLATILE;
+
+
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_users_available_role_oc_user_grant_to_role()
+    RETURNS TEXT AS
+    $BODY$
+    DECLARE r RECORD;
+    BEGIN
+        FOR r IN
+        WITH all_users AS (
+            SELECT
+                initcap(
+                        substring(
+                                email
+                                FROM
+                                $$^([A-z]+)@$$
+                        )
+                ) AS email_local,
+                role_name_ui,
+                role_status,
+                user_name,
+                concat(
+                        $$dm_study_$$,
+                        dm_clean_name_string(
+                                study_name)
+                )     AS study_name_role,
+                study_name
+            FROM
+                dm.user_account_roles
+            WHERE
+                study_name IN (SELECT study_name FROM dm.metadata_study)
+        )
+        SELECT
+            format(
+                    $$ GRANT %1$s TO %2$I; $$,
+                    study_name_role,
+                    email_local
+            ) AS statements,
+            email_local
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    all_users
+                WHERE
+                    role_name_ui LIKE $$study%$$
+                    AND role_status = $$available$$
+                    AND email_local IN (
+                        SELECT
+                            pg_roles.rolname
+                        FROM
+                            pg_catalog.pg_roles
+                        WHERE
+                            NOT pg_has_role(
+                                    rolname,
+                                    study_name_role,
+                                    $$member$$
+                            )
+                    )
+                    AND length(
+                                email_local) > 0
+                    AND user_name != $$root$$
+            ) AS users_statements
+        LOOP
+            EXECUTE r.statements;
+        END LOOP;
+        RETURN $$done$$;
+    END;
+    $BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_users_removed_role_oc_user_revoke_from_role()
+    RETURNS TEXT AS
+    $BODY$
+    DECLARE r RECORD;
+    BEGIN
+        FOR r IN
+        WITH all_users AS (
+            SELECT
+                initcap(
+                        substring(
+                                email
+                                FROM
+                                $$^([A-z]+)@$$
+                        )
+                ) AS email_local,
+                role_name_ui,
+                role_status,
+                user_name,
+                concat(
+                        $$dm_study_$$,
+                        dm_clean_name_string(
+                                study_name)
+                )     AS study_name_role
+            FROM
+                dm.user_account_roles
+            WHERE
+                study_name IN (SELECT study_name FROM dm.metadata_study)
+        )
+        SELECT
+            format(
+                    $$ REVOKE %1$s FROM %2$I; $$,
+                    study_name_role,
+                    email_local
+            ) AS statements,
+            email_local
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    all_users
+                WHERE
+                    role_name_ui LIKE $$study%$$
+                    AND role_status = $$removed$$
+                    AND email_local IN (
+                        SELECT
+                            pg_roles.rolname
+                        FROM
+                            pg_catalog.pg_roles
+                        WHERE
+                            pg_has_role(
+                                    rolname,
+                                    study_name_role,
+                                    $$member$$
+                            )
+                    )
+                    AND length(
+                                email_local) > 0
+                    AND user_name != $$root$$
+            ) AS users_statements
+        LOOP
+            EXECUTE r.statements;
+        END LOOP;
+        RETURN $$done$$;
+    END;
+    $BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_drop_study_schema_having_new_definitions()
+    RETURNS TEXT AS
+    $BODY$
+    DECLARE r RECORD;
+    BEGIN
+        FOR r IN
+        SELECT
+            DISTINCT
+            format(
+                    $query$
+                    DROP TABLE IF EXISTS schema_to_drop;
+                    CREATE TEMP TABLE schema_to_drop AS 
+                    SELECT DISTINCT ON (dmm.study_name) dmm.study_name
+                    FROM %1$I.metadata AS dmm, %1$I.timestamp_schema AS ts
+                    WHERE crf_version_date_created > date_trunc($$day$$, ts.timestamp_schema)
+                    OR event_date_created > date_trunc($$day$$, ts.timestamp_schema)
+                    OR event_date_updated > date_trunc($$day$$, ts.timestamp_schema)
+                    $query$,
+                    dm_clean_name_string(
+                            study_name)
+            ) AS statements, 
+            $query$
+            SELECT dm_create_study_schemas(study_name, $$drop$$)
+            FROM schema_to_drop;
+            $query$ AS drop_statement
+        FROM
+            dm.metadata
+        WHERE dm_clean_name_string(study_name) IN 
+            (SELECT nspname FROM pg_catalog.pg_namespace)
+        LOOP
+            EXECUTE r.statements;
+            EXECUTE r.drop_statement;
+        END LOOP;
+        RETURN $$done$$;
+    END;
+    $BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION openclinica_fdw.dm_reassign_owner_study_matviews(
+    to_role TEXT DEFAULT $$dm_admin$$
+)
+    RETURNS TEXT AS
+    $BODY$
+    DECLARE r RECORD;
+    BEGIN
+        FOR r IN
+        SELECT
+            format(
+                    $$ ALTER MATERIALIZED VIEW %1$I.%2$I OWNER TO %3$I;$$,
+                    pgm.schemaname,
+                    pgm.matviewname,
+                    to_role
+            ) AS statements
+        FROM
+            pg_catalog.pg_matviews AS pgm
+        WHERE
+            pgm.schemaname IN (
+                SELECT
+                    study_name_clean
+                FROM
+                    dm.metadata_study)
+            AND pgm.matviewowner != to_role
+        LOOP
+            EXECUTE r.statements;
+        END LOOP;
+        RETURN $$done$$;
+    END;
+    $BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION public.dm_snapshot_code_sas(
+    filter_study_name_schema     TEXT,
+    outputdir                    TEXT,
+    odbc_string_or_file_dsn_path TEXT,
+    data_filter_string           TEXT DEFAULT $$$$
+)
+    RETURNS SETOF TEXT AS
+    $BODY$
+    DECLARE r RECORD;
+    BEGIN
+        RETURN QUERY
+        WITH views AS (
+                SELECT
+                    *
+                FROM
+                    pg_catalog.pg_class AS pgc
+                    INNER JOIN
+                    pg_catalog.pg_namespace AS pgn
+                        ON pgc.relnamespace = pgn.oid
+                WHERE
+                    pgn.nspname = filter_study_name_schema
+        )
+        SELECT
+            DISTINCT ON (nspname)
+            format(
+                    $head$%%LET snapshotdir=%1$s; LIBNAME snapshot "&snapshotdir"; RUN;$head$,
+                    outputdir
+            ) AS statements
+        FROM
+            views
+        UNION ALL
+        SELECT
+            DISTINCT ON (nspname)
+            format(
+                    $head$%%LET data_filter_string=%1$s;$head$,
+                    data_filter_string
+            ) AS statements
+        FROM
+            views
+        UNION ALL
+        SELECT
+            DISTINCT ON (nspname)
+            format(
+                    $head$PROC SQL; CONNECT TO odbc AS pgodbc (NOPROMPT="%1$s");$head$,
+                    odbc_string_or_file_dsn_path
+            ) AS statements
+        FROM
+            views
+        UNION ALL
+        SELECT
+            format(
+                    $line$create table snapshot.%2$s as select * from connection to pgodbc
+                    (select * from %1$s.%3$s &data_filter_string );$line$,
+                    filter_study_name_schema,
+                    substring(relname from 4 for 32),
+                    relname
+            )
+        FROM
+            views
+        WHERE
+            views.relkind = $$v$$
+        UNION ALL
+        SELECT
+            format(
+                    $line$create table snapshot.%2$s as select * from connection to pgodbc
+                    (select * from %1$s.%2$s);$line$,
+                    filter_study_name_schema,
+                    relname
+            )
+        FROM
+            views
+        WHERE
+            views.relkind = $$m$$
+            AND views.relname NOT LIKE $$ig_%$$
+            AND views.relname != $$clinicaldata$$;
+        RETURN;
+    END;
+    $BODY$
+LANGUAGE plpgsql STABLE;
+
+CREATE OR REPLACE FUNCTION public.dm_snapshot_code_stata(
+    filter_study_name_schema     TEXT,
+    outputdir                    TEXT,
+    odbc_string_or_file_dsn_path TEXT,
+    data_filter_string           TEXT DEFAULT $$$$
+)
+    RETURNS SETOF TEXT AS
+    $BODY$
+    DECLARE r RECORD;
+    BEGIN
+        RETURN QUERY
+        WITH views AS (
+                SELECT
+                    *
+                FROM
+                    pg_catalog.pg_class AS pgc
+                    INNER JOIN
+                    pg_catalog.pg_namespace AS pgn
+                        ON pgc.relnamespace = pgn.oid
+                WHERE
+                    pgn.nspname = filter_study_name_schema
+        )
+        SELECT
+            DISTINCT ON (nspname)
+            format(
+                    $head$local snapshotdir="%1$s"$head$,
+                    outputdir
+            ) AS statements
+        FROM
+            views
+        UNION ALL
+        SELECT
+            DISTINCT ON (nspname)
+            format(
+                    $head$local data_filter_string="%1$s"$head$,
+                    data_filter_string
+            ) AS statements
+        FROM
+            views
+        UNION ALL
+        SELECT
+            DISTINCT ON (nspname)
+            format(
+                    $head$local odbc_string_or_file_dsn_path="%1$s"$head$,
+                    odbc_string_or_file_dsn_path
+            ) AS statements
+        FROM
+            views
+        UNION ALL
+        SELECT
+            format(
+                    $line$odbc load, exec("SELECT * FROM %1$s.%2$s `data_filter_string'") connectionstring("`odbc_string_or_file_dsn_path'")
+                    save "`snapshotdir'/%3$s.dta"
+                    clear$line$,
+                    filter_study_name_schema,
+                    relname,
+                    substring(
+                            relname
+                            FROM
+                            4)
+            )
+        FROM
+            views
+        WHERE
+            views.relkind = $$v$$
+        UNION ALL
+        SELECT
+            format(
+                    $line$odbc load, exec("SELECT * FROM %1$s.%2$s") connectionstring("`odbc_string_or_file_dsn_path'")
+                    save "`snapshotdir'/%2$s.dta"
+                    clear$line$,
+                    filter_study_name_schema,
+                    relname
+            )
+        FROM
+            views
+        WHERE
+            views.relkind = $$m$$
+            AND views.relname NOT LIKE $$ig_%$$
+            AND views.relname != $$clinicaldata$$;
+        RETURN;
+    END;
+    $BODY$
+LANGUAGE plpgsql STABLE;

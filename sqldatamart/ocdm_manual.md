@@ -92,7 +92,7 @@ GRANT openclinica_select TO ocdm_fdw;
 
 ```
 # TYPE  DATABASE        USER                 ADDRESS                 METHOD
-hostssl openclinica     ocdm             ocdmIPAddress/32         md5
+hostssl openclinica     ocdm_fdw             ocdmIPAddress/32         md5
 ```
 
 ## Steps to Complete on OCDM Server
@@ -261,10 +261,10 @@ set "scripts_path=C:\Users\myUserName\Desktop\sqldatamart"
 
 The *scripts_path* setting is the folder where the sqldatamart scripts have be copied to on the server. See the scripts for documentation on their commands and functions.
 
-### Create a postgres *pgAgent* Login Role with Minimum Permissions
-The pgAgent scheduler user (in this case, the domain service account) requires some minimal permissions to run jobs, as the pgAgent settings are stored in the database. Only the object owner can refresh a materialized view, and since that is one of the tasks to be completed, the pgAgent user needs to be a member of *dm_admin* as that role owns the relevant objects.
+### Create a postgres *pgAgent* Role
+The pgAgent scheduler user (in this case, the domain service account) requires some permissions on the postgres database to run jobs, as the pgAgent settings are stored in the postgres database. 
 
-- Log in to postgres as the postgres superuser and run the following commands to create the *pgAgent* role:
+- Log in to the postgres database as the postgres superuser and run the following commands to create the *pgAgent* role:
 
 ```sql
 CREATE ROLE pgagent
@@ -276,11 +276,14 @@ GRANT ALL ON ALL SEQUENCES IN SCHEMA pgagent TO pgagent;
 GRANT ALL ON ALL FUNCTIONS IN SCHEMA pgagent TO pgagent;
 ```
 
+### Create a postgres Login Role for the Domain Service Account
+The domain service account will run the scheduled jobs, and perform maintenance on the openclinica_fdw_db database. This role requires *CREATEROLE* privilege as mananging roles is one of the maintenance tasks.
+
 - Run the following commands to create the domain service account user:
 
 ```sql
 CREATE ROLE myDomainServiceAccountName LOGIN
-    NOSUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION;
+    NOSUPERUSER INHERIT NOCREATEDB CREATEROLE NOREPLICATION;
 GRANT pgagent TO myDomainServiceAccountName;
 GRANT dm_admin TO myDomainServiceAccountName;
 ```
@@ -310,7 +313,7 @@ Connection Type: Local
 Database: openclinica_fdw_db
 Kind: SQL
 On Error: Fail
-Definition: SELECT * FROM dm.refresh_matviews_openclinica_fdw
+Definition: TABLE dm.refresh_matviews_openclinica_fdw
 ```
 
 - create additional job steps with the same settings as above, except for *Name* and *Definition*, as follows:
@@ -318,16 +321,14 @@ Definition: SELECT * FROM dm.refresh_matviews_openclinica_fdw
 ```
 Name: step2_refresh_dm
 Definition:
-    /* set query planner params that improve execution time */
-    SET seq_page_cost = 0.25; /* affects dm.metadata */
-    SET join_collapse_limit = 1; /* affects dm.clinicaldata */
-    SELECT * FROM dm.refresh_matviews_dm;
-    SET seq_page_cost = 1.0;
-    SET join_collapse_limit = 8;
+    /* set query planner params for transaction that improve execution time */
+    SET LOCAL seq_page_cost = 0.25; /* affects dm.metadata */
+    SET LOCAL join_collapse_limit = 1; /* affects dm.clinicaldata */
+    TABLE dm.refresh_matviews_dm;
 Name: step3_refresh_study
-Definition: SELECT * FROM dm.refresh_matviews_study
+Definition: TABLE dm.refresh_matviews_study
 Name: step4_build_new_studies
-Definition: SELECT * FROM dm.build_new_study
+Definition: TABLE dm.build_new_study
 ```
 
 - create a schedule for the pgAgent job, with the following settings:
@@ -349,13 +350,14 @@ The scheduled frequency should be adjusted depending on the time the job takes t
 # OCDM Maintenance
 
 ## User Management
+A scheduled maintenance task will handle most login role and permission management. Sometimes these tasks will need to be performed manually, which can be done as described in this section.
 
 ### Creating Login Roles
 In order for a domain account user to connect to the database, a matching postgres login role must be created. The case of the postgres login role must match the case of the domain account name, e.g. myuser=myuser, Myuser=Myuser, MYUSER=MYUSER.
 
-Only the postgres superuser has permission to create new login roles, because the *CREATEROLE* permission allows privilege escalation. For example a *NOCREATEDB CREATEROLE* role can create a *CREATEDB CREATEROLE* role.
+Only the postgres superuser and the Domain Service Account have permission to create new login roles. The *CREATEROLE* permission allows privilege escalation so should be available to as few users as possible. For example a *NOCREATEDB CREATEROLE* role can create a *CREATEDB CREATEROLE* role.
 
-- Log in as the postgres user and create a login role using the following command:
+- Log in to the OCDM server as the postgres user and create a login role using the following command:
 
 ```sql
 CREATE ROLE "myDomainAccountName" LOGIN NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;
@@ -538,3 +540,70 @@ odbc load, table("myStudyNameSchemaName.subjects") noquote connectionstring("fil
 MS Office ODBC connection strings require a prefix of "ODBC;". Generally, it is easier to create the connection by browsing to the FileDSN, particularly for MS Excel.
 
 In MS Access, pass-through queries accept an ODBC connection string in the property sheet. Alternatively, select the fileDSN location and Access will insert the equivalent ODBC connection string for the pass-through query. Linked tables can also be created by selecting the fileDSN location.
+
+# General Information
+
+## Common Dataset Guides
+
+### Metadata
+The metadata dataset contains information about the configuration of the study. 
+
+There may be minor differences between the corresponding values for some event definition parameters in the clinicaldata dataset. The clinicaldata dataset shows the site setting whereas metadata only shows the study settings.
+
+#### Column descriptions
+- study_name: the name of the study
+- study_status: the current status of the study - available = open, frozen = data locked but discrepancy note changes allowed, locked = no changes allowed
+- study_date_created: date the study was created
+- study_date_updated: date the study was last updated
+- site_oid: unique identifier for site belonging to the study
+- site_name: name of the site
+- event_oid: unique identifier for the event definition belonging to the study
+- event_order: order of the event within the study
+- event_name: name of the event
+- event_date_created: date event definition created
+- event_date_updated: date event definition last updated
+- event_repeating: whether the event can be completed more than once - true or 1 = yes, false or 0 = no
+- crf_parent_oid: unique identifier for the form definition belonging to the event
+- crf_parent_name: name of the form definition
+- crf_parent_date_created: date form definition was created
+- crf_parent_date_updated: date form definition was last updated
+- crf_version: name of the crf version
+- crf_version_oid: unique identifier for the version of the form definition
+- crf_version_date_created: date the form definition version was created
+- crf_version_date_updated: date the form definition version was last updated
+- crf_is_required: in the named event, whether the form must be completed for the event to be completed (can be configured per site)
+- crf_is_double_entry: in the named event, whether the form requires double data entry (can be configured per site)
+- crf_is_hidden: in the named event, whether the form is hidden from site users (can be configured per site)
+- crf_null_values: in the named event, what null codes are allowed (these are removed from the data)
+- crf_section_label: name of a section of the form definition version
+- crf_section_title: title of a section of the form definition version
+- item_group_oid: unique identifier for the item group belonging to the form definition
+- item_group_name: name of the item group
+- item_form_order: order that the item appears within the form definition
+- item_oid: unique identifier for the item (multi-valued fields have the value appended to the item_oid_multi_original)
+- item_name: name of the item  (multi-valued fields have the value appended to the item_name_multi_original)
+- item_oid_multi_original: original item oid for multi-valued items
+- item_name_multi_original: original name of the item for multi-valued items
+- item_units: item units displayed to users
+- item_data_type: item data type (st = string, int/real = numeric, date = date, file/pdate = string)
+- item_response_type: item response control type (single-select/radio = single choice drop-down/buttons, text/textarea = small/large text box, checkbox = checkbox(es), multi-select = many choice control, file = file uploader)
+- item_response_set_label: name of the item choice list
+- item_response_set_id: database id of the item choice list
+- item_response_set_version: version of the item choice list
+- item_question_number: item question number displayed to user
+- item_description: item description (not shown on the form)
+- item_header: bold text displayed above the item control on the form
+- item_subheader: text displayed above the item control on the form
+- item_left_item_text: text displayed on the left of the item control on the form
+- item_right_item_text: text displayed on the right of the item control on the form
+- item_regexp: regular expression used to perform soft check validation of the submitted item data
+- item_regexp_error_msg: error message displayed when the submitted item data fails regexp validation
+- item_required: whether the item must be completed for the form to be complete
+- item_default_value: default value populated for item before form submission
+- item_response_layout: horizontal or vertical layout option for radio or checkbox item controls
+- item_width_decimal: optional restriction on item value width and decimal places
+- item_show_item: whether the item is shown by default, items are shown if not specified (hidden items shown by scd [simple conditional display] or rules)
+- item_scd_item_oid: unique identifier of scd item, whose value dictates whether the item is shown
+- item_scd_item_option_value: value of scd item, that causes the item to be shown
+- item_scd_item_option_text: value label of scd item, that causes the item to be shown
+- item_scd_message: error message displayed when a value is submitted for an item and the scd item value is not equal to item_scd_item_option_value
