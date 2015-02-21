@@ -35,7 +35,12 @@ Selenium scripts for automating user tasks - bulk CRF version migration, deletin
 SQL scripts for building and maintaining a report database connected to OpenClinica's database via a foreign data wrapper. Also includes SQL scripts to facilitate export to xlsx (via R), and subsequent conversion to .dta (via stata) and .sas7bdat (via sas).
 
 ## [webservices](webservices)
-PHP client for interacting with OpenClinica webservices, and helper classes / function to build ODM structured data for import. See also:
+Clients for interacting with OpenClinica webservices.
+
+* Python 3 client, with tests! Returns Lists of OrderedDicts instead of XML.
+* PHP client with helper classes / function to build ODM structured data for import. 
+
+See also:
 
 * [Java implementation by CTMM TraIT](https://github.com/jacobrousseau/traitocws/blob/master/TraITOCWS/src/nl/vumc/trait/oc/connect/OCWebServices.java)
 * [Python implementation by Dimagi](https://github.com/dimagi/openclinica-xforms/blob/master/webservices.py)
