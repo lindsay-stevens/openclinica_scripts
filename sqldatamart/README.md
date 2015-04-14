@@ -1,0 +1,1 @@
+Moved to [openclinica_sqldatamart](https://github.com/lindsay-stevens-kirby/openclinica_sqldatamart)
