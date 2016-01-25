@@ -203,9 +203,10 @@ def read_xlsform(filepath):
             xls_survey_rows.append(xls_survey_row)
 
         # for each language, write images for each item
+        # assuming that if an image name is specified then we need an image
+        image_colname = 'image::{0}'.format(language)
         for xls_survey_item in xls_survey_rows:
-            if xls_survey_item['type'] not in \
-                    image_settings['type_ignore_list']:
+            if xls_survey_item[image_colname] != '':
                 image_settings_kwargs = image_settings.copy()
                 image_settings_kwargs['file_path'] = os.path.dirname(filepath)
                 image_settings_kwargs['file_name'] = '{0}_{1}'.format(
