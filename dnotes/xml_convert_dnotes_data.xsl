@@ -19,6 +19,7 @@
     <xsl:key name="form-section" match="OpenClinica:ItemDetails" use="@ItemOID"/>
     <xsl:key name="itemgroup-name" match="odm:ItemGroupDef" use="@OID"/>
     <xsl:key name="item-name" match="odm:ItemDef" use="@OID"/>
+    <xsl:key name="code-list" match="odm:CodeList" use="@OID"/>
 
     <!-- template to return the study node -->
     <xsl:template match="/*">
@@ -95,6 +96,7 @@
                 </xsl:choose>
             </xsl:element>
             <xsl:element name="dn_entity_detail">
+                <xsl:variable name="item-value" select="ancestor::odm:ItemData/@Value"/>
                 <xsl:element name="event_name">
                     <xsl:value-of select="key('event-name',ancestor::
                         odm:StudyEventData/@StudyEventOID)/@Name"/>
@@ -125,6 +127,12 @@
                 <xsl:element name="item_name">
                     <xsl:value-of select="key('item-name',../@EntityID)
                         /@Comment"/>
+                </xsl:element>
+                <xsl:element name="item_value">
+                    <xsl:value-of select="$item-value"/>
+                </xsl:element>
+                <xsl:element name="item_code_list_label">
+                    <xsl:value-of select="key('code-list',key('item-name',../@EntityID)/odm:CodeListRef/@CodeListOID)/odm:CodeListItem[@CodedValue=$item-value]/odm:Decode/odm:TranslatedText/text()"/>
                 </xsl:element>
             </xsl:element>
         </xsl:element>

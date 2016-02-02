@@ -258,6 +258,30 @@
                                         </fo:block>
                                     </fo:table-cell>
                                 </fo:table-row>
+                                <fo:table-row>
+                                    <fo:table-cell border="solid black 1px" padding="2px">
+                                        <fo:block font-weight="bold">
+                                            <xsl:text>Item Value</xsl:text>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell border="solid black 1px" padding="2px">
+                                        <fo:block>
+                                            <xsl:value-of select="dn_entity_detail/item_value"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row>
+                                    <fo:table-cell border="solid black 1px" padding="2px">
+                                        <fo:block font-weight="bold">
+                                            <xsl:text>Item Code List Label</xsl:text>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell border="solid black 1px" padding="2px">
+                                        <fo:block>
+                                            <xsl:value-of select="dn_entity_detail/item_code_list_label"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
                             </xsl:when>
                         </xsl:choose>
                     </xsl:when>

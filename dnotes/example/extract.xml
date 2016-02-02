@@ -6172,11 +6172,11 @@
                         <ItemData ItemOID="I_PHYSI_BMI" Value="24.27"/>
                         <ItemData ItemOID="I_PHYSI_APPEARANCE" Value="1">
                             <OpenClinica:DiscrepancyNotes EntityID="I_PHYSI_APPEARANCE">
-                                <OpenClinica:DiscrepancyNote ID="DN_5" Status="Not Applicable" NoteType="Incomplete" DateUpdated="2011-07-05" NumberOfChildNotes="1">
-                                    <OpenClinica:ChildNote Status="Not Applicable" DateCreated="2011-07-05">
-                                        <OpenClinica:Description>Appears distracted</OpenClinica:Description>
-                                        <OpenClinica:DetailedNote>Subject appears more distracted than usual but nothing clinically significant to note. </OpenClinica:DetailedNote>
-                                        <UserRef UserOID="USR_8"/>
+                                    <OpenClinica:DiscrepancyNote ID="DN_999" Status="New" NoteType="Failed Validation Check" DateUpdated="2011-07-06" NumberOfChildNotes="1">
+                                    <OpenClinica:ChildNote Status="New" DateCreated="2011-07-06">
+                                        <OpenClinica:Description>TEST Pulse was taken twice and was 59 BPM</OpenClinica:Description>
+                                        <OpenClinica:DetailedNote>[Pulse rate ouf of expected range of 60-100(must be an integer)]</OpenClinica:DetailedNote>
+                                        <UserRef UserOID="USR_2"/>
                                     </OpenClinica:ChildNote>
                                 </OpenClinica:DiscrepancyNote>
                             </OpenClinica:DiscrepancyNotes>

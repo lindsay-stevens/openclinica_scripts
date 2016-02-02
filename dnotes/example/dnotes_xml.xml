@@ -20,6 +20,8 @@
                <itemgroup_name>IG_PHYSI_UNGROUPED</itemgroup_name>
                <itemgroup_repeat/>
                <item_name>Pulse Rate</item_name>
+               <item_value>59</item_value>
+               <item_code_list_label/>
             </dn_entity_detail>
          </dnote>
       </subject>
@@ -43,6 +45,30 @@
                <itemgroup_name>IG_PHYSI_UNGROUPED</itemgroup_name>
                <itemgroup_repeat/>
                <item_name>Pulse Rate</item_name>
+               <item_value>55</item_value>
+               <item_code_list_label/>
+            </dn_entity_detail>
+         </dnote>
+      </subject>
+      <subject>
+         <subject_id>SCRC011</subject_id>
+         <dnote>
+            <dn_id>DN_999</dn_id>
+            <dn_status>New</dn_status>
+            <dn_description_last>TEST Pulse was taken twice and was 59 BPM</dn_description_last>
+            <dn_detailed_note_last>[Pulse rate ouf of expected range of 60-100(must be an integer)]</dn_detailed_note_last>
+            <dn_entity_id>I_PHYSI_APPEARANCE</dn_entity_id>
+            <dn_entity_type>Item</dn_entity_type>
+            <dn_entity_detail>
+               <event_name>Registration Visit</event_name>
+               <event_repeat/>
+               <form_name>Physical Exam - English</form_name>
+               <form_section>II Body System</form_section>
+               <itemgroup_name>IG_PHYSI_UNGROUPED</itemgroup_name>
+               <itemgroup_repeat/>
+               <item_name>Appearance</item_name>
+               <item_value>1</item_value>
+               <item_code_list_label>Normal</item_code_list_label>
             </dn_entity_detail>
          </dnote>
       </subject>
