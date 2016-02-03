@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SXLEMAP version="1.2">
+   <TABLE name="IG_PHYSI_UNGROUPED">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_PHYSI_UNGROUPED</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="PEDAT">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_PEDAT</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="PETIM">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_PETIM</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>5</LENGTH>
+      </COLUMN>
+      <COLUMN Name="HEIGHT">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_HEIGHT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="WEIGHT">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_WEIGHT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="TEMPERAT">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_TEMPERATURE</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="PULSE">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_PULSE</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="RESPIRAT">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_RESPIRATION</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="SYSTOLIC">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_SYSTOLIC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>3</LENGTH>
+      </COLUMN>
+      <COLUMN Name="DIASTOLI">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_DIASTOLIC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>2</LENGTH>
+      </COLUMN>
+      <COLUMN Name="BMI">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_BMI</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="APPEARAN">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_APPEARANCE</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="APPEA005">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_APPEARANCE_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="SKIN">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_SKIN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="SKIN_COM">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_SKIN_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>44</LENGTH>
+      </COLUMN>
+      <COLUMN Name="HEENT">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_HEENT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="HEENT_CO">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_HEENT_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="THYROID">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_THYROID</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="THYROID_">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_THYROID_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>14</LENGTH>
+      </COLUMN>
+      <COLUMN Name="CHEST">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_CHEST</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="CHEST_CO">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_CHEST_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>29</LENGTH>
+      </COLUMN>
+      <COLUMN Name="LUNGS">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_LUNGS</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="LUNGS_CO">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_LUNGS_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="BREAST">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_BREAST</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="BREASTS_">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_BREASTS_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="HEART">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_HEART</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="HEART_CO">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_HEART_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="ABDOMEN">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_ABDOMEN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ABDOMEN_">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_ABDOMEN_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="MUSCULOS">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_MUSCULOSKELETAL</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="MUSCU006">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_MUSCULOSKELETAL_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="GENITALI">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_GENITALIA</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="GENIT007">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_GENITALIA_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="PELVIS">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_PELVIS</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="PELVIS_C">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_PELVIS_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="RECTAL">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_RECTAL</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="RECTAL_C">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_RECTAL_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="PROSTATE">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_PROSTATE</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="PROST008">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_PROSTATE_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="VASCULAR">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_VASCULAR</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="VASCU009">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_VASCULAR_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="NEUROLOG">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_NEUROLOGICAL</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="NEURO00a">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_NEUROLOGICAL_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="LYMPHNOD">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_LYMPHNODES</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="LYMPH00b">
+         <PATH>/R0112345/IG_PHYSI_UNGROUPED/I_PHYSI_LYMPHNODES_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_PHYSI_OTHERBODYSYSTEMSITE">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_PHYSI_OTHERBODYSYSTEMSITE</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_PHYSI_OTHERBODYSYSTEMSITE/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_PHYSI_OTHERBODYSYSTEMSITE/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_PHYSI_OTHERBODYSYSTEMSITE/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_PHYSI_OTHERBODYSYSTEMSITE/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="OTHERBOD">
+         <PATH>/R0112345/IG_PHYSI_OTHERBODYSYSTEMSITE/I_PHYSI_OTHERBODYSYSTEM</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="OTHER00c">
+         <PATH>/R0112345/IG_PHYSI_OTHERBODYSYSTEMSITE/I_PHYSI_OTHERBODYSYSTEM_STATUS</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="OTHER00d">
+         <PATH>/R0112345/IG_PHYSI_OTHERBODYSYSTEMSITE/I_PHYSI_OTHERBODYSYSTEM_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_AGENT_UNGROUPED">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_AGENT_UNGROUPED</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="PERIOD_S">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_PERIOD_SD</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="PERIOD_E">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_PERIOD_ED</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="MTD_DETE">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_MTD_DETERMINED</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="MTD_DAT">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_MTD_DAT</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="MTD_DOSE">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_MTD_DOSE</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="AGEN_INT">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_AGEN_INTERRUPTED</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="DAT_INTE">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_DAT_INTERRUPTED</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="REASON_I">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_REASON_INTERRUPTED</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="RESTARTE">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_RESTARTED</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="DAT_REST">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_DAT_RESTARTED</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="REASON_R">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_REASON_RESTARTED</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="REG_MOD">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_REG_MOD</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="DAT_MOD">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_DAT_MOD</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="NEW_REG_">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_NEW_REG_DOSE</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="NEW_R00e">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_NEW_REG_FREQ</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="AMT_LAST">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_AMT_LAST_VIS</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="AMT_RET">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_AMT_RET</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="AMT_TAKE">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_AMT_TAKEN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="AMT_MISS">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_AMT_MISS</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="COMPLIAN">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_COMPLIANCE</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="NONCOMPL">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_NONCOMPLIANCE</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="AGEN_PRO">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_AGEN_PROVIDED</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="AMT_PROV">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_AMT_PROVIDED</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="COMMENTS">
+         <PATH>/R0112345/IG_AGENT_UNGROUPED/I_AGENT_COMMENTS</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_AGENT_DOSETABLE">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_AGENT_DOSETABLE</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_AGENT_DOSETABLE/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_AGENT_DOSETABLE/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_AGENT_DOSETABLE/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_AGENT_DOSETABLE/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="DOSE_DAT">
+         <PATH>/R0112345/IG_AGENT_DOSETABLE/I_AGENT_DOSE_DAT</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="DOSE_TIM">
+         <PATH>/R0112345/IG_AGENT_DOSETABLE/I_AGENT_DOSE_TIM</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="AGEN_NAM">
+         <PATH>/R0112345/IG_AGENT_DOSETABLE/I_AGENT_AGEN_NAME</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>9</LENGTH>
+      </COLUMN>
+      <COLUMN Name="AGEN_DOS">
+         <PATH>/R0112345/IG_AGENT_DOSETABLE/I_AGENT_AGEN_DOSE</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>double</DATATYPE>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_VERIF_UNGROUPED">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_VERIF_UNGROUPED</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_VERIF_UNGROUPED/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_VERIF_UNGROUPED/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_VERIF_UNGROUPED/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_VERIF_UNGROUPED/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ELIGIBIL">
+         <PATH>/R0112345/IG_VERIF_UNGROUPED/I_VERIF_ELIGIBILITY_CONF</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="VERI_INI">
+         <PATH>/R0112345/IG_VERIF_UNGROUPED/I_VERIF_VERI_INIT</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>3</LENGTH>
+      </COLUMN>
+      <COLUMN Name="VERI_DAT">
+         <PATH>/R0112345/IG_VERIF_UNGROUPED/I_VERIF_VERI_DATE</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="IFC_PDF">
+         <PATH>/R0112345/IG_VERIF_UNGROUPED/I_VERIF_IFC_PDF</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_ELIGI_UNGROUPED">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_ELIGI_UNGROUPED</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="OVER_18">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_OVER_18</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ECOG_STA">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_ECOG_STATUS</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="WBC_CT">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_WBC_CT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="PLATELET">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_PLATELET_CT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="SERUM_CR">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_SERUM_CREATININE</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="SERUM_BI">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_SERUM_BILIRUBIN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="CONTRACE">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_CONTRACEPTION</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="INFORMED">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_INFORMED_CONSENT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="INFOR00f">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_INFORMED_CONSENT_DAT</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="HIST_HEA">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_HIST_HEART_DISEASE</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="CHEMOTHE">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_CHEMOTHERAPY</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="FASTING_">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_FASTING_CHOLESTEROL_TRIGLY</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="NSAIDS">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_NSAIDS</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="OTH_INVE">
+         <PATH>/R0112345/IG_ELIGI_UNGROUPED/I_ELIGI_OTH_INVESTIGATIONAL_RX</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_ADVER_UNGROUPED">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_ADVER_UNGROUPED</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_1_AEYN">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/I_ADVER_1_AEYN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_1_AETER">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/I_ADVER_1_AETERM</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="_1_AESTD">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/I_ADVER_1_AESTDTC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_1_AEEND">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/I_ADVER_1_AEENDTC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_1_AESEV">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/I_ADVER_1_AESEV</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_1_AESER">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/I_ADVER_1_AESER</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_1_AEREL">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/I_ADVER_1_AEREL</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_1_AEACN">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/I_ADVER_1_AEACN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_1_AEOUT">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/I_ADVER_1_AEOUT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_2_AEYN">
+         <PATH>/R0112345/IG_ADVER_UNGROUPED/I_ADVER_2_AEYN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_ADVER_AE2">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_ADVER_AE2</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_ADVER_AE2/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_ADVER_AE2/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_ADVER_AE2/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_ADVER_AE2/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_2_AETER">
+         <PATH>/R0112345/IG_ADVER_AE2/I_ADVER_2_AETERM</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="_2_AESTD">
+         <PATH>/R0112345/IG_ADVER_AE2/I_ADVER_2_AESTDTC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_2_AEEND">
+         <PATH>/R0112345/IG_ADVER_AE2/I_ADVER_2_AEENDTC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_2_AESEV">
+         <PATH>/R0112345/IG_ADVER_AE2/I_ADVER_2_AESEV</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_2_AESER">
+         <PATH>/R0112345/IG_ADVER_AE2/I_ADVER_2_AESER</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_2_AEREL">
+         <PATH>/R0112345/IG_ADVER_AE2/I_ADVER_2_AEREL</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_2_AEACN">
+         <PATH>/R0112345/IG_ADVER_AE2/I_ADVER_2_AEACN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_2_AEOUT">
+         <PATH>/R0112345/IG_ADVER_AE2/I_ADVER_2_AEOUT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_3_AEYN">
+         <PATH>/R0112345/IG_ADVER_AE2/I_ADVER_3_AEYN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_2_AEYN">
+         <PATH>/R0112345/IG_ADVER_AE2/I_ADVER_2_AEYN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_ADVER_AE3">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_ADVER_AE3</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_ADVER_AE3/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_ADVER_AE3/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_ADVER_AE3/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_ADVER_AE3/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_3_AETER">
+         <PATH>/R0112345/IG_ADVER_AE3/I_ADVER_3_AETERM</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="_3_AESTD">
+         <PATH>/R0112345/IG_ADVER_AE3/I_ADVER_3_AESTDTC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_3_AEEND">
+         <PATH>/R0112345/IG_ADVER_AE3/I_ADVER_3_AEENDTC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_3_AESEV">
+         <PATH>/R0112345/IG_ADVER_AE3/I_ADVER_3_AESEV</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_3_AESER">
+         <PATH>/R0112345/IG_ADVER_AE3/I_ADVER_3_AESER</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_3_AEREL">
+         <PATH>/R0112345/IG_ADVER_AE3/I_ADVER_3_AEREL</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_3_AEACN">
+         <PATH>/R0112345/IG_ADVER_AE3/I_ADVER_3_AEACN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_3_AEOUT">
+         <PATH>/R0112345/IG_ADVER_AE3/I_ADVER_3_AEOUT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_4_AEYN">
+         <PATH>/R0112345/IG_ADVER_AE3/I_ADVER_4_AEYN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_3_AEYN">
+         <PATH>/R0112345/IG_ADVER_AE3/I_ADVER_3_AEYN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_ADVER_AE4">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_ADVER_AE4</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_ADVER_AE4/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_ADVER_AE4/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_ADVER_AE4/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_ADVER_AE4/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_4_AETER">
+         <PATH>/R0112345/IG_ADVER_AE4/I_ADVER_4_AETERM</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="_4_AESTD">
+         <PATH>/R0112345/IG_ADVER_AE4/I_ADVER_4_AESTDTC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_4_AEEND">
+         <PATH>/R0112345/IG_ADVER_AE4/I_ADVER_4_AEENDTC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_4_AESEV">
+         <PATH>/R0112345/IG_ADVER_AE4/I_ADVER_4_AESEV</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_4_AESER">
+         <PATH>/R0112345/IG_ADVER_AE4/I_ADVER_4_AESER</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_4_AEREL">
+         <PATH>/R0112345/IG_ADVER_AE4/I_ADVER_4_AEREL</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_4_AEACN">
+         <PATH>/R0112345/IG_ADVER_AE4/I_ADVER_4_AEACN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_4_AEOUT">
+         <PATH>/R0112345/IG_ADVER_AE4/I_ADVER_4_AEOUT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_4_AEYN">
+         <PATH>/R0112345/IG_ADVER_AE4/I_ADVER_4_AEYN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_ADVER_AE5">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_ADVER_AE5</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_ADVER_AE5/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_ADVER_AE5/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_ADVER_AE5/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_ADVER_AE5/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_5_AEYN">
+         <PATH>/R0112345/IG_ADVER_AE5/I_ADVER_5_AEYN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_5_AETER">
+         <PATH>/R0112345/IG_ADVER_AE5/I_ADVER_5_AETERM</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>200</LENGTH>
+      </COLUMN>
+      <COLUMN Name="_5_AESTD">
+         <PATH>/R0112345/IG_ADVER_AE5/I_ADVER_5_AESTDTC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_5_AEEND">
+         <PATH>/R0112345/IG_ADVER_AE5/I_ADVER_5_AEENDTC</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_5_AESEV">
+         <PATH>/R0112345/IG_ADVER_AE5/I_ADVER_5_AESEV</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_5_AESER">
+         <PATH>/R0112345/IG_ADVER_AE5/I_ADVER_5_AESER</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_5_AEREL">
+         <PATH>/R0112345/IG_ADVER_AE5/I_ADVER_5_AEREL</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_5_AEACN">
+         <PATH>/R0112345/IG_ADVER_AE5/I_ADVER_5_AEACN</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="_5_AEOUT">
+         <PATH>/R0112345/IG_ADVER_AE5/I_ADVER_5_AEOUT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+   </TABLE>
+   <TABLE name="IG_CONCO_CONCOMITANTMEDICATIONS">
+      <TABLE-PATH syntax="XPATH">/R0112345/IG_CONCO_CONCOMITANTMEDICATIONS</TABLE-PATH>
+      <COLUMN Name="SubjectID">
+         <PATH>/R0112345/IG_CONCO_CONCOMITANTMEDICATIONS/SubjectID</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>50</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEvent">
+         <PATH>/R0112345/IG_CONCO_CONCOMITANTMEDICATIONS/StudyEvent</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>255</LENGTH>
+      </COLUMN>
+      <COLUMN Name="StudyEventRepeatKey">
+         <PATH>/R0112345/IG_CONCO_CONCOMITANTMEDICATIONS/StudyEventRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="ItemGroupRepeatKey">
+         <PATH>/R0112345/IG_CONCO_CONCOMITANTMEDICATIONS/ItemGroupRepeatKey</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="Con_Med_">
+         <PATH>/R0112345/IG_CONCO_CONCOMITANTMEDICATIONS/I_CONCO_CON_MED_NAME</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>9</LENGTH>
+      </COLUMN>
+      <COLUMN Name="Con_M00g">
+         <PATH>/R0112345/IG_CONCO_CONCOMITANTMEDICATIONS/I_CONCO_CON_MED_START</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="Con_M00h">
+         <PATH>/R0112345/IG_CONCO_CONCOMITANTMEDICATIONS/I_CONCO_CON_MED_END</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>date</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="Con_M00i">
+         <PATH>/R0112345/IG_CONCO_CONCOMITANTMEDICATIONS/I_CONCO_CON_MED_CONT</PATH>
+         <TYPE>numeric</TYPE>
+         <DATATYPE>integer</DATATYPE>
+      </COLUMN>
+      <COLUMN Name="Con_M00j">
+         <PATH>/R0112345/IG_CONCO_CONCOMITANTMEDICATIONS/I_CONCO_CON_MED_FORM</PATH>
+         <TYPE>character</TYPE>
+         <DATATYPE>string</DATATYPE>
+         <LENGTH>3</LENGTH>
+      </COLUMN>
+   </TABLE>
+</SXLEMAP>
