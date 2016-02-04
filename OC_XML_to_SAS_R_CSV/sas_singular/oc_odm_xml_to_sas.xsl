@@ -4,8 +4,7 @@
                 xmlns:odm="http://www.cdisc.org/ns/odm/v1.3"
                 xmlns:OpenClinica="http://www.openclinica.org/ns/odm_ext_v130/v3.1"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 OpenClinica-ODM1-3-0-OC1.xsd"
-                xmlns:sas="http://www.example.com">
+                xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 OpenClinica-ODM1-3-0-OC1.xsd">
     
     <!-- Output types for result-document instructions. -->
     <xsl:output encoding="utf-8"
@@ -117,7 +116,7 @@
       -->
     
     <!-- Row header data for item group data, PATH node is set dynamically.-->
-    <sas:rowheaders>
+    <xsl:variable name="sas_rowheaders">
         <row name="SubjectID">
             <TYPE>character</TYPE>
             <DATATYPE>string</DATATYPE>
@@ -136,7 +135,7 @@
             <TYPE>numeric</TYPE>
             <DATATYPE>integer</DATATYPE>
         </row>
-    </sas:rowheaders>
+    </xsl:variable>
     
     <!-- Return the ItemGroup TABLE map elements. -->
     <xsl:template match="odm:ItemGroupDef"
@@ -151,7 +150,7 @@
                 </xsl:attribute>
                 <xsl:value-of select="concat('/', $study_oid, '/', @OID)"/>
             </xsl:element>
-            <xsl:apply-templates select="document('')//sas:rowheaders/row"
+            <xsl:apply-templates select="$sas_rowheaders/row"
                                  mode="map">
                 <xsl:with-param name="itemgroup"
                                 select="@OID"/>
@@ -163,7 +162,7 @@
     </xsl:template>
     
     <!-- Return row header data using above data.-->
-    <xsl:template match="sas:rowheaders/row"
+    <xsl:template match="row"
                   mode="map">
         <xsl:param name="itemgroup"/>
         <xsl:element name="COLUMN">
@@ -179,7 +178,7 @@
     </xsl:template>
     
     <!-- Mapping of OpenClinica datatypes to SAS types and datatypes.-->
-    <sas:typemap>
+    <xsl:variable name="sas_typemap">
         <row oc="date">
             <TYPE>character</TYPE>
             <DATATYPE>date</DATATYPE>
@@ -201,7 +200,7 @@
             <TYPE>character</TYPE>
             <DATATYPE>string</DATATYPE>
         </row>
-    </sas:typemap>
+    </xsl:variable>
     
     <!-- Return the Item COLUMN map elements. -->
     <xsl:template match="odm:ItemRef"
@@ -211,7 +210,7 @@
         <xsl:variable name="itemdef"
                       select="key('item-name', @ItemOID)"/>
         <xsl:variable name="typemap"
-                      select="document('')//sas:typemap"/>
+                      select="$sas_typemap"/>
         <xsl:element name="COLUMN">
             <xsl:attribute name="Name">
                 <xsl:value-of select="$itemdef/@SASFieldName"/>
