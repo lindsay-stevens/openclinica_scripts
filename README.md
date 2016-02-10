@@ -38,7 +38,7 @@ SQL scripts for building and maintaining a report database connected to OpenClin
 Clients for interacting with OpenClinica webservices.
 
 * Python 3 client, with tests! Returns Lists of OrderedDicts instead of XML.
-* PHP client with helper classes / function to build ODM structured data for import. 
+* PHP client, now at: https://github.com/lindsay-stevens-kirby/openclinica_webservices_php
 
 See also:
 
