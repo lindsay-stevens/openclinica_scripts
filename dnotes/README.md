@@ -22,28 +22,29 @@ How to add the script as an extract option in the OpenClinica extract UI.
 - Copy the "discrepancy_notes_report_pdf.xsl" to the installation's data folder, 
   at "tomcat/openclinica.data/xslt".
 - Add the following configuration to installation's "extract.properties" file.
-  Be sure to update "extract.11" and "pdf11" if these extract option numbers 
-  are already in use.
-  + In early OC versions, it is in "WEB-INF/classes/extract.properties".
+  + In early OC versions, it is in "webapps/OpenClinica/WEB-INF/classes".
   + In recent OC versions, it is in "tomcat/openclinica.config".
 
 ```ini
-extract.11.odmType=full
-extract.11.file=xml_convert_dnotes_pdf.xsl
-extract.11.fileDescription=Discrepancy Notes PDF
-extract.11.linkText=Run Now
-extract.11.helpText=Discrepancy Notes PDF
-extract.11.location=$exportFilePath/$datasetName/dnotes_pdf
-extract.11.exportname=dnotes_pdf_$datasetName_$dateTime.xml
-extract.11.success=The extract completed successfully. The file is available for down load $linkURL.
-extract.11.post=pdf11
-pdf11.postProcessor=pdf
-pdf11.location=$exportFilePath/$datasetName/dnotes_pdf
-pdf11.exportname=dnotes_pdf_$datasetName_$dateTime.xml
-pdf11.deleteOld=true
-pdf11.zip=true
+extract.10.odmType=full
+extract.10.file=discrepancy_notes_report_pdf.xsl
+extract.10.fileDescription=Discrepancy Notes PDF
+extract.10.linkText=Run Now
+extract.10.helpText=Discrepancy Notes PDF
+extract.10.location=$exportFilePath/$datasetName/dnotes_pdf
+extract.10.exportname=dnotes_pdf_$datasetName_$dateTime.xml
+extract.10.success=The extract completed successfully. The file is available for down load $linkURL.
+extract.10.post=pdf10
+pdf10.postProcessor=pdf
+pdf10.location=$exportFilePath/$datasetName/dnotes_pdf
+pdf10.exportname=dnotes_pdf_$datasetName_$dateTime.xml
+pdf10.deleteOld=true
+pdf10.zip=true
 ```
 
+- When adding the above configuration, ensure that the numbers "extract.10" and 
+  "pdf10" are the next available extract option number. That is, if there is 
+  already "extract.10" then update this new option to "extract.11".
 - Restart tomcat (or redeploy the OpenClinica app) so that the new configuration 
   in extract.properties is read.
 
