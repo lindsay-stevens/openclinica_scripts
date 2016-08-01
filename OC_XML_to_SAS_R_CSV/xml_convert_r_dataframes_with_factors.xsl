@@ -65,6 +65,10 @@ xmlns:odm="http://www.cdisc.org/ns/odm/v1.3" xmlns:OpenClinica="http://www.openc
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
 </xsl:if>'<xsl:value-of select="../../../@OpenClinica:StudySubjectID"/>'</xsl:for-each>),
+Sex=c(
+<xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
+<xsl:if test="position()>1">,
+</xsl:if>'<xsl:value-of select="../../../@OpenClinica:Sex"/>'</xsl:for-each>),
 EventName=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:variable name="vStudyEventOID">
@@ -72,6 +76,20 @@ EventName=c(
 </xsl:variable>
 <xsl:if test="position()>1">,
 </xsl:if>'<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:StudyEventDef[@OID=$vStudyEventOID]/@Name"/>'</xsl:for-each>),
+EventStartDate=c(
+<xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
+<xsl:variable name="vStartDate">
+<xsl:value-of select="../../@OpenClinica:StartDate"/>
+</xsl:variable>
+<xsl:if test="position()>1">,
+</xsl:if>'<xsl:value-of select="$vStartDate"/>'</xsl:for-each>),
+SubjectAgeAtEvent=c(
+<xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
+<xsl:variable name="vSubjectAgeAtEvent">
+<xsl:value-of select="../../@OpenClinica:SubjectAgeAtEvent"/>
+</xsl:variable>
+<xsl:if test="position()>1">,
+</xsl:if>'<xsl:value-of select="$vSubjectAgeAtEvent"/>'</xsl:for-each>),
 StudyEventRepeatKey=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
