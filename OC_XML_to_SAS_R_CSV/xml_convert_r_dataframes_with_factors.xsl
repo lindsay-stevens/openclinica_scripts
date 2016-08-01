@@ -82,14 +82,14 @@ EventStartDate=c(
 <xsl:value-of select="../../@OpenClinica:StartDate"/>
 </xsl:variable>
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:StudyEventDef[@OID=$vStartDate]/@Name"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="$vStartDate"/>'</xsl:for-each>),
 SubjectAgeAtEvent=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:variable name="vSubjectAgeAtEvent">
 <xsl:value-of select="../../@OpenClinica:SubjectAgeAtEvent"/>
 </xsl:variable>
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:StudyEventDef[@OID=$vSubjectAgeAtEvent]/@Name"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="$vSubjectAgeAtEvent"/>'</xsl:for-each>),
 StudyEventRepeatKey=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
