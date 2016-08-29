@@ -22,16 +22,19 @@ Sub Main
     Dim DSNPathx64 ' As String
     Dim ShellProcess ' As Wscript.Shell
     Dim Connection ' As ADODB.Connection
+    Dim ConnectionString ' As String
     
     ' The first argument should be the file path to the database we want to open.
     FilePath = WScript.Arguments(0)
     
-    ' Check if the target file exists. Can't do anything meaningful without it.
-    CheckResourceFilePath FilePath
-    
     ' File system access object used throughout, and convenience variable.
     Set FSO = CreateObject("Scripting.FileSystemObject")
     DoubleNewLine = vbNewLine & vbNewLine
+    
+    ' Check if the target Access database and x86 DSN exists.
+    ' These are required to a) do anything, b) connect to datamart.
+    CheckResourceFilePath FilePath
+    CheckResourceDSNx86
     
     ' Probe for a successful connection to datamart. If that fails, check for why.
     TroubleShoot = False
@@ -39,10 +42,10 @@ Sub Main
     DSNPathx64 = GetResourcePath("ocdm-x64.dsn")
     Set ShellProcess = SetupProcessEnvironment(GetResourcePath("root.crt"))
     Set Connection = CreateObject("ADODB.Connection")
-    Connection.ConnectionString = "FILEDSN=" & DSNPathx64
+    ConnectionString = "FILEDSN=" & DSNPathx64
     Connection.ConnectionTimeout = 15
-    Connection.Open
-    If (Connection.Errors > 0) Then TroubleShoot = True
+    Connection.Open ConnectionString
+    If Connection.Errors.Count > 0 Then TroubleShoot = True
     Connection.Close
     On Error goto 0
     
@@ -51,7 +54,7 @@ Sub Main
         ' If a check fails, that sub will suggest a solution and quit the script.
         CheckDriverInstalled
         CheckResourceRootCert
-        CheckResourceDSNs
+        CheckResourceDSNx64
         CheckConnection DSNPathx64
     End If
     
@@ -114,20 +117,22 @@ Sub CheckResourceRootCert
         FSO.FileExists(DatamartRootCertPath), DatamartRootCertPathError
 End Sub
 
-Sub CheckResourceDSNs
-    ' Check if the DSN files exist.
-    ' The difference between the two DSN's is just the name of the driver, where 
-    ' one is for x86 and the other is x64.
+Sub CheckResourceDSNx86
+    ' Check if the x86 DSN file exists. Same as x64 except for the driver name.
     Dim DSNPathx86 ' As String
     Dim DSNPathx86Error ' As String
-    Dim DSNPathx64 ' As String
-    Dim DSNPathx64Error ' As String
     
     DSNPathx86 = GetResourcePath("ocdm-x86.dsn")
     DSNPathx86Error = "Error: Datamart DSN configuration file (x86) required" & _
         " for connecting doesn't exist or could not be accessed. Please and check" & _
         " that it exists or copy it to the expected location shown below."
     CriticalResourceCheck DSNPathx86, FSO.FileExists(DSNPathx86), DSNPathx86Error
+End Sub
+
+Sub CheckResourceDSNx64
+    ' Check if the x64 DSN file exists. Same as x86 except for the driver name.
+    Dim DSNPathx64 ' As String
+    Dim DSNPathx64Error ' As String
     
     DSNPathx64 = GetResourcePath("ocdm-x64.dsn")
     DSNPathx64Error = "Error: Datamart DSN configuration file (x64) required" & _
@@ -232,6 +237,7 @@ Sub CheckConnection(dsnPathx64)
     ' Check if an ODBC connection can be made. 
     ' Includes a custom error handler for incorrect username.
     Dim Connection ' As ADODB.Connection
+    Dim ConnectionString ' As String
     Dim NetworkUserName ' As String
     Dim ReRaiseConnectionErrors ' As Boolean
     Dim ConError ' As ADODB.Error
@@ -240,13 +246,13 @@ Sub CheckConnection(dsnPathx64)
     Dim ODBCErrorMessage ' As String
     
     Set Connection = CreateObject("ADODB.Connection")
-    Connection.ConnectionString = "FILEDSN=" & dsnPathx64
+    ConnectionString = "FILEDSN=" & dsnPathx64
     Connection.ConnectionTimeout = 15
     NetworkUserName = CreateObject("WScript.Network").UserName
     
     ' Disable errors temporarily, attempt connection, and inspect the error collection.
     On Error Resume Next
-    Connection.Open
+    Connection.Open ConnectionString
     ReRaiseConnectionErrors = False
     If Connection.Errors.Count > 0 Then
         For Each ConError in Connection.Errors
@@ -282,7 +288,7 @@ Sub CheckConnection(dsnPathx64)
     ' Enable errors again, and if we had errors then trigger them again.
     On Error goto 0
     If ReRaiseConnectionErrors Then
-        Connection.Open
+        Connection.Open ConnectionString
         Connection.Close
         WScript.Quit 1
     End If
