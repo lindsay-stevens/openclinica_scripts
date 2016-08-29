@@ -7,39 +7,56 @@
 ' - Automatically copy the Access database to a backup folder before starting a session.
 '
 ' ******************************************************************************
-DoubleNewLine = vbNewLine & vbNewLine
+
+
+Option Explicit
+
+' Set by Sub Main.
+Dim DoubleNewLine 'As String
+Dim FSO 'As Scripting.FileSystemObject
 
 
 Sub Main
+    Dim FilePath ' As String
+    Dim TroubleShoot ' As Boolean
+    Dim DSNPathx64 ' As String
+    Dim ShellProcess ' As Wscript.Shell
+    Dim Connection ' As ADODB.Connection
+    
     ' The first argument should be the file path to the database we want to open.
     FilePath = WScript.Arguments(0)
-
+    
+    ' Check if the target file exists. Can't do anything meaningful without it.
+    CheckResourceFilePath FilePath
+    
     ' File system access object used throughout, and convenience variable.
     Set FSO = CreateObject("Scripting.FileSystemObject")
-    Set ShellProcess = SetupProcessEnvironment
+    DoubleNewLine = vbNewLine & vbNewLine
     
     ' Probe for a successful connection to datamart. If that fails, check for why.
-    ChecksRequired = False
+    TroubleShoot = False
     On Error Resume Next
-    DSNPathx64 = GetResourcePath(FSO, "ocdm-x64.dsn")
+    DSNPathx64 = GetResourcePath("ocdm-x64.dsn")
+    Set ShellProcess = SetupProcessEnvironment(GetResourcePath("root.crt"))
     Set Connection = CreateObject("ADODB.Connection")
-    ConnectionString = "FILEDSN=" & dsnPathx64
+    Connection.ConnectionString = "FILEDSN=" & DSNPathx64
     Connection.ConnectionTimeout = 15
     Connection.Open
-    If (Connection.Errors > 0) Then ChecksRequired = True
+    If (Connection.Errors > 0) Then TroubleShoot = True
     Connection.Close
     On Error goto 0
     
-    If (ChecksRequired) Then
-        ' If the connection failed, run the checking procedures.
+    If (TroubleShoot) Then
+        ' If the connection failed, run the troubleshooting procedures.
         ' If a check fails, that sub will suggest a solution and quit the script.
-        CheckResourceFiles FSO, FilePath
-        CheckDriverInstalled FSO
-        CheckConnection dsnPathx64
+        CheckDriverInstalled
+        CheckResourceRootCert
+        CheckResourceDSNs
+        CheckConnection DSNPathx64
     End If
     
-    ' If there's nothing wrong, proceed with backup and open the database.
-    DatabaseBackup FSO, FilePath
+    ' If we haven't quit yet, proceed with backup and open the database.
+    DatabaseBackup FilePath
     OpenDatabase ShellProcess, FilePath
 End Sub
 
@@ -53,45 +70,66 @@ Main
 ' ******************************************************************************
 
 
-' If the resource doesn't exist, show an error messagebox and quit.
-Function CriticalResourceCheck(path, exists, message)
+Sub CriticalResourceCheck(path, exists, message)
+    ' If the resource doesn't exist, show an error messagebox and quit.
+    Dim ErrorMessageText ' As String
+    
     If (Not exists) Then
         ErrorMessageText = message & DoubleNewLine & _
             "Tried to access the following:" & DoubleNewLine & path
         MsgBox ErrorMessageText, vbOKOnly+vbCritical, "Error"
         WScript.Quit 1
     End If
-End Function
+End Sub
 
-Function GetResourcePath(FSO, resourceName)
-    ThisScriptPath = Wscript.ScriptFullName
-    ResourceDir = FSO.GetParentFolderName(ThisScriptPath)
+Function GetResourcePath(resourceName) ' As String
+    ' Get the path to the resourceName, assuming it's filed with this script.
+    Dim ResourceDir ' As String
+    
+    ResourceDir = FSO.GetParentFolderName(Wscript.ScriptFullName)
     GetResourcePath = FSO.BuildPath(ResourceDir, resourceName)
 End Function
 
-Sub CheckResourceFiles(FSO, filePath)
-    ' Check for the the target database file, the datamart root certificate, and 
-    ' the x86 / x64 DSN connection settings files.
+Sub CheckResourceFilePath(filePath)
+    ' Check if the file targeted by the link / this script exists.
+    Dim FilePathError ' As String
+    
     FilePathError = "Error: link target doesn't exist or could not be accessed." & _
         " Please right click the link file, and check that the target points to" & _
         " a file that exists."
     CriticalResourceCheck FilePath, FSO.FileExists(filePath), FilePathError
+End Sub
+
+Sub CheckResourceRootCert
+    ' Check if the Datamart root certificate exists.
+    ' The cert is public CA int/root for verifying the server's public cert.
+    Dim DatamartRootCertPath ' As String
+    Dim DatamartRootCertPathError ' As String
     
-    ' Assuming these things are all filed together.
-    DatamartRootCertPath = GetResourcePath(FSO, "root.crt")
+    DatamartRootCertPath = GetResourcePath("root.crt")
     DatamartRootCertPathError = "Error: Datamart root certificate file required" & _
         " for connecting doesn't exist or could not be accessed. Please and check" & _
         " that it exists or copy it to the expected location shown below."
     CriticalResourceCheck DatamartRootCertPath, _
         FSO.FileExists(DatamartRootCertPath), DatamartRootCertPathError
+End Sub
+
+Sub CheckResourceDSNs
+    ' Check if the DSN files exist.
+    ' The difference between the two DSN's is just the name of the driver, where 
+    ' one is for x86 and the other is x64.
+    Dim DSNPathx86 ' As String
+    Dim DSNPathx86Error ' As String
+    Dim DSNPathx64 ' As String
+    Dim DSNPathx64Error ' As String
     
-    DSNPathx86 = GetResourcePath(FSO, "ocdm-x86.dsn")
+    DSNPathx86 = GetResourcePath("ocdm-x86.dsn")
     DSNPathx86Error = "Error: Datamart DSN configuration file (x86) required" & _
         " for connecting doesn't exist or could not be accessed. Please and check" & _
         " that it exists or copy it to the expected location shown below."
     CriticalResourceCheck DSNPathx86, FSO.FileExists(DSNPathx86), DSNPathx86Error
     
-    DSNPathx64 = GetResourcePath(FSO, "ocdm-x64.dsn")
+    DSNPathx64 = GetResourcePath("ocdm-x64.dsn")
     DSNPathx64Error = "Error: Datamart DSN configuration file (x64) required" & _
         " for connecting doesn't exist or could not be accessed. Please and check" & _
         " that it exists or copy it to the expected location shown below."
@@ -106,15 +144,20 @@ End Sub
 ' ******************************************************************************
 
 
-Sub CheckDriverInstalled(FSO)
-    ' Check if the installer folder exists under "Program Files".
+Sub CheckDriverInstalled
+    ' Check if the psqlODBC driver is installed by looking in "Program Files".
+    ' If it doesn't exist, then attempt to run the installer.
+    Dim DriverFolderPath ' As String
+    Dim DriverFolderPathError ' As String
+    Dim DriverInstallerPath ' As String
+    Dim DriverInstallerPathError ' As String
+    Dim ErrorMessageText ' As String
+    Dim InstallerShell ' As Wscript.Shell
+
     DriverFolderPath = "C:\Program Files\psqlODBC"
-    DriverFolderPathError = "Error: the psqlODBC driver doesn't appear to be" & _
-        " installed at the expected location, shown below. The driver installer" & _
-        " will now be launched. Once this is complete, please try to connect again."
     If (Not FSO.FolderExists(DriverFolderPath)) Then
         ' Check that the installer exists.
-        DriverInstallerPath = GetResourcePath(FSO, "psqlodbc-setup.exe")
+        DriverInstallerPath = GetResourcePath("psqlodbc-setup.exe")
         DriverInstallerPathError = "Error: the psqlODBC driver installer file" & _
             " doesn't exist or could not be accessed. Please download the driver " & _
             " installer from postgresql.org and install it, and copy it to the " & _
@@ -123,10 +166,13 @@ Sub CheckDriverInstalled(FSO)
             FSO.FileExists(DriverInstallerPath), DriverInstallerPathError
         
         ' Warn that we're about to launch the driver installer.
+        DriverFolderPathError = "Error: the psqlODBC driver doesn't appear to be" & _
+            " installed at the expected location, shown below. The driver installer" & _
+            " will now be launched. Once this is complete, please try to connect again."
         ErrorMessageText = DriverFolderPathError & DoubleNewLine & _
             "Tried to access the following:" & DoubleNewLine & DriverFolderPath
         MsgBox ErrorMessageText, vbOKOnly+vbCritical, "Error"
-        set InstallerShell = CreateObject("Wscript.Shell")
+        Set InstallerShell = CreateObject("Wscript.Shell")
         ' Argument meanings:
         ' 1 = Activate and display the window.
         ' False = Allow the current process to end without waiting for the child to return.
@@ -161,14 +207,17 @@ End Sub
 ' Also note that despite being in a function, the Wscript.Shell is global.
 '
 ' Ref: https://www.postgresql.org/docs/current/static/libpq-envars.html
-Function SetupProcessEnvironment
-    Set ShellObject = CreateObject("Wscript.Shell")
-    Set ProcessEnvVars = ShellObject.Environment("Process")
+Function SetupProcessEnvironment(datamartRootCertPath)
+    Dim ShellProcess ' As Wscript.Shell
+    Dim ProcessEnvVars ' As Collection
+    
+    Set ShellProcess= CreateObject("Wscript.Shell")
+    Set ProcessEnvVars = ShellProcess.Environment("Process")
     ProcessEnvVars("PGHOST") = "svr-ocdm-psql9.ad.nchecr.unsw.edu.au"
     ProcessEnvVars("PGHOSTADDR") = "129.94.32.52"
     ProcessEnvVars("PGKRBSRVNAME") = "POSTGRESDM"
-    ProcessEnvVars("PGSSLROOTCERT") = DatamartRootCertPath
-    Set SetupProcessEnvironment = ShellObject
+    ProcessEnvVars("PGSSLROOTCERT") = datamartRootCertPath
+    Set SetupProcessEnvironment = ShellProcess
 End Function
 
 
@@ -180,30 +229,36 @@ End Function
 
 
 Sub CheckConnection(dsnPathx64)
-    ' We should be able to connect to Datamart now, so we will check if it works.
-    ' The only thing that should be wrong at this point is an incorrect username.
+    ' Check if an ODBC connection can be made. 
+    ' Includes a custom error handler for incorrect username.
+    Dim Connection ' As ADODB.Connection
+    Dim NetworkUserName ' As String
+    Dim ReRaiseConnectionErrors ' As Boolean
+    Dim ConError ' As ADODB.Error
+    Dim FindStr1, FindStr2, FindStr3, FindStr4 ' As Integer
+    Dim CorrectUserName ' As String
+    Dim ODBCErrorMessage ' As String
+    
     Set Connection = CreateObject("ADODB.Connection")
-    ConnectionString = "FILEDSN=" & dsnPathx64
+    Connection.ConnectionString = "FILEDSN=" & dsnPathx64
     Connection.ConnectionTimeout = 15
     NetworkUserName = CreateObject("WScript.Network").UserName
     
-    ' Here we override the default role error with instructions on how to resolve it.
-    
     ' Disable errors temporarily, attempt connection, and inspect the error collection.
     On Error Resume Next
-    Connection.Open ConnectionString
+    Connection.Open
     ReRaiseConnectionErrors = False
     If Connection.Errors.Count > 0 Then
-        For Each ErrorNum in Connection.Errors
+        For Each ConError in Connection.Errors
             ' This ugliness is because there isn't a precise SQLState code for 
             ' an incorrect username. The SQLState code that postgresql 9.3 returns 
             ' is "08001", which is an unsuitably generic error:
             ' "sqlclient_unable_to_establish_sqlconnection". Also, there is unusual 
             ' spacing and newlines in the error message that seems unreliable.
-            FindStr1 = Instr(ErrorNum.Description, "FATAL:")
-            FindStr2 = Instr(ErrorNum.Description, "role")
-            FindStr3 = Instr(ErrorNum.Description, LCase(NetworkUserName))
-            FindStr4 = Instr(ErrorNum.Description, "does not exist")
+            FindStr1 = Instr(ConError.Description, "FATAL:")
+            FindStr2 = Instr(ConError.Description, "role")
+            FindStr3 = Instr(ConError.Description, NetworkUserName)
+            FindStr4 = Instr(ConError.Description, "does not exist")
             If FindStr1 > 0 and FindStr2 > 0 and FindStr3 > 0 and FindStr4 > 0 and _
                 FindStr1 < FindStr2 < FindStr3 < FindStr4 Then
                 CorrectUserName = UCase(Mid(NetworkUserName, 1, 1)) & _
@@ -227,7 +282,7 @@ Sub CheckConnection(dsnPathx64)
     ' Enable errors again, and if we had errors then trigger them again.
     On Error goto 0
     If ReRaiseConnectionErrors Then
-        Connection.Open ConnectionString
+        Connection.Open
         Connection.Close
         WScript.Quit 1
     End If
@@ -241,10 +296,11 @@ End Sub
 ' ******************************************************************************
 
 
-' Function to convert a date into an ISO8601 format.
-' For example, "25/08/2016 11:45:56" becomes "20160825T114556".
-' Verbatim from http://stackoverflow.com/a/18448889/3386100
-Function iso8601Date(dt)
+Function ISO8601Date(dt) 'As String
+    ' Function to convert a date into an ISO8601 format.
+    ' For example, "25/08/2016 11:45:56" becomes "20160825T114556".
+    ' Verbatim from http://stackoverflow.com/a/18448889/3386100
+    Dim s 'As String
     s = datepart("yyyy",dt)
     s = s & RIGHT("0" & datepart("m",dt),2)
     s = s & RIGHT("0" & datepart("d",dt),2)
@@ -252,11 +308,30 @@ Function iso8601Date(dt)
     s = s & RIGHT("0" & datepart("h",dt),2)
     s = s & RIGHT("0" & datepart("n",dt),2)
     s = s & RIGHT("0" & datepart("s",dt),2)
-    iso8601Date = s
+    ISO8601Date = s
 End Function
 
 
-Sub DatabaseBackup(FSO, filePath)
+Sub DatabaseBackup(filePath)
+    ' Create a backups subfolder, and make a copy of the target file.
+    ' If there's more than the maximum copies, delete the oldest copies.
+    Dim BackupFolderName ' As String
+    Dim MaximumBackupFiles ' As Integer
+    Dim OriginalFolderPath ' As String
+    Dim BackupFolderPath ' As String
+    Dim BackupFilesCollection ' As Collection
+    Dim OriginalFile ' As Scripting.FileSystemObject.File
+    Dim OriginalExt ' As String
+    Dim BackupFilesList ' As System.Collections.Sortedlist
+    Dim BackupFile ' As Scripting.FileSystemObject.File
+    Dim BackupFileKey ' As String
+    Dim FilesExcess ' As Integer
+    Dim i ' As Integer
+    Dim File ' As Scripting.FileSystemObject.File
+    Dim OriginalBase ' As String
+    Dim BackupFileName ' As String
+    Dim BackupFilePath ' As String
+    
     ' Configuration:
     ' BackupFolderName: a subfolder of where the target database is.
     ' MaximumBackupFiles: how many backup files to keep.
@@ -279,8 +354,8 @@ Sub DatabaseBackup(FSO, filePath)
     Set BackupFilesList = CreateObject("System.Collections.Sortedlist")
     For Each BackupFile in BackupFilesCollection
         If LCase(FSO.GetExtensionName(BackupFile.Name)) = OriginalExt Then
-            key = iso8601Date(BackupFile.DateCreated) & BackupFile.Name
-            BackupFilesList.Add key, BackupFile.Name
+            BackupFileKey = ISO8601Date(BackupFile.DateCreated) & BackupFile.Name
+            BackupFilesList.Add BackupFileKey, BackupFile.Name
         End If
     Next
     
@@ -295,7 +370,7 @@ Sub DatabaseBackup(FSO, filePath)
     
     ' Make a new backup copy of the original file, named with the current timestamp.
     OriginalBase = FSO.GetbaseName(OriginalFile)
-    BackupFileName = iso8601Date(Now) & "_" & OriginalBase & "." & OriginalExt
+    BackupFileName = ISO8601Date(Now) & "_" & OriginalBase & "." & OriginalExt
     BackupFilePath = FSO.BuildPath(BackupFolderPath, BackupFileName)
     FSO.CopyFile filePath, BackupFilePath
 End Sub
@@ -309,6 +384,9 @@ End Sub
 
 
 Sub OpenDatabase(shellProcess, filePath)
+    ' Open the database.
+    Dim Command ' As String
+    
     ' Wrap the database file path in quotes in case it contains spaces.
     Command = Chr(34) & filePath & Chr(34)
     
