@@ -1,52 +1,49 @@
-# openclinica_scripts
-A place to put scripts relating to [OpenClinica](https://github.com/OpenClinica/OpenClinica). Some of these are listed on the [OpenClinica Extensions page](https://community.openclinica.com/extensions), or are mentioned in the [Wikibook](http://en.wikibooks.org/wiki/OpenClinica_User_Manual).
+# Readme
 
-## [OC_XML_to_SAS_R_CSV](OC_XML_to_SAS_R_CSV)
-XSL transformations for converting data from an ODM 1.3 XML into CSV, R, SAS and Access.
 
-## [accessdatamart](accessdatamart)
-Access database and accompanying scripts for building an SQL data mart - superseded by sqldatamart
+## Introduction
+This repository is a collection of miscellaneous scripts, most of which are in some way related to the [OpenClinica EDC](https://github.com/OpenClinica/OpenClinica) or clinical research data management. Many are prototypes kept for posterity which have either not been used, or have graduated to getting their own repository.
 
-## [codebook](codebook)
-Python script for generating csv listing of all value-label pairs for coded items in a study, from an ODM 1.3 XML or study metadata XML file.
 
-## [collate_rules](collate_rules)
-XSL transformations for collating rule XML files into one file for editing / upload, and another for grouping (and ungrouping) rules by the target item.
+## Contents
+The following is a summary of the contents of this repository, organised by language and sorted alphabetically.
 
-## [compare_clinicaldata](compare_clinicaldata)
-XSL transformation for combining multiple versions of an ODM 1.3 XML file for comparison, to show the changes in bulk
 
-## [crf_manager](crf_manager)
-Access database to read CRF .xls files in for review or editing, and write them out again.
+### XLST
+- *OC_XML_to_SAS_R_CSV*: XLST scripts for converting OpenClinica extracts in ODM 1.3 XML to CSV, R, SAS or Access. The "sas_singular" script has been adapted and included in the 3.11 release of OpenClinica.
+- *collate_rules*: A XSLT script for converting rule XML files that are being worked with in Excel. In "collate" mode it groups rule assignments by target for uploading to OpenClinica. The "split" mode does the reverse.
+- *compare_clinicaldata*: A XLST script for combining multiple versions of an ODM 1.3 XML file so that they can be inspected for any differences.
+- *dnotes*: A XSLT script for generating a PDF report of discrepancy notes read from an OpenClinica ODM 1.3 XML file.
+    - Interesting as an example of how to use XSL-FO to produce PDF documents from XML.
+- *xforms*: XSLT scripts for:
+    - converting an xform xml form into a flat structure for review in Excel,
+    - stripping out as much non-cell-data as possible from an Excel XML 2003 spreadsheet.
 
-## [dnotes](dnotes)
-XSL transformations for preparing a pdf report of discrepancy notes from an ODM 1.3 XML file.
 
-## [repeated_rules](repeated_rules)
-Example of a CRF with many repeated items (16x50), a VBScript to generate rule xml for them based on a template (33 ruledefs, 35 rule actions) and selenium test suite to test the rules. 
+### Python
+- *codebook*: a simple Python script for generating CSV listing of all value-label pairs for coded items in an OpenClinica study. The input can be either an ODM 1.3 XML or study metadata XML file.
+- *scrape*: a simple Python script for logging in to OpenClinica, scraping enrolment information and emailing a summary.
+- *webservices*: a Python module for interacting with the OpenClinica SOAP webservices, returning OrderedDicts instead of XML. Other implementations:
+    - [PHP](https://github.com/lindsay-stevens-kirby/openclinica_webservices_php)
+    - [Java](https://github.com/jacobrousseau/traitocws/blob/master/TraITOCWS/src/nl/vumc/trait/oc/connect/OCWebServices.java)
+    - [Python: for XForms integration](https://github.com/dimagi/openclinica-xforms/blob/master/webservices.py)
+    - [Python: for a desktop client](https://github.com/toskrip/open-clinica-scripts)
+- *xlsform_images*: a Python module for reading an ODK XLSForm spreadsheet an generating images of that text and/or images, to precisely control appearance. Superseded by [odk_tools](https://github.com/lindsay-stevens/odk_tools).
 
-## [scrape](scrape)
-Python script for logging in to OpenClinica, scraping enrolment information and emailing a summary.
 
-## [selenium_tasks](selenium_tasks)
-Selenium scripts for automating user tasks - bulk CRF version migration, deleting rules.
+### Other
+- *accessdatamart*: Access database and accompanying scripts for building an OpenClinica data mart. Superseded by [Community DataMart](https://github.com/lindsay-stevens/openclinica_sqldatamart).
+- *crf_manager*: An Access database for managing an OpenClinica CRF library. Can read in a directory of CRF Excel ".xls" files in for review or editing, and export them ".xls" again. Can also author new CRFs in it and export them.
+    - Interesting for procedures that preserve the order of rows in the spreadsheet during import and export, since the Access VBA function TransferSpreadsheet doesn't guarantee row order.
+- *repeated_rules*: A VBScript with example XML templates for generating a large amount of similar rules for OpenClinica. Includes a Selenium IDE test suite definition of testing the rules, and a CRF spreadsheet that goes with the example rule XML files.
+- *selenium_tasks*: Selenium IDE scripts (HTML/JavaScript) for automating OpenClinica user tasks:
+    - bulk CRF version migration (now a feature of OpenClinica 3.12)
+    - deleting / removing rule definitions that meet one or more filter criteria.
+- *windows_script_utils*: scripts in various Windows-specific languages for miscellaneous tasks: 
+    - datamart_launcher_and_backup (VBScript): launcher for Community DataMart client Access databases; checks connectivity, initiates install if necessary, and sets process-level environment variables to facilitate connections; creates a backup copy of the database before opening it.
+    - excelutils (PowerShell): function to convert OpenClinica CRF templates saved as  Excel XML 2003 spreadsheets to Excel ".xls" files; function to convert Excel ".xlsx" files to CSV, one file per sheet.
+    - export_access_to_excel (VBA): module for saving all non-system / temporary tables in an Access database to Excel ".xlsx". Can either export all tables as sheets in one workbook, or all tables as the only sheet in separate workbooks.
+        - Interesting for an implementation of a test suite in VBA.
+    - output_valid_system_paths (PowerShell): write a text file containing only valid (existing) paths present in the "PATH" user environment variable.
+    - xml_file_diffs_by_folder (PowerShell): find the differences between two folder trees that have become out of sync, both in terms of whole files and content (based on file hash).
 
-## [sqldatamart](sqldatamart)
-SQL scripts for building and maintaining a report database connected to OpenClinica's database via a foreign data wrapper. Also includes SQL scripts to facilitate export to xlsx (via R), and subsequent conversion to .dta (via stata) and .sas7bdat (via sas).
-
-## [webservices](webservices)
-Clients for interacting with OpenClinica webservices.
-
-* Python 3 client, with tests! Returns Lists of OrderedDicts instead of XML.
-* PHP client, now at: https://github.com/lindsay-stevens-kirby/openclinica_webservices_php
-
-See also:
-
-* [Java implementation by CTMM TraIT](https://github.com/jacobrousseau/traitocws/blob/master/TraITOCWS/src/nl/vumc/trait/oc/connect/OCWebServices.java)
-* [Python implementation by Dimagi](https://github.com/dimagi/openclinica-xforms/blob/master/webservices.py)
-
-## [xforms](xforms)
-XSL transformation for converting an xform xml form into a flat structure for review.
-
-## [xlsform_images](xlsform_images)
-Python script that reads an ODK xlsform and generates images for each question, in order to provide a layout style that is a bit nicer than the default. Supports multiple languages. Included example xlsform and generated files with image settings ideal for a Galaxy Tab 4.
