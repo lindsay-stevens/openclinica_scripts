@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleImport>
+   <RuleAssignment>
+      <Target>MY_EVENT.MY_CRFV.MY_ITEMGROUP.MY_ITEM</Target>
+      <RuleRef OID="RULE01">
+         <DiscrepancyNoteAction IfExpressionEvaluates="true">
+            <Run AdministrativeDataEntry="true"
+                 InitialDataEntry="true"
+                 DoubleDataEntry="true"
+                 ImportDataEntry="true"
+                 Batch="true"/>
+            <Message>[MY_ITEM] There is a problem with the value. It's too big!</Message>
+         </DiscrepancyNoteAction>
+      </RuleRef>
+      <RuleRef OID="RULE02">
+         <DiscrepancyNoteAction IfExpressionEvaluates="true">
+            <Run AdministrativeDataEntry="true"
+                 InitialDataEntry="true"
+                 DoubleDataEntry="true"
+                 ImportDataEntry="true"
+                 Batch="true"/>
+            <Message>[MY_ITEM] There is a problem with the value. It's too small!</Message>
+         </DiscrepancyNoteAction>
+      </RuleRef>
+   </RuleAssignment>
+   <RuleAssignment>
+      <Target>MY_EVENT.MY_CRFV.MY_ITEMGROUP.MY_ITEM2</Target>
+      <RuleRef OID="RULE03">
+         <DiscrepancyNoteAction IfExpressionEvaluates="true">
+            <Run AdministrativeDataEntry="true"
+                 InitialDataEntry="true"
+                 DoubleDataEntry="true"
+                 ImportDataEntry="true"
+                 Batch="true"/>
+            <Message>[MY_ITEM2] There is a problem with the value. It's in the future!</Message>
+         </DiscrepancyNoteAction>
+      </RuleRef>
+   </RuleAssignment>
+   <RuleDef OID="RULE01" Name="RULE01">
+      <Description>[MY_ITEM] There is a problem with the value. It's too big!</Description>
+      <Expression>MY_ITEM gt 1</Expression>
+   </RuleDef>
+   <RuleDef OID="RULE02" Name="RULE02">
+      <Description>[MY_ITEM] There is a problem with the value. It's too small!</Description>
+      <Expression>MY_ITEM lt 0</Expression>
+   </RuleDef>
+   <RuleDef OID="RULE03" Name="RULE03">
+      <Description>[MY_ITEM2] There is a problem with the value. It's in the future!</Description>
+      <Expression>MY_ITEM2 gt _CURRENT_DATE</Expression>
+   </RuleDef>
+</RuleImport>
