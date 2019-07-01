@@ -17,25 +17,25 @@ Physicalexam_Igphysiungrouped <- data.frame(SubjectID=c(
 'SMC101',
 'SMC101',
 'SMC102'),
-Sex=c(
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-''),
+ProtocolID=c(
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SMC',
+'R01-123456 - R01-12345-SMC',
+'R01-123456 - R01-12345-SMC'),
 EventName=c(
 'Registration Visit',
 'Initial Treatment',
@@ -55,7 +55,64 @@ EventName=c(
 'Registration Visit',
 'Initial Treatment',
 'Registration Visit'),
+EventStatus=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
 EventStartDate=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+EventEndDate=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+EventLocation=c(
 '',
 '',
 '',
@@ -131,6 +188,63 @@ CRFName=c(
 'Physical Exam - English',
 'Physical Exam - English',
 'Physical Exam - English'),
+CRFStatus=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+CRFInterviewDate=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+CRFInterviewerName=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),		
 ItemGroupRepeatKey=c(
 NA,
 NA,
@@ -986,28 +1100,265 @@ NA,
 NA,
 NA,
 NA));
-Physicalexam_Otherbodysystemsite <- data.frame(SubjectID=c(
-),
-Sex=c(
-),
-EventName=c(
-),
-EventStartDate=c(
-),
-SubjectAgeAtEvent=c(
-),
-StudyEventRepeatKey=c(
-),
-CRFName=c(
-),
-ItemGroupRepeatKey=c(
-),
-OTHERBODYSYSTEM=c(
-),
-OTHERBODYSYSTEM_STATUS=c(
-),
-OTHERBODYSYSTEM_COMMENTS=c(
-));
+
+attributes(Physicalexam_Igphysiungrouped)$variable.labels <- c(
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
+, "Date of Physical Exam", "Time of Physical Exam", "Height", "Weight", "Temperature", "Pulse Rate", "Respiration Rate", "Systolic", "Diastolic", "Body Mass Index", "Appearance", "Appearance Comments", "Skin", "Skin Comments", "H/E/E/N/T", "H/E/E/N/T Comments", "Thyroid", "Thyroid Comments", "Chest", "Chest Comments", "Lungs", "Lungs Comments", "Breasts", "Breasts Comments", "Heart", "Heart Comments", "Abdomen", "Abdomen Comments", "Musculoskeletal", "Musculoskeletal Comments", "Genitalia", "Genitalia Comments", "Pelvis", "Pelvis Comments", "Rectal", "Rectal Comments", "Prostate", "Prostate Comments", "Vascular", "Vascular Comments", "Neurological", "Neurological Comments", "Lymph Nodes", "Lymph Nodes Comments");
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.APPEARANCE<-factor(match(Physicalexam_Igphysiungrouped$APPEARANCE,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="APPEARANCE");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.APPEARANCE, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.SKIN<-factor(match(Physicalexam_Igphysiungrouped$SKIN,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="SKIN");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.SKIN, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.HEENT<-factor(match(Physicalexam_Igphysiungrouped$HEENT,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="HEENT");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.HEENT, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.THYROID<-factor(match(Physicalexam_Igphysiungrouped$THYROID,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="THYROID");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.THYROID, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.CHEST<-factor(match(Physicalexam_Igphysiungrouped$CHEST,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="CHEST");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.CHEST, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.LUNGS<-factor(match(Physicalexam_Igphysiungrouped$LUNGS,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="LUNGS");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.LUNGS, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.BREAST<-factor(match(Physicalexam_Igphysiungrouped$BREAST,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="BREAST");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.BREAST, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.HEART<-factor(match(Physicalexam_Igphysiungrouped$HEART,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="HEART");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.HEART, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.ABDOMEN<-factor(match(Physicalexam_Igphysiungrouped$ABDOMEN,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="ABDOMEN");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.ABDOMEN, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.MUSCULOSKELETAL<-factor(match(Physicalexam_Igphysiungrouped$MUSCULOSKELETAL,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="MUSCULOSKELETAL");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.MUSCULOSKELETAL, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.GENITALIA<-factor(match(Physicalexam_Igphysiungrouped$GENITALIA,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="GENITALIA");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.GENITALIA, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.PELVIS<-factor(match(Physicalexam_Igphysiungrouped$PELVIS,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="PELVIS");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.PELVIS, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.RECTAL<-factor(match(Physicalexam_Igphysiungrouped$RECTAL,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="RECTAL");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.RECTAL, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.PROSTATE<-factor(match(Physicalexam_Igphysiungrouped$PROSTATE,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="PROSTATE");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.PROSTATE, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.VASCULAR<-factor(match(Physicalexam_Igphysiungrouped$VASCULAR,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="VASCULAR");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.VASCULAR, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.NEUROLOGICAL<-factor(match(Physicalexam_Igphysiungrouped$NEUROLOGICAL,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="NEUROLOGICAL");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.NEUROLOGICAL, "label") <- "N_AB_NE"
+
+codes <- c(
+1,
+4,
+999);
+levs <- c(
+'Normal',
+'Anormal',
+'No examinado');
+Physicalexam_Igphysiungrouped$f.LYMPHNODES<-factor(match(Physicalexam_Igphysiungrouped$LYMPHNODES,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Physicalexam_Igphysiungrouped)=="LYMPHNODES");
+l<- dim(Physicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Physicalexam_Igphysiungrouped$f.LYMPHNODES, "label") <- "N_AB_NE"
 Agentadministration_Igagentungrouped <- data.frame(SubjectID=c(
 'CAM101',
 'CAM101',
@@ -1015,13 +1366,13 @@ Agentadministration_Igagentungrouped <- data.frame(SubjectID=c(
 'CAM105',
 'SCRC001',
 'SMC101'),
-Sex=c(
-'',
-'',
-'',
-'',
-'',
-''),
+ProtocolID=c(
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SMC'),
 EventName=c(
 'Initial Treatment',
 'Follow-up Treatment',
@@ -1029,7 +1380,28 @@ EventName=c(
 'Initial Treatment',
 'Initial Treatment',
 'Initial Treatment'),
+EventStatus=c(
+'',
+'',
+'',
+'',
+'',
+''),
 EventStartDate=c(
+'',
+'',
+'',
+'',
+'',
+''),
+EventEndDate=c(
+'',
+'',
+'',
+'',
+'',
+''),
+EventLocation=c(
 '',
 '',
 '',
@@ -1057,6 +1429,27 @@ CRFName=c(
 'Agent Administration - v1.0',
 'Agent Administration - v1.0',
 'Agent Administration - v1.0'),
+CRFStatus=c(
+'',
+'',
+'',
+'',
+'',
+''),
+CRFInterviewDate=c(
+'',
+'',
+'',
+'',
+'',
+''),
+CRFInterviewerName=c(
+'',
+'',
+'',
+'',
+'',
+''),		
 ItemGroupRepeatKey=c(
 NA,
 NA,
@@ -1232,22 +1625,131 @@ NA,
 NA,
 NA,
 NA));
+
+attributes(Agentadministration_Igagentungrouped)$variable.labels <- c(
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
+, "Start of Agent Administration Period", "End of Agent Administration Period", "MTD Determined", "MTD Date", "MTD Dose", "Agent Interrupted", "Date Interrupted", "Reason Interrupted", "Restarted", "Date Restarted", "Reason Restarted", "Regimen Modified", "Date Modified", "New Regimen Dose", "New Regimen Frequency", "Amount Provided Last Visit", "Amount Returned This Visit", "Amount Taken This Period", "Amount Missing This Period", "Compliance", "Noncompliance Reason", "Agent Provided This Visit", "Amount Provided This Visit", "Comments");
+
+codes <- c(
+1,
+0,
+-99);
+levs <- c(
+'Yes',
+'No',
+'N/A');
+Agentadministration_Igagentungrouped$f.MTD_DETERMINED<-factor(match(Agentadministration_Igagentungrouped$MTD_DETERMINED,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Agentadministration_Igagentungrouped)=="MTD_DETERMINED");
+l<- dim(Agentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Agentadministration_Igagentungrouped$f.MTD_DETERMINED, "label") <- "YNNA"
+
+codes <- c(
+1,
+0,
+-99);
+levs <- c(
+'Yes',
+'No',
+'N/A');
+Agentadministration_Igagentungrouped$f.AGEN_INTERRUPTED<-factor(match(Agentadministration_Igagentungrouped$AGEN_INTERRUPTED,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Agentadministration_Igagentungrouped)=="AGEN_INTERRUPTED");
+l<- dim(Agentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Agentadministration_Igagentungrouped$f.AGEN_INTERRUPTED, "label") <- "YNNA"
+
+codes <- c(
+1,
+0,
+-99);
+levs <- c(
+'Yes',
+'No',
+'N/A');
+Agentadministration_Igagentungrouped$f.RESTARTED<-factor(match(Agentadministration_Igagentungrouped$RESTARTED,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Agentadministration_Igagentungrouped)=="RESTARTED");
+l<- dim(Agentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Agentadministration_Igagentungrouped$f.RESTARTED, "label") <- "YNNA"
+
+codes <- c(
+1,
+0,
+-99);
+levs <- c(
+'Yes',
+'No',
+'N/A');
+Agentadministration_Igagentungrouped$f.REG_MOD<-factor(match(Agentadministration_Igagentungrouped$REG_MOD,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Agentadministration_Igagentungrouped)=="REG_MOD");
+l<- dim(Agentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Agentadministration_Igagentungrouped$f.REG_MOD, "label") <- "YNNA"
+
+codes <- c(
+1,
+0,
+-99);
+levs <- c(
+'Yes',
+'No',
+'N/A');
+Agentadministration_Igagentungrouped$f.AGEN_PROVIDED<-factor(match(Agentadministration_Igagentungrouped$AGEN_PROVIDED,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Agentadministration_Igagentungrouped)=="AGEN_PROVIDED");
+l<- dim(Agentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Agentadministration_Igagentungrouped$f.AGEN_PROVIDED, "label") <- "YNNA"
+
+codes <- c(
+1,
+0,
+-88);
+levs <- c(
+'Yes',
+'No',
+'Unknown');
+Agentadministration_Igagentungrouped$f.COMPLIANCE<-factor(match(Agentadministration_Igagentungrouped$COMPLIANCE,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Agentadministration_Igagentungrouped)=="COMPLIANCE");
+l<- dim(Agentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Agentadministration_Igagentungrouped$f.COMPLIANCE, "label") <- "YNUNK"
 Agentadministration_Dosetable <- data.frame(SubjectID=c(
 'CAM101',
 'CAM103',
 'SCRC001',
 'SMC101'),
-Sex=c(
-'',
-'',
-'',
-''),
+ProtocolID=c(
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SMC'),
 EventName=c(
 'Initial Treatment',
 'Initial Treatment',
 'Initial Treatment',
 'Initial Treatment'),
+EventStatus=c(
+'',
+'',
+'',
+''),
 EventStartDate=c(
+'',
+'',
+'',
+''),
+EventEndDate=c(
+'',
+'',
+'',
+''),
+EventLocation=c(
 '',
 '',
 '',
@@ -1267,6 +1769,21 @@ CRFName=c(
 'Agent Administration - v1.0',
 'Agent Administration - v1.0',
 'Agent Administration - v1.0'),
+CRFStatus=c(
+'',
+'',
+'',
+''),
+CRFInterviewDate=c(
+'',
+'',
+'',
+''),
+CRFInterviewerName=c(
+'',
+'',
+'',
+''),		
 ItemGroupRepeatKey=c(
 1,
 1,
@@ -1292,6 +1809,10 @@ NA,
 50,
 10,
 NA));
+
+attributes(Agentadministration_Dosetable)$variable.labels <- c(
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
+, "Dose Date", "Dose Time", "Agent Name", "Agent Dose");
 Verificationofinformedconsent_Igverifungrouped <- data.frame(SubjectID=c(
 'CAM101',
 'CAM102',
@@ -1305,19 +1826,19 @@ Verificationofinformedconsent_Igverifungrouped <- data.frame(SubjectID=c(
 'SCRC010',
 'SCRC011',
 'SMC101'),
-Sex=c(
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-''),
+ProtocolID=c(
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SMC'),
 EventName=c(
 'Registration Visit',
 'Registration Visit',
@@ -1331,7 +1852,46 @@ EventName=c(
 'Registration Visit',
 'Registration Visit',
 'Registration Visit'),
+EventStatus=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
 EventStartDate=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+EventEndDate=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+EventLocation=c(
 '',
 '',
 '',
@@ -1383,6 +1943,45 @@ CRFName=c(
 'Verification of Informed Consent - v2.0',
 'Verification of Informed Consent - v2.0',
 'Verification of Informed Consent - v2.0'),
+CRFStatus=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+CRFInterviewDate=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+CRFInterviewerName=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),		
 ItemGroupRepeatKey=c(
 NA,
 NA,
@@ -1448,6 +2047,23 @@ NA,
 NA,
 NA,
 NA));
+
+attributes(Verificationofinformedconsent_Igverifungrouped)$variable.labels <- c(
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
+, "Affirmation that a signed informed consent exists", "Verification Affirmation Initials", "Date", "PDF of consent");
+
+codes <- c(
+1,
+0);
+levs <- c(
+'Yes',
+'No');
+Verificationofinformedconsent_Igverifungrouped$f.ELIGIBILITY_CONF<-factor(match(Verificationofinformedconsent_Igverifungrouped$ELIGIBILITY_CONF,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Verificationofinformedconsent_Igverifungrouped)=="ELIGIBILITY_CONF");
+l<- dim(Verificationofinformedconsent_Igverifungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Verificationofinformedconsent_Igverifungrouped<-Verificationofinformedconsent_Igverifungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Verificationofinformedconsent_Igverifungrouped$f.ELIGIBILITY_CONF, "label") <- "YN"
 Eligibility_Igeligiungrouped <- data.frame(SubjectID=c(
 'CAM101',
 'CAM103',
@@ -1460,18 +2076,18 @@ Eligibility_Igeligiungrouped <- data.frame(SubjectID=c(
 'SCRC010',
 'SCRC011',
 'SMC101'),
-Sex=c(
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-'',
-''),
+ProtocolID=c(
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SCRC',
+'R01-123456 - R01-12345-SMC'),
 EventName=c(
 'Registration Visit',
 'Registration Visit',
@@ -1484,7 +2100,43 @@ EventName=c(
 'Registration Visit',
 'Registration Visit',
 'Registration Visit'),
+EventStatus=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
 EventStartDate=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+EventEndDate=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+EventLocation=c(
 '',
 '',
 '',
@@ -1532,6 +2184,42 @@ CRFName=c(
 'Eligibility - v1.0',
 'Eligibility - v1.0',
 'Eligibility - v1.0'),
+CRFStatus=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+CRFInterviewDate=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),
+CRFInterviewerName=c(
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''),		
 ItemGroupRepeatKey=c(
 NA,
 NA,
@@ -1712,13 +2400,192 @@ OTH_INVESTIGATIONAL_RX=c(
 0,
 0,
 0));
+
+attributes(Eligibility_Igeligiungrouped)$variable.labels <- c(
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
+, "18 or older", "ECOG status of 0-2", "WBC count 3,500/L?", "platelet count", "serum creatinine", "serum bilirubin", "pregnancy/contraception", "informed consent", "date of informed consent", "history of heart disease", "chemo within the last 12 months", "fasting cholesterol or triglycerides", "currently taking NSAIDs on a regular basis", "investigational drug within last 4 months");
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.OVER_18<-factor(match(Eligibility_Igeligiungrouped$OVER_18,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="OVER_18");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.OVER_18, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.ECOG_STATUS<-factor(match(Eligibility_Igeligiungrouped$ECOG_STATUS,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="ECOG_STATUS");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.ECOG_STATUS, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.WBC_CT<-factor(match(Eligibility_Igeligiungrouped$WBC_CT,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="WBC_CT");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.WBC_CT, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.PLATELET_CT<-factor(match(Eligibility_Igeligiungrouped$PLATELET_CT,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="PLATELET_CT");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.PLATELET_CT, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.SERUM_CREATININE<-factor(match(Eligibility_Igeligiungrouped$SERUM_CREATININE,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="SERUM_CREATININE");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.SERUM_CREATININE, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.SERUM_BILIRUBIN<-factor(match(Eligibility_Igeligiungrouped$SERUM_BILIRUBIN,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="SERUM_BILIRUBIN");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.SERUM_BILIRUBIN, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.CONTRACEPTION<-factor(match(Eligibility_Igeligiungrouped$CONTRACEPTION,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="CONTRACEPTION");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.CONTRACEPTION, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.INFORMED_CONSENT<-factor(match(Eligibility_Igeligiungrouped$INFORMED_CONSENT,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="INFORMED_CONSENT");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.INFORMED_CONSENT, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.HIST_HEART_DISEASE<-factor(match(Eligibility_Igeligiungrouped$HIST_HEART_DISEASE,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="HIST_HEART_DISEASE");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.HIST_HEART_DISEASE, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.CHEMOTHERAPY<-factor(match(Eligibility_Igeligiungrouped$CHEMOTHERAPY,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="CHEMOTHERAPY");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.CHEMOTHERAPY, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.FASTING_CHOLESTEROL_TRIGLY<-factor(match(Eligibility_Igeligiungrouped$FASTING_CHOLESTEROL_TRIGLY,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="FASTING_CHOLESTEROL_TRIGLY");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.FASTING_CHOLESTEROL_TRIGLY, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.NSAIDS<-factor(match(Eligibility_Igeligiungrouped$NSAIDS,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="NSAIDS");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.NSAIDS, "label") <- "y,n"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'YES',
+'NO');
+Eligibility_Igeligiungrouped$f.OTH_INVESTIGATIONAL_RX<-factor(match(Eligibility_Igeligiungrouped$OTH_INVESTIGATIONAL_RX,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Eligibility_Igeligiungrouped)=="OTH_INVESTIGATIONAL_RX");
+l<- dim(Eligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Eligibility_Igeligiungrouped$f.OTH_INVESTIGATIONAL_RX, "label") <- "y,n"
 Adverseevents_Igadverungrouped <- data.frame(SubjectID=c(
 'SMC101'),
-Sex=c(
-''),
+ProtocolID=c(
+'R01-123456 - R01-12345-SMC'),
 EventName=c(
 'Adverse Events'),
+EventStatus=c(
+''),
 EventStartDate=c(
+''),
+EventEndDate=c(
+''),
+EventLocation=c(
 ''),
 SubjectAgeAtEvent=c(
 ''),
@@ -1726,6 +2593,12 @@ StudyEventRepeatKey=c(
 NA),
 CRFName=c(
 'Adverse Events - v1.0'),
+CRFStatus=c(
+''),
+CRFInterviewDate=c(
+''),
+CRFInterviewerName=c(
+''),		
 ItemGroupRepeatKey=c(
 NA),
 1_AEYN=c(
@@ -1748,162 +2621,152 @@ NA),
 NA),
 2_AEYN=c(
 NA));
-Adverseevents_Ae2 <- data.frame(SubjectID=c(
-),
-Sex=c(
-),
-EventName=c(
-),
-EventStartDate=c(
-),
-SubjectAgeAtEvent=c(
-),
-StudyEventRepeatKey=c(
-),
-CRFName=c(
-),
-ItemGroupRepeatKey=c(
-),
-2_AETERM=c(
-),
-2_AESTDTC=c(
-),
-2_AEENDTC=c(
-),
-2_AESEV=c(
-),
-2_AESER=c(
-),
-2_AEREL=c(
-),
-2_AEACN=c(
-),
-2_AEOUT=c(
-),
-3_AEYN=c(
-),
-2_AEYN=c(
-));
-Adverseevents_Ae3 <- data.frame(SubjectID=c(
-),
-Sex=c(
-),
-EventName=c(
-),
-EventStartDate=c(
-),
-SubjectAgeAtEvent=c(
-),
-StudyEventRepeatKey=c(
-),
-CRFName=c(
-),
-ItemGroupRepeatKey=c(
-),
-3_AETERM=c(
-),
-3_AESTDTC=c(
-),
-3_AEENDTC=c(
-),
-3_AESEV=c(
-),
-3_AESER=c(
-),
-3_AEREL=c(
-),
-3_AEACN=c(
-),
-3_AEOUT=c(
-),
-4_AEYN=c(
-),
-3_AEYN=c(
-));
-Adverseevents_Ae4 <- data.frame(SubjectID=c(
-),
-Sex=c(
-),
-EventName=c(
-),
-EventStartDate=c(
-),
-SubjectAgeAtEvent=c(
-),
-StudyEventRepeatKey=c(
-),
-CRFName=c(
-),
-ItemGroupRepeatKey=c(
-),
-4_AETERM=c(
-),
-4_AESTDTC=c(
-),
-4_AEENDTC=c(
-),
-4_AESEV=c(
-),
-4_AESER=c(
-),
-4_AEREL=c(
-),
-4_AEACN=c(
-),
-4_AEOUT=c(
-),
-4_AEYN=c(
-));
-Adverseevents_Ae5 <- data.frame(SubjectID=c(
-),
-Sex=c(
-),
-EventName=c(
-),
-EventStartDate=c(
-),
-SubjectAgeAtEvent=c(
-),
-StudyEventRepeatKey=c(
-),
-CRFName=c(
-),
-ItemGroupRepeatKey=c(
-),
-5_AEYN=c(
-),
-5_AETERM=c(
-),
-5_AESTDTC=c(
-),
-5_AEENDTC=c(
-),
-5_AESEV=c(
-),
-5_AESER=c(
-),
-5_AEREL=c(
-),
-5_AEACN=c(
-),
-5_AEOUT=c(
-));
+
+attributes(Adverseevents_Igadverungrouped)$variable.labels <- c(
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
+, "Adverse Event Experienced", "Adverse Event", "Start Date", "Stop Date", "Severity", "Serious AE", "Relationship", "Action Taken", "Outcome", "Adverse Event Experienced");
+
+codes <- c(
+1,
+0);
+levs <- c(
+'Yes',
+'No');
+Adverseevents_Igadverungrouped$f.1_AEYN<-factor(match(Adverseevents_Igadverungrouped$1_AEYN,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Adverseevents_Igadverungrouped)=="1_AEYN");
+l<- dim(Adverseevents_Igadverungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Adverseevents_Igadverungrouped$f.1_AEYN, "label") <- "Y,N"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'Yes',
+'No');
+Adverseevents_Igadverungrouped$f.1_AESER<-factor(match(Adverseevents_Igadverungrouped$1_AESER,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Adverseevents_Igadverungrouped)=="1_AESER");
+l<- dim(Adverseevents_Igadverungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Adverseevents_Igadverungrouped$f.1_AESER, "label") <- "Y,N"
+
+codes <- c(
+1,
+0);
+levs <- c(
+'Yes',
+'No');
+Adverseevents_Igadverungrouped$f.2_AEYN<-factor(match(Adverseevents_Igadverungrouped$2_AEYN,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Adverseevents_Igadverungrouped)=="2_AEYN");
+l<- dim(Adverseevents_Igadverungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Adverseevents_Igadverungrouped$f.2_AEYN, "label") <- "Y,N"
+
+codes <- c(
+1,
+2,
+3);
+levs <- c(
+'Mild',
+'Moderate',
+'Severe');
+Adverseevents_Igadverungrouped$f.1_AESEV<-factor(match(Adverseevents_Igadverungrouped$1_AESEV,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Adverseevents_Igadverungrouped)=="1_AESEV");
+l<- dim(Adverseevents_Igadverungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Adverseevents_Igadverungrouped$f.1_AESEV, "label") <- "severity"
+
+codes <- c(
+0,
+1,
+2,
+3);
+levs <- c(
+'Not Related',
+'Unlikely Related',
+'Possibly Related',
+'Related');
+Adverseevents_Igadverungrouped$f.1_AEREL<-factor(match(Adverseevents_Igadverungrouped$1_AEREL,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Adverseevents_Igadverungrouped)=="1_AEREL");
+l<- dim(Adverseevents_Igadverungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Adverseevents_Igadverungrouped$f.1_AEREL, "label") <- "relationship"
+
+codes <- c(
+0,
+1,
+2,
+3,
+4,
+5,
+6);
+levs <- c(
+'Dose Increased',
+'Dose Not Changed',
+'Dose Reduced',
+'Drug Interrupted',
+'Drug Withdrawn',
+'Not Applicable',
+'Unknown');
+Adverseevents_Igadverungrouped$f.1_AEACN<-factor(match(Adverseevents_Igadverungrouped$1_AEACN,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Adverseevents_Igadverungrouped)=="1_AEACN");
+l<- dim(Adverseevents_Igadverungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Adverseevents_Igadverungrouped$f.1_AEACN, "label") <- "action taken"
+
+codes <- c(
+1,
+2,
+3,
+4);
+levs <- c(
+'Recovered',
+'Still under treatment/observation',
+'Alive with sequelae',
+'Died');
+Adverseevents_Igadverungrouped$f.1_AEOUT<-factor(match(Adverseevents_Igadverungrouped$1_AEOUT,codes),levels=1:length(codes),labels=levs);
+w<-which(names(Adverseevents_Igadverungrouped)=="1_AEOUT");
+l<- dim(Adverseevents_Igadverungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
+rm(l,w);
+attr(Adverseevents_Igadverungrouped$f.1_AEOUT, "label") <- "outcome"
 Concomitantmedications_Concomitantmedications <- data.frame(SubjectID=c(
 'CAM101',
 'CAM101',
 'CAM105',
 'SMC101'),
-Sex=c(
-'',
-'',
-'',
-''),
+ProtocolID=c(
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-123456-CCSO',
+'R01-123456 - R01-12345-SMC'),
 EventName=c(
 'Initial Treatment',
 'Initial Treatment',
 'Initial Treatment',
 'Initial Treatment'),
+EventStatus=c(
+'',
+'',
+'',
+''),
 EventStartDate=c(
+'',
+'',
+'',
+''),
+EventEndDate=c(
+'',
+'',
+'',
+''),
+EventLocation=c(
 '',
 '',
 '',
@@ -1923,6 +2786,21 @@ CRFName=c(
 'Concomitant Medications - v1.0',
 'Concomitant Medications - v1.0',
 'Concomitant Medications - v1.0'),
+CRFStatus=c(
+'',
+'',
+'',
+''),
+CRFInterviewDate=c(
+'',
+'',
+'',
+''),
+CRFInterviewerName=c(
+'',
+'',
+'',
+''),		
 ItemGroupRepeatKey=c(
 1,
 2,
@@ -1954,1003 +2832,9 @@ Con_Med_form=c(
 '40',
 '200'));
 
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.APPEARANCE<-factor(match(Physicalexam_Igphysiungrouped$APPEARANCE,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="APPEARANCE");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.SKIN<-factor(match(Physicalexam_Igphysiungrouped$SKIN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="SKIN");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.HEENT<-factor(match(Physicalexam_Igphysiungrouped$HEENT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="HEENT");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.THYROID<-factor(match(Physicalexam_Igphysiungrouped$THYROID,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="THYROID");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.CHEST<-factor(match(Physicalexam_Igphysiungrouped$CHEST,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="CHEST");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.LUNGS<-factor(match(Physicalexam_Igphysiungrouped$LUNGS,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="LUNGS");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.BREAST<-factor(match(Physicalexam_Igphysiungrouped$BREAST,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="BREAST");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.HEART<-factor(match(Physicalexam_Igphysiungrouped$HEART,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="HEART");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.ABDOMEN<-factor(match(Physicalexam_Igphysiungrouped$ABDOMEN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="ABDOMEN");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.MUSCULOSKELETAL<-factor(match(Physicalexam_Igphysiungrouped$MUSCULOSKELETAL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="MUSCULOSKELETAL");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.GENITALIA<-factor(match(Physicalexam_Igphysiungrouped$GENITALIA,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="GENITALIA");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.PELVIS<-factor(match(Physicalexam_Igphysiungrouped$PELVIS,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="PELVIS");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.RECTAL<-factor(match(Physicalexam_Igphysiungrouped$RECTAL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="RECTAL");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.PROSTATE<-factor(match(Physicalexam_Igphysiungrouped$PROSTATE,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="PROSTATE");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.VASCULAR<-factor(match(Physicalexam_Igphysiungrouped$VASCULAR,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="VASCULAR");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.NEUROLOGICAL<-factor(match(Physicalexam_Igphysiungrouped$NEUROLOGICAL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="NEUROLOGICAL");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4,
-999);
-levs <- c(
-'Normal',
-'Anormal',
-'No examinado');
-Physicalexam_Igphysiungrouped$f.LYMPHNODES<-factor(match(Physicalexam_Igphysiungrouped$LYMPHNODES,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="LYMPHNODES");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-4);
-levs <- c(
-'Normal',
-'Anormal');
-Physicalexam_Otherbodysystemsite$f.OTHERBODYSYSTEM_STATUS<-factor(match(Physicalexam_Otherbodysystemsite$OTHERBODYSYSTEM_STATUS,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Otherbodysystemsite)=="OTHERBODYSYSTEM_STATUS");
-l<- dim(Physicalexam_Otherbodysystemsite)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Otherbodysystemsite<-Physicalexam_Otherbodysystemsite[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0,
--99);
-levs <- c(
-'Yes',
-'No',
-'N/A');
-Agentadministration_Igagentungrouped$f.MTD_DETERMINED<-factor(match(Agentadministration_Igagentungrouped$MTD_DETERMINED,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="MTD_DETERMINED");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0,
--99);
-levs <- c(
-'Yes',
-'No',
-'N/A');
-Agentadministration_Igagentungrouped$f.AGEN_INTERRUPTED<-factor(match(Agentadministration_Igagentungrouped$AGEN_INTERRUPTED,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="AGEN_INTERRUPTED");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0,
--99);
-levs <- c(
-'Yes',
-'No',
-'N/A');
-Agentadministration_Igagentungrouped$f.RESTARTED<-factor(match(Agentadministration_Igagentungrouped$RESTARTED,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="RESTARTED");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0,
--99);
-levs <- c(
-'Yes',
-'No',
-'N/A');
-Agentadministration_Igagentungrouped$f.REG_MOD<-factor(match(Agentadministration_Igagentungrouped$REG_MOD,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="REG_MOD");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0,
--99);
-levs <- c(
-'Yes',
-'No',
-'N/A');
-Agentadministration_Igagentungrouped$f.AGEN_PROVIDED<-factor(match(Agentadministration_Igagentungrouped$AGEN_PROVIDED,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="AGEN_PROVIDED");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0,
--88);
-levs <- c(
-'Yes',
-'No',
-'Unknown');
-Agentadministration_Igagentungrouped$f.COMPLIANCE<-factor(match(Agentadministration_Igagentungrouped$COMPLIANCE,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="COMPLIANCE");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Verificationofinformedconsent_Igverifungrouped$f.ELIGIBILITY_CONF<-factor(match(Verificationofinformedconsent_Igverifungrouped$ELIGIBILITY_CONF,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Verificationofinformedconsent_Igverifungrouped)=="ELIGIBILITY_CONF");
-l<- dim(Verificationofinformedconsent_Igverifungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Verificationofinformedconsent_Igverifungrouped<-Verificationofinformedconsent_Igverifungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.OVER_18<-factor(match(Eligibility_Igeligiungrouped$OVER_18,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="OVER_18");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.ECOG_STATUS<-factor(match(Eligibility_Igeligiungrouped$ECOG_STATUS,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="ECOG_STATUS");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.WBC_CT<-factor(match(Eligibility_Igeligiungrouped$WBC_CT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="WBC_CT");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.PLATELET_CT<-factor(match(Eligibility_Igeligiungrouped$PLATELET_CT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="PLATELET_CT");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.SERUM_CREATININE<-factor(match(Eligibility_Igeligiungrouped$SERUM_CREATININE,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="SERUM_CREATININE");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.SERUM_BILIRUBIN<-factor(match(Eligibility_Igeligiungrouped$SERUM_BILIRUBIN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="SERUM_BILIRUBIN");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.CONTRACEPTION<-factor(match(Eligibility_Igeligiungrouped$CONTRACEPTION,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="CONTRACEPTION");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.INFORMED_CONSENT<-factor(match(Eligibility_Igeligiungrouped$INFORMED_CONSENT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="INFORMED_CONSENT");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.HIST_HEART_DISEASE<-factor(match(Eligibility_Igeligiungrouped$HIST_HEART_DISEASE,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="HIST_HEART_DISEASE");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.CHEMOTHERAPY<-factor(match(Eligibility_Igeligiungrouped$CHEMOTHERAPY,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="CHEMOTHERAPY");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.FASTING_CHOLESTEROL_TRIGLY<-factor(match(Eligibility_Igeligiungrouped$FASTING_CHOLESTEROL_TRIGLY,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="FASTING_CHOLESTEROL_TRIGLY");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.NSAIDS<-factor(match(Eligibility_Igeligiungrouped$NSAIDS,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="NSAIDS");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'YES',
-'NO');
-Eligibility_Igeligiungrouped$f.OTH_INVESTIGATIONAL_RX<-factor(match(Eligibility_Igeligiungrouped$OTH_INVESTIGATIONAL_RX,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="OTH_INVESTIGATIONAL_RX");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Igadverungrouped$f.1_AEYN<-factor(match(Adverseevents_Igadverungrouped$1_AEYN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Igadverungrouped)=="1_AEYN");
-l<- dim(Adverseevents_Igadverungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Igadverungrouped$f.1_AESER<-factor(match(Adverseevents_Igadverungrouped$1_AESER,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Igadverungrouped)=="1_AESER");
-l<- dim(Adverseevents_Igadverungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Igadverungrouped$f.2_AEYN<-factor(match(Adverseevents_Igadverungrouped$2_AEYN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Igadverungrouped)=="2_AEYN");
-l<- dim(Adverseevents_Igadverungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-2,
-3);
-levs <- c(
-'Mild',
-'Moderate',
-'Severe');
-Adverseevents_Igadverungrouped$f.1_AESEV<-factor(match(Adverseevents_Igadverungrouped$1_AESEV,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Igadverungrouped)=="1_AESEV");
-l<- dim(Adverseevents_Igadverungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-0,
-1,
-2,
-3);
-levs <- c(
-'Not Related',
-'Unlikely Related',
-'Possibly Related',
-'Related');
-Adverseevents_Igadverungrouped$f.1_AEREL<-factor(match(Adverseevents_Igadverungrouped$1_AEREL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Igadverungrouped)=="1_AEREL");
-l<- dim(Adverseevents_Igadverungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-0,
-1,
-2,
-3,
-4,
-5,
-6);
-levs <- c(
-'Dose Increased',
-'Dose Not Changed',
-'Dose Reduced',
-'Drug Interrupted',
-'Drug Withdrawn',
-'Not Applicable',
-'Unknown');
-Adverseevents_Igadverungrouped$f.1_AEACN<-factor(match(Adverseevents_Igadverungrouped$1_AEACN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Igadverungrouped)=="1_AEACN");
-l<- dim(Adverseevents_Igadverungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-2,
-3,
-4);
-levs <- c(
-'Recovered',
-'Still under treatment/observation',
-'Alive with sequelae',
-'Died');
-Adverseevents_Igadverungrouped$f.1_AEOUT<-factor(match(Adverseevents_Igadverungrouped$1_AEOUT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Igadverungrouped)=="1_AEOUT");
-l<- dim(Adverseevents_Igadverungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Ae2$f.2_AEYN<-factor(match(Adverseevents_Ae2$2_AEYN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae2)=="2_AEYN");
-l<- dim(Adverseevents_Ae2)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae2<-Adverseevents_Ae2[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Ae2$f.2_AESER<-factor(match(Adverseevents_Ae2$2_AESER,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae2)=="2_AESER");
-l<- dim(Adverseevents_Ae2)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae2<-Adverseevents_Ae2[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Ae2$f.3_AEYN<-factor(match(Adverseevents_Ae2$3_AEYN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae2)=="3_AEYN");
-l<- dim(Adverseevents_Ae2)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae2<-Adverseevents_Ae2[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-2,
-3);
-levs <- c(
-'Mild',
-'Moderate',
-'Severe');
-Adverseevents_Ae2$f.2_AESEV<-factor(match(Adverseevents_Ae2$2_AESEV,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae2)=="2_AESEV");
-l<- dim(Adverseevents_Ae2)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae2<-Adverseevents_Ae2[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-0,
-1,
-2,
-3);
-levs <- c(
-'Not Related',
-'Unlikely Related',
-'Possibly Related',
-'Related');
-Adverseevents_Ae2$f.2_AEREL<-factor(match(Adverseevents_Ae2$2_AEREL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae2)=="2_AEREL");
-l<- dim(Adverseevents_Ae2)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae2<-Adverseevents_Ae2[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-0,
-1,
-2,
-3,
-4,
-5,
-6);
-levs <- c(
-'Dose Increased',
-'Dose Not Changed',
-'Dose Reduced',
-'Drug Interrupted',
-'Drug Withdrawn',
-'Not Applicable',
-'Unknown');
-Adverseevents_Ae2$f.2_AEACN<-factor(match(Adverseevents_Ae2$2_AEACN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae2)=="2_AEACN");
-l<- dim(Adverseevents_Ae2)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae2<-Adverseevents_Ae2[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-2,
-3,
-4);
-levs <- c(
-'Recovered',
-'Still under treatment/observation',
-'Alive with sequelae',
-'Died');
-Adverseevents_Ae2$f.2_AEOUT<-factor(match(Adverseevents_Ae2$2_AEOUT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae2)=="2_AEOUT");
-l<- dim(Adverseevents_Ae2)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae2<-Adverseevents_Ae2[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Ae3$f.3_AEYN<-factor(match(Adverseevents_Ae3$3_AEYN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae3)=="3_AEYN");
-l<- dim(Adverseevents_Ae3)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae3<-Adverseevents_Ae3[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Ae3$f.3_AESER<-factor(match(Adverseevents_Ae3$3_AESER,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae3)=="3_AESER");
-l<- dim(Adverseevents_Ae3)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae3<-Adverseevents_Ae3[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Ae3$f.4_AEYN<-factor(match(Adverseevents_Ae3$4_AEYN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae3)=="4_AEYN");
-l<- dim(Adverseevents_Ae3)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae3<-Adverseevents_Ae3[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-2,
-3);
-levs <- c(
-'Mild',
-'Moderate',
-'Severe');
-Adverseevents_Ae3$f.3_AESEV<-factor(match(Adverseevents_Ae3$3_AESEV,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae3)=="3_AESEV");
-l<- dim(Adverseevents_Ae3)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae3<-Adverseevents_Ae3[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-0,
-1,
-2,
-3);
-levs <- c(
-'Not Related',
-'Unlikely Related',
-'Possibly Related',
-'Related');
-Adverseevents_Ae3$f.3_AEREL<-factor(match(Adverseevents_Ae3$3_AEREL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae3)=="3_AEREL");
-l<- dim(Adverseevents_Ae3)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae3<-Adverseevents_Ae3[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-0,
-1,
-2,
-3,
-4,
-5,
-6);
-levs <- c(
-'Dose Increased',
-'Dose Not Changed',
-'Dose Reduced',
-'Drug Interrupted',
-'Drug Withdrawn',
-'Not Applicable',
-'Unknown');
-Adverseevents_Ae3$f.3_AEACN<-factor(match(Adverseevents_Ae3$3_AEACN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae3)=="3_AEACN");
-l<- dim(Adverseevents_Ae3)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae3<-Adverseevents_Ae3[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-2,
-3,
-4);
-levs <- c(
-'Recovered',
-'Still under treatment/observation',
-'Alive with sequelae',
-'Died');
-Adverseevents_Ae3$f.3_AEOUT<-factor(match(Adverseevents_Ae3$3_AEOUT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae3)=="3_AEOUT");
-l<- dim(Adverseevents_Ae3)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae3<-Adverseevents_Ae3[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Ae4$f.4_AEYN<-factor(match(Adverseevents_Ae4$4_AEYN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae4)=="4_AEYN");
-l<- dim(Adverseevents_Ae4)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae4<-Adverseevents_Ae4[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Ae4$f.4_AESER<-factor(match(Adverseevents_Ae4$4_AESER,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae4)=="4_AESER");
-l<- dim(Adverseevents_Ae4)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae4<-Adverseevents_Ae4[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-2,
-3);
-levs <- c(
-'Mild',
-'Moderate',
-'Severe');
-Adverseevents_Ae4$f.4_AESEV<-factor(match(Adverseevents_Ae4$4_AESEV,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae4)=="4_AESEV");
-l<- dim(Adverseevents_Ae4)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae4<-Adverseevents_Ae4[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-0,
-1,
-2,
-3);
-levs <- c(
-'Not Related',
-'Unlikely Related',
-'Possibly Related',
-'Related');
-Adverseevents_Ae4$f.4_AEREL<-factor(match(Adverseevents_Ae4$4_AEREL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae4)=="4_AEREL");
-l<- dim(Adverseevents_Ae4)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae4<-Adverseevents_Ae4[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-0,
-1,
-2,
-3,
-4,
-5,
-6);
-levs <- c(
-'Dose Increased',
-'Dose Not Changed',
-'Dose Reduced',
-'Drug Interrupted',
-'Drug Withdrawn',
-'Not Applicable',
-'Unknown');
-Adverseevents_Ae4$f.4_AEACN<-factor(match(Adverseevents_Ae4$4_AEACN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae4)=="4_AEACN");
-l<- dim(Adverseevents_Ae4)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae4<-Adverseevents_Ae4[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-2,
-3,
-4);
-levs <- c(
-'Recovered',
-'Still under treatment/observation',
-'Alive with sequelae',
-'Died');
-Adverseevents_Ae4$f.4_AEOUT<-factor(match(Adverseevents_Ae4$4_AEOUT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae4)=="4_AEOUT");
-l<- dim(Adverseevents_Ae4)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae4<-Adverseevents_Ae4[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Ae5$f.5_AEYN<-factor(match(Adverseevents_Ae5$5_AEYN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae5)=="5_AEYN");
-l<- dim(Adverseevents_Ae5)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae5<-Adverseevents_Ae5[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-0);
-levs <- c(
-'Yes',
-'No');
-Adverseevents_Ae5$f.5_AESER<-factor(match(Adverseevents_Ae5$5_AESER,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae5)=="5_AESER");
-l<- dim(Adverseevents_Ae5)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae5<-Adverseevents_Ae5[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-2,
-3);
-levs <- c(
-'Mild',
-'Moderate',
-'Severe');
-Adverseevents_Ae5$f.5_AESEV<-factor(match(Adverseevents_Ae5$5_AESEV,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae5)=="5_AESEV");
-l<- dim(Adverseevents_Ae5)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae5<-Adverseevents_Ae5[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-0,
-1,
-2,
-3);
-levs <- c(
-'Not Related',
-'Unlikely Related',
-'Possibly Related',
-'Related');
-Adverseevents_Ae5$f.5_AEREL<-factor(match(Adverseevents_Ae5$5_AEREL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae5)=="5_AEREL");
-l<- dim(Adverseevents_Ae5)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae5<-Adverseevents_Ae5[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-0,
-1,
-2,
-3,
-4,
-5,
-6);
-levs <- c(
-'Dose Increased',
-'Dose Not Changed',
-'Dose Reduced',
-'Drug Interrupted',
-'Drug Withdrawn',
-'Not Applicable',
-'Unknown');
-Adverseevents_Ae5$f.5_AEACN<-factor(match(Adverseevents_Ae5$5_AEACN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae5)=="5_AEACN");
-l<- dim(Adverseevents_Ae5)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae5<-Adverseevents_Ae5[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
-
-codes <- c(
-1,
-2,
-3,
-4);
-levs <- c(
-'Recovered',
-'Still under treatment/observation',
-'Alive with sequelae',
-'Died');
-Adverseevents_Ae5$f.5_AEOUT<-factor(match(Adverseevents_Ae5$5_AEOUT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Ae5)=="5_AEOUT");
-l<- dim(Adverseevents_Ae5)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Ae5<-Adverseevents_Ae5[,c(1:w,l,(1+w):(l-1))]};
-rm(l,w);
+attributes(Concomitantmedications_Concomitantmedications)$variable.labels <- c(
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
+, "Medication name", "Start date", "End date", "Ongoing/Continuing", "Dose");
 
 codes <- c(
 1,
@@ -2963,3 +2847,4 @@ w<-which(names(Concomitantmedications_Concomitantmedications)=="Con_Med_Cont");
 l<- dim(Concomitantmedications_Concomitantmedications)[2];
 if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Concomitantmedications_Concomitantmedications<-Concomitantmedications_Concomitantmedications[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
+attr(Concomitantmedications_Concomitantmedications$f.Con_Med_Cont, "label") <- "y,n"
