@@ -124,17 +124,6 @@ SubjectAgeAtEvent=c(
 </xsl:variable>
 <xsl:if test="position()>1">,
 </xsl:if>'<xsl:value-of select="$vSubjectAgeAtEvent"/>'</xsl:for-each>),
-StudyEventRepeatKey=c(
-<xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
-<xsl:if test="position()>1">,
-</xsl:if>
-<xsl:choose>
-<xsl:when test="../../@StudyEventRepeatKey">
-<xsl:value-of select="../../@StudyEventRepeatKey"/>
-</xsl:when>
-<xsl:otherwise>NA</xsl:otherwise>
-</xsl:choose>
-</xsl:for-each>),
 CRFName=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:variable name="vFormOID">
@@ -160,6 +149,17 @@ CRFInterviewerName=c(
 </xsl:variable>
 <xsl:if test="position()>1">,
 </xsl:if>'<xsl:value-of select="$vStartDate"/>'</xsl:for-each>),		
+StudyEventRepeatKey=c(
+<xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
+<xsl:if test="position()>1">,
+</xsl:if>
+<xsl:choose>
+<xsl:when test="../../@StudyEventRepeatKey">
+<xsl:value-of select="../../@StudyEventRepeatKey"/>
+</xsl:when>
+<xsl:otherwise>NA</xsl:otherwise>
+</xsl:choose>
+</xsl:for-each>),
 ItemGroupRepeatKey=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
@@ -195,12 +195,18 @@ attributes(<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>)$vari
 "Subject ID", "Site ID"<xsl:if test="$sexExist">, "Sex"</xsl:if>
 <xsl:if test="$dobExist">, "Birthdate"</xsl:if><xsl:if test="$yobExist">, "Year of birth"</xsl:if>
 <xsl:if test="$uniqueIdExist">, "Person ID"</xsl:if><xsl:if test="$secondaryIdExist">, "Secondary ID"</xsl:if>
-<xsl:if test="$subjectStatusExist">, "Subject status"</xsl:if>, "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
+<xsl:if test="$subjectStatusExist">, "Subject status"</xsl:if>
+<xsl:text>, "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Event Repeat Index", "Itemgroup Repeat Index"</xsl:text>
 <xsl:for-each select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$ItemGroupOID]/odm:ItemRef">
-<xsl:variable name="vItemOID">
-<xsl:value-of select="@ItemOID"/>
-</xsl:variable>, "<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Comment"/>"</xsl:for-each>);
+    <xsl:variable name="vItemOID">
+        <xsl:value-of select="@ItemOID"/>
+    </xsl:variable>
+    <xsl:text>&#10;,"</xsl:text>
+    <xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Comment"/>
+    <xsl:text>"</xsl:text>
+</xsl:for-each>);
 </xsl:template>
+
 <xsl:template name="processtable_factor">
 <xsl:param name="vFormName"/>
 <xsl:param name="vItemGroupName"/>
@@ -254,70 +260,73 @@ attr(<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>$f.<xsl:valu
 </xsl:for-each>
 </xsl:for-each>
 </xsl:template>
+
 <xsl:template name="replace">
-<xsl:param name="text" />
-<xsl:param name="replace" />
-<xsl:param name="by" />
-<xsl:choose>
-<xsl:when test="contains($text, $replace)">
-<xsl:value-of select="substring-before($text,$replace)" />
-<xsl:value-of select="$by" />
-<xsl:call-template name="replace">
-<xsl:with-param name="text"
-select="substring-after($text,$replace)" />
-<xsl:with-param name="replace" select="$replace" />
-<xsl:with-param name="by" select="$by" />
-</xsl:call-template>
-</xsl:when>
-<xsl:otherwise>
-<xsl:value-of select="$text" />
-</xsl:otherwise>
-</xsl:choose>
+    <xsl:param name="text" />
+    <xsl:param name="replace" />
+    <xsl:param name="by" />
+    <xsl:choose>
+        <xsl:when test="contains($text, $replace)">
+            <xsl:value-of select="substring-before($text,$replace)" />
+            <xsl:value-of select="$by" />
+            <xsl:call-template name="replace">
+                <xsl:with-param name="text"
+                                select="substring-after($text,$replace)" />
+                <xsl:with-param name="replace" select="$replace" />
+                <xsl:with-param name="by" select="$by" />
+            </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:value-of select="$text" />
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
+
 <xsl:template name="replace_date">
-<xsl:param name="text" />
-<xsl:choose>
-<xsl:when test="contains($text, 'Jan')">
-<xsl:value-of select="concat(substring($text,8),'-01-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'Feb')">
-<xsl:value-of select="concat(substring($text,8),'-02-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'Mar')">
-<xsl:value-of select="concat(substring($text,8),'-03-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'Apr')">
-<xsl:value-of select="concat(substring($text,8),'-04-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'May')">
-<xsl:value-of select="concat(substring($text,8),'-05-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'Jun')">
-<xsl:value-of select="concat(substring($text,8),'-06-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'Jul')">
-<xsl:value-of select="concat(substring($text,8),'-07-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'Aug')">
-<xsl:value-of select="concat(substring($text,8),'-08-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'Sep')">
-<xsl:value-of select="concat(substring($text,8),'-09-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'Oct')">
-<xsl:value-of select="concat(substring($text,8),'-10-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'Nov')">
-<xsl:value-of select="concat(substring($text,8),'-11-',substring($text,1,2))" />
-</xsl:when>
-<xsl:when test="contains($text, 'Dec')">
-<xsl:value-of select="concat(substring($text,8),'-12-',substring($text,1,2))" />
-</xsl:when>
-<xsl:otherwise>
-<xsl:value-of select="$text" />
-</xsl:otherwise>
-</xsl:choose>
+    <xsl:param name="text" />
+    <xsl:choose>
+        <xsl:when test="contains($text, 'Jan')">
+            <xsl:value-of select="concat(substring($text,8),'-01-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'Feb')">
+            <xsl:value-of select="concat(substring($text,8),'-02-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'Mar')">
+            <xsl:value-of select="concat(substring($text,8),'-03-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'Apr')">
+            <xsl:value-of select="concat(substring($text,8),'-04-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'May')">
+            <xsl:value-of select="concat(substring($text,8),'-05-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'Jun')">
+            <xsl:value-of select="concat(substring($text,8),'-06-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'Jul')">
+            <xsl:value-of select="concat(substring($text,8),'-07-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'Aug')">
+            <xsl:value-of select="concat(substring($text,8),'-08-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'Sep')">
+            <xsl:value-of select="concat(substring($text,8),'-09-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'Oct')">
+            <xsl:value-of select="concat(substring($text,8),'-10-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'Nov')">
+            <xsl:value-of select="concat(substring($text,8),'-11-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:when test="contains($text, 'Dec')">
+            <xsl:value-of select="concat(substring($text,8),'-12-',substring($text,1,2))" />
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:value-of select="$text" />
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
+
 <xsl:template name="capitalise">
     <xsl:param name="rawtxt" />
     <xsl:value-of select="concat(
@@ -332,6 +341,7 @@ translate(translate(substring($rawtxt,2),$vUpper,$vLower),$vLower,''),
 ''
 ))"/>
 </xsl:template>
+
 <xsl:template name="outputVariable">
     <xsl:param name="ItemGroupOID"/>
     <xsl:param name="vItemOID"/>

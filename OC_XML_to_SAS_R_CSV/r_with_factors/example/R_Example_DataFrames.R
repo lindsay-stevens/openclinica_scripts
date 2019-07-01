@@ -150,25 +150,6 @@ SubjectAgeAtEvent=c(
 '',
 '',
 ''),
-StudyEventRepeatKey=c(
-NA,
-NA,
-NA,
-NA,
-1,
-NA,
-NA,
-1,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA),
 CRFName=c(
 'Physical Exam - English',
 'Physical Exam - English',
@@ -245,6 +226,25 @@ CRFInterviewerName=c(
 '',
 '',
 ''),		
+StudyEventRepeatKey=c(
+NA,
+NA,
+NA,
+NA,
+1,
+NA,
+NA,
+1,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA),
 ItemGroupRepeatKey=c(
 NA,
 NA,
@@ -1102,8 +1102,51 @@ NA,
 NA));
 
 attributes(Physicalexam_Igphysiungrouped)$variable.labels <- c(
-"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
-, "Date of Physical Exam", "Time of Physical Exam", "Height", "Weight", "Temperature", "Pulse Rate", "Respiration Rate", "Systolic", "Diastolic", "Body Mass Index", "Appearance", "Appearance Comments", "Skin", "Skin Comments", "H/E/E/N/T", "H/E/E/N/T Comments", "Thyroid", "Thyroid Comments", "Chest", "Chest Comments", "Lungs", "Lungs Comments", "Breasts", "Breasts Comments", "Heart", "Heart Comments", "Abdomen", "Abdomen Comments", "Musculoskeletal", "Musculoskeletal Comments", "Genitalia", "Genitalia Comments", "Pelvis", "Pelvis Comments", "Rectal", "Rectal Comments", "Prostate", "Prostate Comments", "Vascular", "Vascular Comments", "Neurological", "Neurological Comments", "Lymph Nodes", "Lymph Nodes Comments");
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Event Repeat Index", "Itemgroup Repeat Index"
+,"Date of Physical Exam"
+,"Time of Physical Exam"
+,"Height"
+,"Weight"
+,"Temperature"
+,"Pulse Rate"
+,"Respiration Rate"
+,"Systolic"
+,"Diastolic"
+,"Body Mass Index"
+,"Appearance"
+,"Appearance Comments"
+,"Skin"
+,"Skin Comments"
+,"H/E/E/N/T"
+,"H/E/E/N/T Comments"
+,"Thyroid"
+,"Thyroid Comments"
+,"Chest"
+,"Chest Comments"
+,"Lungs"
+,"Lungs Comments"
+,"Breasts"
+,"Breasts Comments"
+,"Heart"
+,"Heart Comments"
+,"Abdomen"
+,"Abdomen Comments"
+,"Musculoskeletal"
+,"Musculoskeletal Comments"
+,"Genitalia"
+,"Genitalia Comments"
+,"Pelvis"
+,"Pelvis Comments"
+,"Rectal"
+,"Rectal Comments"
+,"Prostate"
+,"Prostate Comments"
+,"Vascular"
+,"Vascular Comments"
+,"Neurological"
+,"Neurological Comments"
+,"Lymph Nodes"
+,"Lymph Nodes Comments");
 
 codes <- c(
 1,
@@ -1415,13 +1458,6 @@ SubjectAgeAtEvent=c(
 '',
 '',
 ''),
-StudyEventRepeatKey=c(
-NA,
-1,
-NA,
-NA,
-NA,
-NA),
 CRFName=c(
 'Agent Administration - v1.0',
 'Agent Administration - v1.0',
@@ -1450,6 +1486,13 @@ CRFInterviewerName=c(
 '',
 '',
 ''),		
+StudyEventRepeatKey=c(
+NA,
+1,
+NA,
+NA,
+NA,
+NA),
 ItemGroupRepeatKey=c(
 NA,
 NA,
@@ -1627,8 +1670,31 @@ NA,
 NA));
 
 attributes(Agentadministration_Igagentungrouped)$variable.labels <- c(
-"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
-, "Start of Agent Administration Period", "End of Agent Administration Period", "MTD Determined", "MTD Date", "MTD Dose", "Agent Interrupted", "Date Interrupted", "Reason Interrupted", "Restarted", "Date Restarted", "Reason Restarted", "Regimen Modified", "Date Modified", "New Regimen Dose", "New Regimen Frequency", "Amount Provided Last Visit", "Amount Returned This Visit", "Amount Taken This Period", "Amount Missing This Period", "Compliance", "Noncompliance Reason", "Agent Provided This Visit", "Amount Provided This Visit", "Comments");
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Event Repeat Index", "Itemgroup Repeat Index"
+,"Start of Agent Administration Period"
+,"End of Agent Administration Period"
+,"MTD Determined"
+,"MTD Date"
+,"MTD Dose"
+,"Agent Interrupted"
+,"Date Interrupted"
+,"Reason Interrupted"
+,"Restarted"
+,"Date Restarted"
+,"Reason Restarted"
+,"Regimen Modified"
+,"Date Modified"
+,"New Regimen Dose"
+,"New Regimen Frequency"
+,"Amount Provided Last Visit"
+,"Amount Returned This Visit"
+,"Amount Taken This Period"
+,"Amount Missing This Period"
+,"Compliance"
+,"Noncompliance Reason"
+,"Agent Provided This Visit"
+,"Amount Provided This Visit"
+,"Comments");
 
 codes <- c(
 1,
@@ -1759,11 +1825,6 @@ SubjectAgeAtEvent=c(
 '',
 '',
 ''),
-StudyEventRepeatKey=c(
-NA,
-NA,
-NA,
-NA),
 CRFName=c(
 'Agent Administration - v1.0',
 'Agent Administration - v1.0',
@@ -1784,6 +1845,11 @@ CRFInterviewerName=c(
 '',
 '',
 ''),		
+StudyEventRepeatKey=c(
+NA,
+NA,
+NA,
+NA),
 ItemGroupRepeatKey=c(
 1,
 1,
@@ -1811,8 +1877,11 @@ NA,
 NA));
 
 attributes(Agentadministration_Dosetable)$variable.labels <- c(
-"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
-, "Dose Date", "Dose Time", "Agent Name", "Agent Dose");
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Event Repeat Index", "Itemgroup Repeat Index"
+,"Dose Date"
+,"Dose Time"
+,"Agent Name"
+,"Agent Dose");
 Verificationofinformedconsent_Igverifungrouped <- data.frame(SubjectID=c(
 'CAM101',
 'CAM102',
@@ -1917,19 +1986,6 @@ SubjectAgeAtEvent=c(
 '',
 '',
 ''),
-StudyEventRepeatKey=c(
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA),
 CRFName=c(
 'Verification of Informed Consent - v2.0',
 'Verification of Informed Consent - v2.0',
@@ -1982,6 +2038,19 @@ CRFInterviewerName=c(
 '',
 '',
 ''),		
+StudyEventRepeatKey=c(
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA),
 ItemGroupRepeatKey=c(
 NA,
 NA,
@@ -2049,8 +2118,11 @@ NA,
 NA));
 
 attributes(Verificationofinformedconsent_Igverifungrouped)$variable.labels <- c(
-"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
-, "Affirmation that a signed informed consent exists", "Verification Affirmation Initials", "Date", "PDF of consent");
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Event Repeat Index", "Itemgroup Repeat Index"
+,"Affirmation that a signed informed consent exists"
+,"Verification Affirmation Initials"
+,"Date"
+,"PDF of consent");
 
 codes <- c(
 1,
@@ -2160,18 +2232,6 @@ SubjectAgeAtEvent=c(
 '',
 '',
 ''),
-StudyEventRepeatKey=c(
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA,
-NA),
 CRFName=c(
 'Eligibility - v1.0',
 'Eligibility - v1.0',
@@ -2220,6 +2280,18 @@ CRFInterviewerName=c(
 '',
 '',
 ''),		
+StudyEventRepeatKey=c(
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA,
+NA),
 ItemGroupRepeatKey=c(
 NA,
 NA,
@@ -2402,8 +2474,21 @@ OTH_INVESTIGATIONAL_RX=c(
 0));
 
 attributes(Eligibility_Igeligiungrouped)$variable.labels <- c(
-"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
-, "18 or older", "ECOG status of 0-2", "WBC count 3,500/L?", "platelet count", "serum creatinine", "serum bilirubin", "pregnancy/contraception", "informed consent", "date of informed consent", "history of heart disease", "chemo within the last 12 months", "fasting cholesterol or triglycerides", "currently taking NSAIDs on a regular basis", "investigational drug within last 4 months");
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Event Repeat Index", "Itemgroup Repeat Index"
+,"18 or older"
+,"ECOG status of 0-2"
+,"WBC count 3,500/L?"
+,"platelet count"
+,"serum creatinine"
+,"serum bilirubin"
+,"pregnancy/contraception"
+,"informed consent"
+,"date of informed consent"
+,"history of heart disease"
+,"chemo within the last 12 months"
+,"fasting cholesterol or triglycerides"
+,"currently taking NSAIDs on a regular basis"
+,"investigational drug within last 4 months");
 
 codes <- c(
 1,
@@ -2589,8 +2674,6 @@ EventLocation=c(
 ''),
 SubjectAgeAtEvent=c(
 ''),
-StudyEventRepeatKey=c(
-NA),
 CRFName=c(
 'Adverse Events - v1.0'),
 CRFStatus=c(
@@ -2599,6 +2682,8 @@ CRFInterviewDate=c(
 ''),
 CRFInterviewerName=c(
 ''),		
+StudyEventRepeatKey=c(
+NA),
 ItemGroupRepeatKey=c(
 NA),
 1_AEYN=c(
@@ -2623,8 +2708,17 @@ NA),
 NA));
 
 attributes(Adverseevents_Igadverungrouped)$variable.labels <- c(
-"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
-, "Adverse Event Experienced", "Adverse Event", "Start Date", "Stop Date", "Severity", "Serious AE", "Relationship", "Action Taken", "Outcome", "Adverse Event Experienced");
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Event Repeat Index", "Itemgroup Repeat Index"
+,"Adverse Event Experienced"
+,"Adverse Event"
+,"Start Date"
+,"Stop Date"
+,"Severity"
+,"Serious AE"
+,"Relationship"
+,"Action Taken"
+,"Outcome"
+,"Adverse Event Experienced");
 
 codes <- c(
 1,
@@ -2776,11 +2870,6 @@ SubjectAgeAtEvent=c(
 '',
 '',
 ''),
-StudyEventRepeatKey=c(
-NA,
-NA,
-NA,
-NA),
 CRFName=c(
 'Concomitant Medications - v1.0',
 'Concomitant Medications - v1.0',
@@ -2801,6 +2890,11 @@ CRFInterviewerName=c(
 '',
 '',
 ''),		
+StudyEventRepeatKey=c(
+NA,
+NA,
+NA,
+NA),
 ItemGroupRepeatKey=c(
 1,
 2,
@@ -2833,8 +2927,12 @@ Con_Med_form=c(
 '200'));
 
 attributes(Concomitantmedications_Concomitantmedications)$variable.labels <- c(
-"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "Event Repeat Index", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Itemgroup Repeat Index"
-, "Medication name", "Start date", "End date", "Ongoing/Continuing", "Dose");
+"Subject ID", "Site ID", "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Event Repeat Index", "Itemgroup Repeat Index"
+,"Medication name"
+,"Start date"
+,"End date"
+,"Ongoing/Continuing"
+,"Dose");
 
 codes <- c(
 1,
