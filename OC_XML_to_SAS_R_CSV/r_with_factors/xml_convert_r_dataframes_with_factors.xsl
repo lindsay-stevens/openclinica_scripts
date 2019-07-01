@@ -1,58 +1,58 @@
 <?xml version="1.0" ?>
 <xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-xmlns:odm="http://www.cdisc.org/ns/odm/v1.3" xmlns:OpenClinica="http://www.openclinica.org/ns/odm_ext_v130/v3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 OpenClinica-ODM1-3-0-OC1.xsd">
-<xsl:output method="text" omit-xml-declaration="yes" encoding="UTF-8"/>
-<xsl:variable name="dobExist" select="//odm:SubjectData/@OpenClinica:DateOfBirth" />
-<xsl:variable name="yobExist" select="//odm:SubjectData/@OpenClinica:YearOfBirth" />
-<xsl:variable name="sexExist" select="//odm:SubjectData/@OpenClinica:Sex" />
-<xsl:variable name="uniqueIdExist" select="//odm:SubjectData/@OpenClinica:UniqueIdentifier" />
-<xsl:variable name="subjectStatusExist" select="//odm:SubjectData/@OpenClinica:Status" />
-<xsl:variable name="secondaryIdExist" select="//odm:SubjectData/@OpenClinica:SecondaryID"/>
-<xsl:variable name="vLower" select="'abcdefghijklmnopqrstuvwxyz0123456789'"/>
-<xsl:variable name="vUpper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'"/>
-<xsl:template match="/">
-<xsl:for-each select="odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef">
-<xsl:variable name="vitemgrouprefOID">
-<xsl:value-of select="@OID"/>
-</xsl:variable>
-<xsl:variable name="vFormName">
-<xsl:value-of select="substring-before(/odm:ODM/odm:Study/odm:MetaDataVersion/odm:FormDef/odm:ItemGroupRef[@ItemGroupOID=$vitemgrouprefOID]/../@Name,' -')"/>
-</xsl:variable>
-<xsl:variable name="vItemGroupName">
-<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$vitemgrouprefOID]/@Name"/>
-</xsl:variable>
-<xsl:variable name="ItemGroupOID" select="@OID"/>
-<xsl:variable name="inClinicalData" select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]"/>
-<xsl:variable name="uItemGroupName">
-<xsl:call-template name="capitalise">
-<xsl:with-param name="rawtxt" select="$vItemGroupName"/>
-</xsl:call-template>
-</xsl:variable>
-<xsl:variable name="uFormName">
-<xsl:call-template name="capitalise">
-<xsl:with-param name="rawtxt" select="$vFormName"/>
-</xsl:call-template>
-</xsl:variable>
-<xsl:if test="$inClinicalData">
-<xsl:call-template name="processtable">
-<xsl:with-param name="ItemGroupOID" select="@OID"/>
-<xsl:with-param name="vItemGroupName" select="$uItemGroupName"/>
-<xsl:with-param name="vFormName" select="$uFormName"/>
-</xsl:call-template>
-<xsl:call-template name="variableLabels">
-<xsl:with-param name="ItemGroupOID" select="@OID"/>
-<xsl:with-param name="vItemGroupName" select="$uItemGroupName"/>
-<xsl:with-param name="vFormName" select="$uFormName"/>
-</xsl:call-template>
-<xsl:call-template name="processtable_factor">
-<xsl:with-param name="ItemGroupOID" select="@OID"/>
-<xsl:with-param name="vItemGroupName" select="$uItemGroupName"/>
-<xsl:with-param name="vFormName" select="$uFormName"/>
-</xsl:call-template>
-</xsl:if>
-</xsl:for-each>
-</xsl:template>
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:odm="http://www.cdisc.org/ns/odm/v1.3" xmlns:OpenClinica="http://www.openclinica.org/ns/odm_ext_v130/v3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 OpenClinica-ODM1-3-0-OC1.xsd">
+    <xsl:output method="text" omit-xml-declaration="yes" encoding="UTF-8"/>
+    <xsl:variable name="dobExist" select="//odm:SubjectData/@OpenClinica:DateOfBirth" />
+    <xsl:variable name="yobExist" select="//odm:SubjectData/@OpenClinica:YearOfBirth" />
+    <xsl:variable name="sexExist" select="//odm:SubjectData/@OpenClinica:Sex" />
+    <xsl:variable name="uniqueIdExist" select="//odm:SubjectData/@OpenClinica:UniqueIdentifier" />
+    <xsl:variable name="subjectStatusExist" select="//odm:SubjectData/@OpenClinica:Status" />
+    <xsl:variable name="secondaryIdExist" select="//odm:SubjectData/@OpenClinica:SecondaryID"/>
+    <xsl:variable name="vLower" select="'abcdefghijklmnopqrstuvwxyz0123456789'"/>
+    <xsl:variable name="vUpper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'"/>
+    <xsl:template match="/">
+        <xsl:for-each select="odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef">
+            <xsl:variable name="vitemgrouprefOID">
+                <xsl:value-of select="@OID"/>
+            </xsl:variable>
+            <xsl:variable name="vFormName">
+                <xsl:value-of select="substring-before(/odm:ODM/odm:Study/odm:MetaDataVersion/odm:FormDef/odm:ItemGroupRef[@ItemGroupOID=$vitemgrouprefOID]/../@Name,' -')"/>
+            </xsl:variable>
+            <xsl:variable name="vItemGroupName">
+                <xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$vitemgrouprefOID]/@Name"/>
+            </xsl:variable>
+            <xsl:variable name="ItemGroupOID" select="@OID"/>
+            <xsl:variable name="inClinicalData" select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]"/>
+            <xsl:variable name="uItemGroupName">
+                <xsl:call-template name="capitalise">
+                    <xsl:with-param name="rawtxt" select="$vItemGroupName"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:variable name="uFormName">
+                <xsl:call-template name="capitalise">
+                    <xsl:with-param name="rawtxt" select="$vFormName"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:if test="$inClinicalData">
+                <xsl:call-template name="processtable">
+                    <xsl:with-param name="ItemGroupOID" select="@OID"/>
+                    <xsl:with-param name="vItemGroupName" select="$uItemGroupName"/>
+                    <xsl:with-param name="vFormName" select="$uFormName"/>
+                </xsl:call-template>
+                <xsl:call-template name="variableLabels">
+                    <xsl:with-param name="ItemGroupOID" select="@OID"/>
+                    <xsl:with-param name="vItemGroupName" select="$uItemGroupName"/>
+                    <xsl:with-param name="vFormName" select="$uFormName"/>
+                </xsl:call-template>
+                <xsl:call-template name="processtable_factor">
+                    <xsl:with-param name="ItemGroupOID" select="@OID"/>
+                    <xsl:with-param name="vItemGroupName" select="$uItemGroupName"/>
+                    <xsl:with-param name="vFormName" select="$uFormName"/>
+                </xsl:call-template>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
 <xsl:template name="processtable">
 <xsl:param name="vFormName"/>
 <xsl:param name="vItemGroupName"/>
@@ -171,56 +171,19 @@ ItemGroupRepeatKey=c(
 <xsl:otherwise>NA</xsl:otherwise>
 </xsl:choose>
 </xsl:for-each>)<xsl:for-each select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$ItemGroupOID]/odm:ItemRef">
-<xsl:variable name="vItemOID">
-<xsl:value-of select="@ItemOID"/>
-</xsl:variable>
-<xsl:variable name="vDataType">
-<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@DataType"/>
-</xsl:variable>,
-<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Name"/>=c(
-<xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
-<xsl:if test="position()>1">,
-</xsl:if>
-<xsl:choose>
-<xsl:when test="odm:ItemData[@ItemOID=$vItemOID]">
-<xsl:variable name="vFieldValue">
-<xsl:if test="odm:ItemData[@ItemOID=$vItemOID]/@Value">
-<xsl:value-of select="odm:ItemData[@ItemOID=$vItemOID]/@Value"/>
-</xsl:if>
-<xsl:if test="not(odm:ItemData[@ItemOID=$vItemOID]/@Value)">
-<xsl:value-of select="'NA'"/>
-</xsl:if>
-</xsl:variable>
-<xsl:choose>
-<xsl:when test="$vDataType='text' or $vDataType='partialDate'">
-<xsl:variable name="singlequote">
-<xsl:call-template name="replace">
-<xsl:with-param name="text" select="$vFieldValue" />
-<xsl:with-param name="replace" select="$vsinglequote" />
-<xsl:with-param name="by" select="$vbackslashsinglequote" />
-</xsl:call-template>
-</xsl:variable>
-<xsl:variable name="cleanfield">
-<xsl:call-template name="replace">
-<xsl:with-param name="text" select="$singlequote" />
-<xsl:with-param name="replace" select="'&#10;'" />
-<xsl:with-param name="by" select="' '" />
-</xsl:call-template>
-</xsl:variable>'<xsl:value-of select="$cleanfield"/>'</xsl:when>
-<xsl:when test="$vDataType='date'">
-<xsl:variable name="cleandate">
-<xsl:call-template name="replace_date">
-<xsl:with-param name="text" select="$vFieldValue" />
-</xsl:call-template>
-</xsl:variable>as.Date("<xsl:value-of select="$cleandate"/>")</xsl:when>
-<xsl:otherwise>
-<xsl:value-of select="$vFieldValue"/>
-</xsl:otherwise>
-</xsl:choose>
-</xsl:when>
-<xsl:otherwise>NA</xsl:otherwise>
-</xsl:choose>
-</xsl:for-each>)</xsl:for-each>);
+    <xsl:variable name="vExists" select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]"/>
+    <xsl:if test="$vExists">
+        <xsl:variable name="vItemOID">
+            <xsl:value-of select="@ItemOID"/>
+        </xsl:variable>
+        <xsl:call-template name="outputVariable">
+            <xsl:with-param name="ItemGroupOID" select="$ItemGroupOID" />
+            <xsl:with-param name="vItemOID" select="$vItemOID" />
+            <xsl:with-param name="vDataType" select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@DataType"/>
+            <xsl:with-param name="vName" select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Name"/>
+        </xsl:call-template>
+    </xsl:if>
+</xsl:for-each>);
 </xsl:template>
 <xsl:template name="variableLabels">
 <xsl:param name="vFormName"/>
@@ -356,8 +319,8 @@ select="substring-after($text,$replace)" />
 </xsl:choose>
 </xsl:template>
 <xsl:template name="capitalise">
-<xsl:param name="rawtxt" />
-<xsl:value-of select="concat(
+    <xsl:param name="rawtxt" />
+    <xsl:value-of select="concat(
 translate(
 translate(substring($rawtxt,1,1),$vLower,$vUpper),
 translate(translate(substring($rawtxt,1,1),$vLower,$vUpper),$vUpper,''),
@@ -368,5 +331,67 @@ translate(substring($rawtxt,2),$vUpper,$vLower),
 translate(translate(substring($rawtxt,2),$vUpper,$vLower),$vLower,''),
 ''
 ))"/>
+</xsl:template>
+<xsl:template name="outputVariable">
+    <xsl:param name="ItemGroupOID"/>
+    <xsl:param name="vItemOID"/>
+    <xsl:param name="vName"/>
+    <xsl:param name="vSource"/>
+    <xsl:param name="vDataType"/>
+    
+    <xsl:variable name="vsinglequote">'</xsl:variable>
+    <xsl:variable name="vbackslashsinglequote">\'</xsl:variable>
+    <xsl:text>,&#10;</xsl:text>
+    <xsl:value-of select="$vName"/>
+    <xsl:text>=c(&#10;</xsl:text>
+    <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
+        <xsl:if test="position()>1">
+            <xsl:text>,&#10;</xsl:text>
+        </xsl:if>
+        <xsl:choose>            
+            <xsl:when test="odm:ItemData[@ItemOID=$vItemOID]/@Value">                
+                <xsl:variable name="vFieldValue">
+                    <xsl:value-of select="odm:ItemData[@ItemOID=$vItemOID]/@Value"/>
+                </xsl:variable>
+                <xsl:choose>                    
+                    <xsl:when test="$vDataType='text' or $vDataType='partialDate'">
+                        <xsl:variable name="singlequote">
+                            <xsl:call-template name="replace">
+                                <xsl:with-param name="text" select="$vFieldValue" />
+                                <xsl:with-param name="replace" select="$vsinglequote" />
+                                <xsl:with-param name="by" select="$vbackslashsinglequote" />
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:variable name="cleanfield">
+                            <xsl:call-template name="replace">
+                                <xsl:with-param name="text" select="$singlequote" />
+                                <xsl:with-param name="replace" select="'&#10;'" />
+                                <xsl:with-param name="by" select="' '" />
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:text>'</xsl:text>
+                        <xsl:value-of select="$cleanfield"/>
+                        <xsl:text>'</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$vDataType='date'">
+                        <xsl:variable name="cleandate">
+                            <xsl:call-template name="replace_date">
+                                <xsl:with-param name="text" select="$vFieldValue" />
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:text>as.Date("</xsl:text>
+                        <xsl:value-of select="$cleandate"/>"<xsl:text>)</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$vFieldValue"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>NA</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:for-each>
+    <xsl:text>)</xsl:text>
 </xsl:template>
 </xsl:stylesheet>
