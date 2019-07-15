@@ -6,11 +6,23 @@
     <xsl:variable name="dobExist" select="//odm:SubjectData/@OpenClinica:DateOfBirth" />
     <xsl:variable name="yobExist" select="//odm:SubjectData/@OpenClinica:YearOfBirth" />
     <xsl:variable name="sexExist" select="//odm:SubjectData/@OpenClinica:Sex" />
+    
+    <xsl:variable name="eventStatusExist" select="//odm:StudyEventData/@OpenClinica:Status" />
+    <xsl:variable name="eventStartExist" select="//odm:StudyEventData/@OpenClinica:StartDate" />
+    <xsl:variable name="eventEndExist" select="//odm:StudyEventData/@OpenClinica:EndDate" />
+    <xsl:variable name="eventLocationExist" select="//odm:StudyEventData/@OpenClinica:StudyEventLocation" />
+    <xsl:variable name="eventAgeExist" select="//odm:StudyEventData/@OpenClinica:SubjectAgeAtEvent" />
+    
+    <xsl:variable name="crfStatusExist" select="//odm:FormData/@OpenClinica:Status" />
+    <xsl:variable name="crfDateExist" select="//odm:FromData/@OpenClinica:Status" />
+    <xsl:variable name="crfInterviewerExist" select="//odm:FormData/@OpenClinica:Status" />
+    
     <xsl:variable name="uniqueIdExist" select="//odm:SubjectData/@OpenClinica:UniqueIdentifier" />
     <xsl:variable name="subjectStatusExist" select="//odm:SubjectData/@OpenClinica:Status" />
     <xsl:variable name="secondaryIdExist" select="//odm:SubjectData/@OpenClinica:SecondaryID"/>
     <xsl:variable name="vLower" select="'abcdefghijklmnopqrstuvwxyz0123456789'"/>
     <xsl:variable name="vUpper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'"/>
+    
     <xsl:template match="/">
         <xsl:for-each select="odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef">
             <xsl:variable name="vitemgrouprefOID">
@@ -53,6 +65,7 @@
             </xsl:if>
         </xsl:for-each>
     </xsl:template>
+    
 <xsl:template name="processtable">
 <xsl:param name="vFormName"/>
 <xsl:param name="vItemGroupName"/>
@@ -100,55 +113,55 @@ EventName=c(
 <xsl:value-of select="../../@StudyEventOID"/>
 </xsl:variable>
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:StudyEventDef[@OID=$vStudyEventOID]/@Name"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:StudyEventDef[@OID=$vStudyEventOID]/@Name"/>'</xsl:for-each>)<xsl:if test="$eventStatusExist">,
 EventStatus=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="../../@OpenClinica:Status"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="../../@OpenClinica:Status"/>'</xsl:for-each>)</xsl:if><xsl:if test="$eventStartExist">,
 EventStartDate=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="../../@OpenClinica:StartDate"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="../../@OpenClinica:StartDate"/>'</xsl:for-each>)</xsl:if><xsl:if test="$eventEndExist">,
 EventEndDate=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="../../@OpenClinica:EndDate"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="../../@OpenClinica:EndDate"/>'</xsl:for-each>)</xsl:if><xsl:if test="$eventLocationExist">,
 EventLocation=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="../../@OpenClinica:StudyEventLocation"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="../../@OpenClinica:StudyEventLocation"/>'</xsl:for-each>)</xsl:if><xsl:if test="$eventAgeExist">,
 SubjectAgeAtEvent=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:variable name="vSubjectAgeAtEvent">
 <xsl:value-of select="../../@OpenClinica:SubjectAgeAtEvent"/>
 </xsl:variable>
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="$vSubjectAgeAtEvent"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="$vSubjectAgeAtEvent"/>'</xsl:for-each>)</xsl:if>,
 CRFName=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:variable name="vFormOID">
 <xsl:value-of select="../@FormOID"/>
 </xsl:variable>
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:FormDef[@OID=$vFormOID]/@Name"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:FormDef[@OID=$vFormOID]/@Name"/>'</xsl:for-each>)<xsl:if test="$crfStatusExist">,
 CRFStatus=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="../@OpenClinica:Status"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="../@OpenClinica:Status"/>'</xsl:for-each>)</xsl:if><xsl:if test="$crfDateExist">,
 CRFInterviewDate=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:variable name="vStartDate">
 <xsl:value-of select="../@OpenClinica:InterviewDate"/>
 </xsl:variable>
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="$vStartDate"/>'</xsl:for-each>),
+</xsl:if>'<xsl:value-of select="$vStartDate"/>'</xsl:for-each>)</xsl:if><xsl:if test="$crfInterviewerExist">,
 CRFInterviewerName=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:variable name="vStartDate">
 <xsl:value-of select="../@OpenClinica:InterviewerName"/>
 </xsl:variable>
 <xsl:if test="position()>1">,
-</xsl:if>'<xsl:value-of select="$vStartDate"/>'</xsl:for-each>),		
+</xsl:if>'<xsl:value-of select="$vStartDate"/>'</xsl:for-each>)</xsl:if>,		
 StudyEventRepeatKey=c(
 <xsl:for-each select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]">
 <xsl:if test="position()>1">,
@@ -171,11 +184,11 @@ ItemGroupRepeatKey=c(
 <xsl:otherwise>NA</xsl:otherwise>
 </xsl:choose>
 </xsl:for-each>)<xsl:for-each select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$ItemGroupOID]/odm:ItemRef">
-    <xsl:variable name="vExists" select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]"/>
-    <xsl:if test="$vExists">
-        <xsl:variable name="vItemOID">
+    <xsl:variable name="vItemOID">
             <xsl:value-of select="@ItemOID"/>
-        </xsl:variable>
+    </xsl:variable>
+    <xsl:variable name="vExists" select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]/odm:ItemData[@ItemOID=$vItemOID]"/>
+    <xsl:if test="$vExists">        
         <xsl:call-template name="outputVariable">
             <xsl:with-param name="ItemGroupOID" select="$ItemGroupOID" />
             <xsl:with-param name="vItemOID" select="$vItemOID" />
@@ -185,6 +198,7 @@ ItemGroupRepeatKey=c(
     </xsl:if>
 </xsl:for-each>);
 </xsl:template>
+
 <xsl:template name="variableLabels">
 <xsl:param name="vFormName"/>
 <xsl:param name="vItemGroupName"/>
@@ -196,14 +210,27 @@ attributes(<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>)$vari
 <xsl:if test="$dobExist">, "Birthdate"</xsl:if><xsl:if test="$yobExist">, "Year of birth"</xsl:if>
 <xsl:if test="$uniqueIdExist">, "Person ID"</xsl:if><xsl:if test="$secondaryIdExist">, "Secondary ID"</xsl:if>
 <xsl:if test="$subjectStatusExist">, "Subject status"</xsl:if>
-<xsl:text>, "Event name", "Event status", "Event Startdate", "Event Enddate", "Event Location", "Subject age at event", "CRF Name", "CRF Status", "CRF Interviewdate", "CRF Interviewer name", "Event Repeat Index", "Itemgroup Repeat Index"</xsl:text>
+<xsl:text>, "Event name"</xsl:text>
+<xsl:if test="$eventStatusExist">, "Event status"</xsl:if>
+<xsl:if test="$eventStartExist">, "Event Startdate"</xsl:if>
+<xsl:if test="$eventEndExist">, "Event Enddate"</xsl:if>
+<xsl:if test="$eventLocationExist">, "Event Location"</xsl:if>
+<xsl:if test="$eventAgeExist">, "Subject age at event"</xsl:if>
+<xsl:text>, "CRF Name"</xsl:text>
+<xsl:if test="$crfStatusExist">, "CRF Status"</xsl:if>
+<xsl:if test="$crfDateExist">, "CRF Interviewdate"</xsl:if>
+<xsl:if test="$crfInterviewerExist">, "CRF Interviewer name"</xsl:if>
+<xsl:text>, "Event Repeat Index", "Itemgroup Repeat Index"</xsl:text>
 <xsl:for-each select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$ItemGroupOID]/odm:ItemRef">
     <xsl:variable name="vItemOID">
         <xsl:value-of select="@ItemOID"/>
     </xsl:variable>
-    <xsl:text>&#10;,"</xsl:text>
-    <xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Comment"/>
-    <xsl:text>"</xsl:text>
+    <xsl:variable name="vExists" select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]/odm:ItemData[@ItemOID=$vItemOID]"/>
+    <xsl:if test="$vExists">
+        <xsl:text>&#10;,"</xsl:text>
+        <xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Comment"/>
+        <xsl:text>"</xsl:text>
+    </xsl:if>
 </xsl:for-each>);
 </xsl:template>
 
@@ -222,6 +249,8 @@ attributes(<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>)$vari
 <xsl:variable name="vItemName"><xsl:value-of select="../@Name"/></xsl:variable>
 <xsl:variable name="vDataType"><xsl:value-of select="../@DataType"/></xsl:variable>
 <xsl:if test="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$ItemGroupOID]/odm:ItemRef[@ItemOID=$vItemOID]">
+<xsl:variable name="vExists" select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]/odm:ItemData[@ItemOID=$vItemOID]"/>
+<xsl:if test="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]/odm:ItemData[@ItemOID=$vItemOID]">
 codes &lt;- c(
 <xsl:for-each select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:CodeList[@OID=$vCodeListOID]/odm:CodeListItem">
 <xsl:if test="position()>1">,
@@ -256,6 +285,7 @@ l&lt;- dim(<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>)[2];
 if (!is.null(w) &amp; !is.null(l)){} else{if(w&lt;(l-1))<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>&lt;-<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
 attr(<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>$f.<xsl:value-of select="$vItemName"/>, "label") &lt;- "<xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:CodeList[@OID=$vCodeListOID]/@Name"/>"
+</xsl:if>
 </xsl:if>
 </xsl:for-each>
 </xsl:for-each>
