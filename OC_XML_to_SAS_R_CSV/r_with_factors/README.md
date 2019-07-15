@@ -4,6 +4,7 @@ the following differences:
 - Question labels applied to all variables
 - All metadata available, including year of birth even and crf level data
 - When excluded from the export definition, variables will not appear as empty columns
+- Partial date is outputted as string so it will show more than just the year
 
 # Usage
 - Place all files in same folder
