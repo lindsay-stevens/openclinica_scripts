@@ -28,8 +28,15 @@
             <xsl:variable name="vitemgrouprefOID">
                 <xsl:value-of select="@OID"/>
             </xsl:variable>
-            <xsl:variable name="vFormName">
-                <xsl:value-of select="substring-before(/odm:ODM/odm:Study/odm:MetaDataVersion/odm:FormDef/odm:ItemGroupRef[@ItemGroupOID=$vitemgrouprefOID]/../@Name,' -')"/>
+            <xsl:variable name="formNameUc">
+                <xsl:call-template name="capitalise">
+                    <xsl:with-param name="rawtxt">
+                        <xsl:value-of select="substring-before(/odm:ODM/odm:Study/odm:MetaDataVersion/odm:FormDef/odm:ItemGroupRef[@ItemGroupOID=$vitemgrouprefOID]/../@Name,' -')"/>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:variable name="uFormName">
+                <xsl:value-of select="concat('df',$formNameUc)"/>
             </xsl:variable>
             <xsl:variable name="vItemGroupName">
                 <xsl:value-of select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$vitemgrouprefOID]/@Name"/>
@@ -39,11 +46,6 @@
             <xsl:variable name="uItemGroupName">
                 <xsl:call-template name="capitalise">
                     <xsl:with-param name="rawtxt" select="$vItemGroupName"/>
-                </xsl:call-template>
-            </xsl:variable>
-            <xsl:variable name="uFormName">
-                <xsl:call-template name="capitalise">
-                    <xsl:with-param name="rawtxt" select="$vFormName"/>
                 </xsl:call-template>
             </xsl:variable>
             <xsl:if test="$inClinicalData">
@@ -193,7 +195,11 @@ ItemGroupRepeatKey=c(
             <xsl:with-param name="ItemGroupOID" select="$ItemGroupOID" />
             <xsl:with-param name="vItemOID" select="$vItemOID" />
             <xsl:with-param name="vDataType" select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@DataType"/>
-            <xsl:with-param name="vName" select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Name"/>
+            <xsl:with-param name="vName">
+                <xsl:call-template name="fixVar">
+                    <xsl:with-param name="varName" select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef[@OID=$vItemOID]/@Name"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:if>
 </xsl:for-each>);
@@ -246,7 +252,11 @@ attributes(<xsl:value-of select="concat($vFormName,'_',$vItemGroupName)"/>)$vari
 </xsl:variable>
 <xsl:for-each select="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemDef/odm:CodeListRef[@CodeListOID=$vCodeListOID]">
 <xsl:variable name="vItemOID"><xsl:value-of select="../@OID"/></xsl:variable>
-<xsl:variable name="vItemName"><xsl:value-of select="../@Name"/></xsl:variable>
+<xsl:variable name="vItemName">
+    <xsl:call-template name="fixVar">
+        <xsl:with-param name="varName" select="../@Name"/>
+    </xsl:call-template>
+</xsl:variable>
 <xsl:variable name="vDataType"><xsl:value-of select="../@DataType"/></xsl:variable>
 <xsl:if test="/odm:ODM/odm:Study/odm:MetaDataVersion/odm:ItemGroupDef[@OID=$ItemGroupOID]/odm:ItemRef[@ItemOID=$vItemOID]">
 <xsl:variable name="vExists" select="/odm:ODM/odm:ClinicalData/odm:SubjectData/odm:StudyEventData/odm:FormData/odm:ItemGroupData[@ItemGroupOID=$ItemGroupOID]/odm:ItemData[@ItemOID=$vItemOID]"/>
@@ -433,5 +443,17 @@ translate(translate(substring($rawtxt,2),$vUpper,$vLower),$vLower,''),
         </xsl:choose>
     </xsl:for-each>
     <xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template name="fixVar">
+    <xsl:param name="varName"/>
+    <xsl:choose>
+          <xsl:when test="number(substring($varName,1,1)) = substring($varName,1,1)">
+              <xsl:value-of select="concat('v', $varName)"/> 
+          </xsl:when>
+          <xsl:otherwise>
+              <xsl:value-of select="$varName"/> 
+          </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 </xsl:stylesheet>

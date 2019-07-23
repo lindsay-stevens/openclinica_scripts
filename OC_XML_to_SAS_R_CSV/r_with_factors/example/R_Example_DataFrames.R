@@ -1,4 +1,4 @@
-Physicalexam_Igphysiungrouped <- data.frame(SubjectID=c(
+dfPhysicalexam_Igphysiungrouped <- data.frame(SubjectID=c(
 'CAM101',
 'CAM101',
 'CAM103',
@@ -683,7 +683,7 @@ LYMPHNODES=c(
 1,
 1));
 
-attributes(Physicalexam_Igphysiungrouped)$variable.labels <- c(
+attributes(dfPhysicalexam_Igphysiungrouped)$variable.labels <- c(
 "Subject ID", "Site ID", "Event name", "CRF Name", "Event Repeat Index", "Itemgroup Repeat Index"
 ,"Date of Physical Exam"
 ,"Time of Physical Exam"
@@ -724,12 +724,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.APPEARANCE<-factor(match(Physicalexam_Igphysiungrouped$APPEARANCE,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="APPEARANCE");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.APPEARANCE<-factor(match(dfPhysicalexam_Igphysiungrouped$APPEARANCE,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="APPEARANCE");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.APPEARANCE, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.APPEARANCE, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -739,12 +739,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.SKIN<-factor(match(Physicalexam_Igphysiungrouped$SKIN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="SKIN");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.SKIN<-factor(match(dfPhysicalexam_Igphysiungrouped$SKIN,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="SKIN");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.SKIN, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.SKIN, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -754,12 +754,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.HEENT<-factor(match(Physicalexam_Igphysiungrouped$HEENT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="HEENT");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.HEENT<-factor(match(dfPhysicalexam_Igphysiungrouped$HEENT,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="HEENT");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.HEENT, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.HEENT, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -769,12 +769,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.THYROID<-factor(match(Physicalexam_Igphysiungrouped$THYROID,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="THYROID");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.THYROID<-factor(match(dfPhysicalexam_Igphysiungrouped$THYROID,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="THYROID");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.THYROID, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.THYROID, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -784,12 +784,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.CHEST<-factor(match(Physicalexam_Igphysiungrouped$CHEST,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="CHEST");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.CHEST<-factor(match(dfPhysicalexam_Igphysiungrouped$CHEST,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="CHEST");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.CHEST, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.CHEST, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -799,12 +799,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.LUNGS<-factor(match(Physicalexam_Igphysiungrouped$LUNGS,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="LUNGS");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.LUNGS<-factor(match(dfPhysicalexam_Igphysiungrouped$LUNGS,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="LUNGS");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.LUNGS, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.LUNGS, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -814,12 +814,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.BREAST<-factor(match(Physicalexam_Igphysiungrouped$BREAST,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="BREAST");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.BREAST<-factor(match(dfPhysicalexam_Igphysiungrouped$BREAST,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="BREAST");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.BREAST, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.BREAST, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -829,12 +829,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.HEART<-factor(match(Physicalexam_Igphysiungrouped$HEART,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="HEART");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.HEART<-factor(match(dfPhysicalexam_Igphysiungrouped$HEART,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="HEART");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.HEART, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.HEART, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -844,12 +844,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.ABDOMEN<-factor(match(Physicalexam_Igphysiungrouped$ABDOMEN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="ABDOMEN");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.ABDOMEN<-factor(match(dfPhysicalexam_Igphysiungrouped$ABDOMEN,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="ABDOMEN");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.ABDOMEN, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.ABDOMEN, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -859,12 +859,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.MUSCULOSKELETAL<-factor(match(Physicalexam_Igphysiungrouped$MUSCULOSKELETAL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="MUSCULOSKELETAL");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.MUSCULOSKELETAL<-factor(match(dfPhysicalexam_Igphysiungrouped$MUSCULOSKELETAL,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="MUSCULOSKELETAL");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.MUSCULOSKELETAL, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.MUSCULOSKELETAL, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -874,12 +874,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.GENITALIA<-factor(match(Physicalexam_Igphysiungrouped$GENITALIA,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="GENITALIA");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.GENITALIA<-factor(match(dfPhysicalexam_Igphysiungrouped$GENITALIA,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="GENITALIA");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.GENITALIA, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.GENITALIA, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -889,12 +889,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.PELVIS<-factor(match(Physicalexam_Igphysiungrouped$PELVIS,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="PELVIS");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.PELVIS<-factor(match(dfPhysicalexam_Igphysiungrouped$PELVIS,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="PELVIS");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.PELVIS, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.PELVIS, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -904,12 +904,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.RECTAL<-factor(match(Physicalexam_Igphysiungrouped$RECTAL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="RECTAL");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.RECTAL<-factor(match(dfPhysicalexam_Igphysiungrouped$RECTAL,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="RECTAL");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.RECTAL, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.RECTAL, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -919,12 +919,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.PROSTATE<-factor(match(Physicalexam_Igphysiungrouped$PROSTATE,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="PROSTATE");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.PROSTATE<-factor(match(dfPhysicalexam_Igphysiungrouped$PROSTATE,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="PROSTATE");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.PROSTATE, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.PROSTATE, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -934,12 +934,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.VASCULAR<-factor(match(Physicalexam_Igphysiungrouped$VASCULAR,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="VASCULAR");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.VASCULAR<-factor(match(dfPhysicalexam_Igphysiungrouped$VASCULAR,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="VASCULAR");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.VASCULAR, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.VASCULAR, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -949,12 +949,12 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.NEUROLOGICAL<-factor(match(Physicalexam_Igphysiungrouped$NEUROLOGICAL,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="NEUROLOGICAL");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.NEUROLOGICAL<-factor(match(dfPhysicalexam_Igphysiungrouped$NEUROLOGICAL,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="NEUROLOGICAL");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.NEUROLOGICAL, "label") <- "N_AB_NE"
+attr(dfPhysicalexam_Igphysiungrouped$f.NEUROLOGICAL, "label") <- "N_AB_NE"
 
 codes <- c(
 1,
@@ -964,13 +964,13 @@ levs <- c(
 'Normal',
 'Anormal',
 'No examinado');
-Physicalexam_Igphysiungrouped$f.LYMPHNODES<-factor(match(Physicalexam_Igphysiungrouped$LYMPHNODES,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Physicalexam_Igphysiungrouped)=="LYMPHNODES");
-l<- dim(Physicalexam_Igphysiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Physicalexam_Igphysiungrouped<-Physicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfPhysicalexam_Igphysiungrouped$f.LYMPHNODES<-factor(match(dfPhysicalexam_Igphysiungrouped$LYMPHNODES,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfPhysicalexam_Igphysiungrouped)=="LYMPHNODES");
+l<- dim(dfPhysicalexam_Igphysiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfPhysicalexam_Igphysiungrouped<-dfPhysicalexam_Igphysiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Physicalexam_Igphysiungrouped$f.LYMPHNODES, "label") <- "N_AB_NE"
-Agentadministration_Igagentungrouped <- data.frame(SubjectID=c(
+attr(dfPhysicalexam_Igphysiungrouped$f.LYMPHNODES, "label") <- "N_AB_NE"
+dfAgentadministration_Igagentungrouped <- data.frame(SubjectID=c(
 'CAM101',
 'CAM101',
 'CAM103',
@@ -1125,7 +1125,7 @@ NA,
 NA,
 80));
 
-attributes(Agentadministration_Igagentungrouped)$variable.labels <- c(
+attributes(dfAgentadministration_Igagentungrouped)$variable.labels <- c(
 "Subject ID", "Site ID", "Event name", "CRF Name", "Event Repeat Index", "Itemgroup Repeat Index"
 ,"Start of Agent Administration Period"
 ,"End of Agent Administration Period"
@@ -1152,12 +1152,12 @@ levs <- c(
 'Yes',
 'No',
 'N/A');
-Agentadministration_Igagentungrouped$f.MTD_DETERMINED<-factor(match(Agentadministration_Igagentungrouped$MTD_DETERMINED,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="MTD_DETERMINED");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfAgentadministration_Igagentungrouped$f.MTD_DETERMINED<-factor(match(dfAgentadministration_Igagentungrouped$MTD_DETERMINED,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfAgentadministration_Igagentungrouped)=="MTD_DETERMINED");
+l<- dim(dfAgentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfAgentadministration_Igagentungrouped<-dfAgentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Agentadministration_Igagentungrouped$f.MTD_DETERMINED, "label") <- "YNNA"
+attr(dfAgentadministration_Igagentungrouped$f.MTD_DETERMINED, "label") <- "YNNA"
 
 codes <- c(
 1,
@@ -1167,12 +1167,12 @@ levs <- c(
 'Yes',
 'No',
 'N/A');
-Agentadministration_Igagentungrouped$f.AGEN_INTERRUPTED<-factor(match(Agentadministration_Igagentungrouped$AGEN_INTERRUPTED,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="AGEN_INTERRUPTED");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfAgentadministration_Igagentungrouped$f.AGEN_INTERRUPTED<-factor(match(dfAgentadministration_Igagentungrouped$AGEN_INTERRUPTED,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfAgentadministration_Igagentungrouped)=="AGEN_INTERRUPTED");
+l<- dim(dfAgentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfAgentadministration_Igagentungrouped<-dfAgentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Agentadministration_Igagentungrouped$f.AGEN_INTERRUPTED, "label") <- "YNNA"
+attr(dfAgentadministration_Igagentungrouped$f.AGEN_INTERRUPTED, "label") <- "YNNA"
 
 codes <- c(
 1,
@@ -1182,12 +1182,12 @@ levs <- c(
 'Yes',
 'No',
 'N/A');
-Agentadministration_Igagentungrouped$f.RESTARTED<-factor(match(Agentadministration_Igagentungrouped$RESTARTED,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="RESTARTED");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfAgentadministration_Igagentungrouped$f.RESTARTED<-factor(match(dfAgentadministration_Igagentungrouped$RESTARTED,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfAgentadministration_Igagentungrouped)=="RESTARTED");
+l<- dim(dfAgentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfAgentadministration_Igagentungrouped<-dfAgentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Agentadministration_Igagentungrouped$f.RESTARTED, "label") <- "YNNA"
+attr(dfAgentadministration_Igagentungrouped$f.RESTARTED, "label") <- "YNNA"
 
 codes <- c(
 1,
@@ -1197,12 +1197,12 @@ levs <- c(
 'Yes',
 'No',
 'N/A');
-Agentadministration_Igagentungrouped$f.REG_MOD<-factor(match(Agentadministration_Igagentungrouped$REG_MOD,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="REG_MOD");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfAgentadministration_Igagentungrouped$f.REG_MOD<-factor(match(dfAgentadministration_Igagentungrouped$REG_MOD,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfAgentadministration_Igagentungrouped)=="REG_MOD");
+l<- dim(dfAgentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfAgentadministration_Igagentungrouped<-dfAgentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Agentadministration_Igagentungrouped$f.REG_MOD, "label") <- "YNNA"
+attr(dfAgentadministration_Igagentungrouped$f.REG_MOD, "label") <- "YNNA"
 
 codes <- c(
 1,
@@ -1212,12 +1212,12 @@ levs <- c(
 'Yes',
 'No',
 'N/A');
-Agentadministration_Igagentungrouped$f.AGEN_PROVIDED<-factor(match(Agentadministration_Igagentungrouped$AGEN_PROVIDED,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="AGEN_PROVIDED");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfAgentadministration_Igagentungrouped$f.AGEN_PROVIDED<-factor(match(dfAgentadministration_Igagentungrouped$AGEN_PROVIDED,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfAgentadministration_Igagentungrouped)=="AGEN_PROVIDED");
+l<- dim(dfAgentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfAgentadministration_Igagentungrouped<-dfAgentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Agentadministration_Igagentungrouped$f.AGEN_PROVIDED, "label") <- "YNNA"
+attr(dfAgentadministration_Igagentungrouped$f.AGEN_PROVIDED, "label") <- "YNNA"
 
 codes <- c(
 1,
@@ -1227,13 +1227,13 @@ levs <- c(
 'Yes',
 'No',
 'Unknown');
-Agentadministration_Igagentungrouped$f.COMPLIANCE<-factor(match(Agentadministration_Igagentungrouped$COMPLIANCE,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Agentadministration_Igagentungrouped)=="COMPLIANCE");
-l<- dim(Agentadministration_Igagentungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Agentadministration_Igagentungrouped<-Agentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfAgentadministration_Igagentungrouped$f.COMPLIANCE<-factor(match(dfAgentadministration_Igagentungrouped$COMPLIANCE,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfAgentadministration_Igagentungrouped)=="COMPLIANCE");
+l<- dim(dfAgentadministration_Igagentungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfAgentadministration_Igagentungrouped<-dfAgentadministration_Igagentungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Agentadministration_Igagentungrouped$f.COMPLIANCE, "label") <- "YNUNK"
-Agentadministration_Dosetable <- data.frame(SubjectID=c(
+attr(dfAgentadministration_Igagentungrouped$f.COMPLIANCE, "label") <- "YNUNK"
+dfAgentadministration_Dosetable <- data.frame(SubjectID=c(
 'CAM101',
 'CAM103',
 'SCRC001',
@@ -1279,12 +1279,12 @@ NA,
 10,
 NA));
 
-attributes(Agentadministration_Dosetable)$variable.labels <- c(
+attributes(dfAgentadministration_Dosetable)$variable.labels <- c(
 "Subject ID", "Site ID", "Event name", "CRF Name", "Event Repeat Index", "Itemgroup Repeat Index"
 ,"Dose Date"
 ,"Agent Name"
 ,"Agent Dose");
-Verificationofinformedconsent_Igverifungrouped <- data.frame(SubjectID=c(
+dfVerificationofinformedconsent_Igverifungrouped <- data.frame(SubjectID=c(
 'CAM101',
 'CAM102',
 'CAM103',
@@ -1402,7 +1402,7 @@ as.Date("2011-05-31"),
 as.Date("2011-06-12"),
 as.Date("2011-07-06")));
 
-attributes(Verificationofinformedconsent_Igverifungrouped)$variable.labels <- c(
+attributes(dfVerificationofinformedconsent_Igverifungrouped)$variable.labels <- c(
 "Subject ID", "Site ID", "Event name", "CRF Name", "Event Repeat Index", "Itemgroup Repeat Index"
 ,"Affirmation that a signed informed consent exists"
 ,"Verification Affirmation Initials"
@@ -1414,13 +1414,13 @@ codes <- c(
 levs <- c(
 'Yes',
 'No');
-Verificationofinformedconsent_Igverifungrouped$f.ELIGIBILITY_CONF<-factor(match(Verificationofinformedconsent_Igverifungrouped$ELIGIBILITY_CONF,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Verificationofinformedconsent_Igverifungrouped)=="ELIGIBILITY_CONF");
-l<- dim(Verificationofinformedconsent_Igverifungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Verificationofinformedconsent_Igverifungrouped<-Verificationofinformedconsent_Igverifungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfVerificationofinformedconsent_Igverifungrouped$f.ELIGIBILITY_CONF<-factor(match(dfVerificationofinformedconsent_Igverifungrouped$ELIGIBILITY_CONF,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfVerificationofinformedconsent_Igverifungrouped)=="ELIGIBILITY_CONF");
+l<- dim(dfVerificationofinformedconsent_Igverifungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfVerificationofinformedconsent_Igverifungrouped<-dfVerificationofinformedconsent_Igverifungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Verificationofinformedconsent_Igverifungrouped$f.ELIGIBILITY_CONF, "label") <- "YN"
-Eligibility_Igeligiungrouped <- data.frame(SubjectID=c(
+attr(dfVerificationofinformedconsent_Igverifungrouped$f.ELIGIBILITY_CONF, "label") <- "YN"
+dfEligibility_Igeligiungrouped <- data.frame(SubjectID=c(
 'CAM101',
 'CAM103',
 'CAM105',
@@ -1661,7 +1661,7 @@ OTH_INVESTIGATIONAL_RX=c(
 0,
 0));
 
-attributes(Eligibility_Igeligiungrouped)$variable.labels <- c(
+attributes(dfEligibility_Igeligiungrouped)$variable.labels <- c(
 "Subject ID", "Site ID", "Event name", "CRF Name", "Event Repeat Index", "Itemgroup Repeat Index"
 ,"18 or older"
 ,"ECOG status of 0-2"
@@ -1684,12 +1684,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.OVER_18<-factor(match(Eligibility_Igeligiungrouped$OVER_18,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="OVER_18");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.OVER_18<-factor(match(dfEligibility_Igeligiungrouped$OVER_18,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="OVER_18");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.OVER_18, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.OVER_18, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1697,12 +1697,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.ECOG_STATUS<-factor(match(Eligibility_Igeligiungrouped$ECOG_STATUS,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="ECOG_STATUS");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.ECOG_STATUS<-factor(match(dfEligibility_Igeligiungrouped$ECOG_STATUS,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="ECOG_STATUS");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.ECOG_STATUS, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.ECOG_STATUS, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1710,12 +1710,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.WBC_CT<-factor(match(Eligibility_Igeligiungrouped$WBC_CT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="WBC_CT");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.WBC_CT<-factor(match(dfEligibility_Igeligiungrouped$WBC_CT,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="WBC_CT");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.WBC_CT, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.WBC_CT, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1723,12 +1723,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.PLATELET_CT<-factor(match(Eligibility_Igeligiungrouped$PLATELET_CT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="PLATELET_CT");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.PLATELET_CT<-factor(match(dfEligibility_Igeligiungrouped$PLATELET_CT,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="PLATELET_CT");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.PLATELET_CT, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.PLATELET_CT, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1736,12 +1736,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.SERUM_CREATININE<-factor(match(Eligibility_Igeligiungrouped$SERUM_CREATININE,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="SERUM_CREATININE");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.SERUM_CREATININE<-factor(match(dfEligibility_Igeligiungrouped$SERUM_CREATININE,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="SERUM_CREATININE");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.SERUM_CREATININE, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.SERUM_CREATININE, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1749,12 +1749,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.SERUM_BILIRUBIN<-factor(match(Eligibility_Igeligiungrouped$SERUM_BILIRUBIN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="SERUM_BILIRUBIN");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.SERUM_BILIRUBIN<-factor(match(dfEligibility_Igeligiungrouped$SERUM_BILIRUBIN,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="SERUM_BILIRUBIN");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.SERUM_BILIRUBIN, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.SERUM_BILIRUBIN, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1762,12 +1762,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.CONTRACEPTION<-factor(match(Eligibility_Igeligiungrouped$CONTRACEPTION,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="CONTRACEPTION");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.CONTRACEPTION<-factor(match(dfEligibility_Igeligiungrouped$CONTRACEPTION,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="CONTRACEPTION");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.CONTRACEPTION, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.CONTRACEPTION, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1775,12 +1775,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.INFORMED_CONSENT<-factor(match(Eligibility_Igeligiungrouped$INFORMED_CONSENT,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="INFORMED_CONSENT");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.INFORMED_CONSENT<-factor(match(dfEligibility_Igeligiungrouped$INFORMED_CONSENT,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="INFORMED_CONSENT");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.INFORMED_CONSENT, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.INFORMED_CONSENT, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1788,12 +1788,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.HIST_HEART_DISEASE<-factor(match(Eligibility_Igeligiungrouped$HIST_HEART_DISEASE,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="HIST_HEART_DISEASE");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.HIST_HEART_DISEASE<-factor(match(dfEligibility_Igeligiungrouped$HIST_HEART_DISEASE,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="HIST_HEART_DISEASE");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.HIST_HEART_DISEASE, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.HIST_HEART_DISEASE, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1801,12 +1801,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.CHEMOTHERAPY<-factor(match(Eligibility_Igeligiungrouped$CHEMOTHERAPY,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="CHEMOTHERAPY");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.CHEMOTHERAPY<-factor(match(dfEligibility_Igeligiungrouped$CHEMOTHERAPY,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="CHEMOTHERAPY");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.CHEMOTHERAPY, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.CHEMOTHERAPY, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1814,12 +1814,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.FASTING_CHOLESTEROL_TRIGLY<-factor(match(Eligibility_Igeligiungrouped$FASTING_CHOLESTEROL_TRIGLY,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="FASTING_CHOLESTEROL_TRIGLY");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.FASTING_CHOLESTEROL_TRIGLY<-factor(match(dfEligibility_Igeligiungrouped$FASTING_CHOLESTEROL_TRIGLY,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="FASTING_CHOLESTEROL_TRIGLY");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.FASTING_CHOLESTEROL_TRIGLY, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.FASTING_CHOLESTEROL_TRIGLY, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1827,12 +1827,12 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.NSAIDS<-factor(match(Eligibility_Igeligiungrouped$NSAIDS,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="NSAIDS");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.NSAIDS<-factor(match(dfEligibility_Igeligiungrouped$NSAIDS,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="NSAIDS");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.NSAIDS, "label") <- "y,n"
+attr(dfEligibility_Igeligiungrouped$f.NSAIDS, "label") <- "y,n"
 
 codes <- c(
 1,
@@ -1840,13 +1840,13 @@ codes <- c(
 levs <- c(
 'YES',
 'NO');
-Eligibility_Igeligiungrouped$f.OTH_INVESTIGATIONAL_RX<-factor(match(Eligibility_Igeligiungrouped$OTH_INVESTIGATIONAL_RX,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Eligibility_Igeligiungrouped)=="OTH_INVESTIGATIONAL_RX");
-l<- dim(Eligibility_Igeligiungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Eligibility_Igeligiungrouped<-Eligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfEligibility_Igeligiungrouped$f.OTH_INVESTIGATIONAL_RX<-factor(match(dfEligibility_Igeligiungrouped$OTH_INVESTIGATIONAL_RX,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfEligibility_Igeligiungrouped)=="OTH_INVESTIGATIONAL_RX");
+l<- dim(dfEligibility_Igeligiungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfEligibility_Igeligiungrouped<-dfEligibility_Igeligiungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Eligibility_Igeligiungrouped$f.OTH_INVESTIGATIONAL_RX, "label") <- "y,n"
-Adverseevents_Igadverungrouped <- data.frame(SubjectID=c(
+attr(dfEligibility_Igeligiungrouped$f.OTH_INVESTIGATIONAL_RX, "label") <- "y,n"
+dfAdverseevents_Igadverungrouped <- data.frame(SubjectID=c(
 'SMC101'),
 ProtocolID=c(
 'R01-123456 - R01-12345-SMC'),
@@ -1858,10 +1858,10 @@ StudyEventRepeatKey=c(
 NA),
 ItemGroupRepeatKey=c(
 NA),
-1_AEYN=c(
+v1_AEYN=c(
 1));
 
-attributes(Adverseevents_Igadverungrouped)$variable.labels <- c(
+attributes(dfAdverseevents_Igadverungrouped)$variable.labels <- c(
 "Subject ID", "Site ID", "Event name", "CRF Name", "Event Repeat Index", "Itemgroup Repeat Index"
 ,"Adverse Event Experienced");
 
@@ -1871,13 +1871,13 @@ codes <- c(
 levs <- c(
 'Yes',
 'No');
-Adverseevents_Igadverungrouped$f.1_AEYN<-factor(match(Adverseevents_Igadverungrouped$1_AEYN,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Adverseevents_Igadverungrouped)=="1_AEYN");
-l<- dim(Adverseevents_Igadverungrouped)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Adverseevents_Igadverungrouped<-Adverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
+dfAdverseevents_Igadverungrouped$f.v1_AEYN<-factor(match(dfAdverseevents_Igadverungrouped$v1_AEYN,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfAdverseevents_Igadverungrouped)=="v1_AEYN");
+l<- dim(dfAdverseevents_Igadverungrouped)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfAdverseevents_Igadverungrouped<-dfAdverseevents_Igadverungrouped[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Adverseevents_Igadverungrouped$f.1_AEYN, "label") <- "Y,N"
-Concomitantmedications_Concomitantmedications <- data.frame(SubjectID=c(
+attr(dfAdverseevents_Igadverungrouped$f.v1_AEYN, "label") <- "Y,N"
+dfConcomitantmedications_Concomitantmedications <- data.frame(SubjectID=c(
 'CAM101',
 'CAM101',
 'CAM105',
@@ -1933,7 +1933,7 @@ Con_Med_form=c(
 '40',
 '200'));
 
-attributes(Concomitantmedications_Concomitantmedications)$variable.labels <- c(
+attributes(dfConcomitantmedications_Concomitantmedications)$variable.labels <- c(
 "Subject ID", "Site ID", "Event name", "CRF Name", "Event Repeat Index", "Itemgroup Repeat Index"
 ,"Medication name"
 ,"Start date"
@@ -1947,9 +1947,9 @@ codes <- c(
 levs <- c(
 'yes',
 'no');
-Concomitantmedications_Concomitantmedications$f.Con_Med_Cont<-factor(match(Concomitantmedications_Concomitantmedications$Con_Med_Cont,codes),levels=1:length(codes),labels=levs);
-w<-which(names(Concomitantmedications_Concomitantmedications)=="Con_Med_Cont");
-l<- dim(Concomitantmedications_Concomitantmedications)[2];
-if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))Concomitantmedications_Concomitantmedications<-Concomitantmedications_Concomitantmedications[,c(1:w,l,(1+w):(l-1))]};
+dfConcomitantmedications_Concomitantmedications$f.Con_Med_Cont<-factor(match(dfConcomitantmedications_Concomitantmedications$Con_Med_Cont,codes),levels=1:length(codes),labels=levs);
+w<-which(names(dfConcomitantmedications_Concomitantmedications)=="Con_Med_Cont");
+l<- dim(dfConcomitantmedications_Concomitantmedications)[2];
+if (!is.null(w) & !is.null(l)){} else{if(w<(l-1))dfConcomitantmedications_Concomitantmedications<-dfConcomitantmedications_Concomitantmedications[,c(1:w,l,(1+w):(l-1))]};
 rm(l,w);
-attr(Concomitantmedications_Concomitantmedications$f.Con_Med_Cont, "label") <- "y,n"
+attr(dfConcomitantmedications_Concomitantmedications$f.Con_Med_Cont, "label") <- "y,n"
