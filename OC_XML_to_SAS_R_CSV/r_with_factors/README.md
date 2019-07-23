@@ -15,9 +15,10 @@ the following differences:
 
 
 # Features
-- Item groups as dataframes.
+- Item groups as dataframes, name starts with df followed by form name and itemgroup name.
 - All metadata available.
-- Question labels and code list names applied
+- Question labels and code list names applied.
+- Variables that start with a number a prefixed with a v.
 - Single select (or radio) items have a variable with f. prefix for their code list value labels.
 - No explicit handling for multi-select items, so it might break :(
 
